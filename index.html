@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>万年历</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: transparent;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* 日历列容器 */
+        .calendar-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 588px;
+            align-self: flex-start;
+        }
+
+        /* 日历卡片 */
+        .calendar-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .calendar-header {
+            background: #e53935;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .calendar-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .calendar-nav button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .calendar-nav button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background: #ffebee;
+            padding: 10px 0;
+        }
+
+        .weekday {
+            text-align: center;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .weekday:first-child,
+        .weekday:last-child {
+            color: #e53935;
+        }
+
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            padding: 10px;
+            align-content: start;
+        }
+
+        .day {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.2s;
+            height: 60px;
+        }
+
+        .day:hover {
+            background: #f5f5f5;
+        }
+
+        .day.selected {
+            background: #e3f2fd;
+        }
+
+        .day-number {
+            font-size: 1.4rem;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .day-lunar {
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        .day.festival .day-lunar {
+            color: #e53935;
+        }
+
+        .day.weekend .day-number {
+            color: #e53935;
+        }
+
+        .day.today {
+            position: relative;
+        }
+
+        .day.today::before {
+            content: '';
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            background: #e53935;
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .day.today .day-number,
+        .day.today .day-lunar {
+            position: relative;
+            z-index: 1;
+            color: white;
+        }
+
+        .day.holiday::after {
+            content: '休';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 0.6rem;
+            color: #1976d2;
+            font-weight: 600;
+        }
+
+        .day.workday::after {
+            content: '班';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 0.6rem;
+            color: #1976d2;
+            font-weight: 600;
+        }
+
+        .other-month {
+            opacity: 0.3;
+        }
+
+        /* widgets 容器 */
+        .widgets-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 470px;
+            align-self: flex-start;
+        }
+
+        /* widget-calendar 卡片 */
+        .widget-calendar {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            align-self: flex-start;
+        }
+
+        .widget-calendar * {
+            display: block;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .widget-calendar-header {
+            height: 38px;
+            line-height: 38px;
+            font-size: 16px;
+            background-color: #ff5a5d;
+            color: #fff;
+        }
+
+        .widget-calendar-day {
+            height: 60px;
+            line-height: 60px;
+            font-size: 46px;
+            color: #222;
+        }
+
+        .widget-calendar-info {
+            font-size: 13px;
+            color: #aaa;
+        }
+
+        .widget-calendar-lunar {
+            font-size: 13px;
+            color: #222;
+        }
+
+        /* widget-calendar-old 卡片 */
+        .widget-calendar-old {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            height: 150px;
+            overflow: hidden;
+            position: relative;
+            align-self: flex-start;
+        }
+
+        .widget-calendar-old * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .widget-calendar-old .lunar-date {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            font-size: 20px;
+            color: #222;
+        }
+
+        .widget-calendar-old .ganzhi-header,
+        .widget-calendar-old .ganzhi-value {
+            position: absolute;
+            right: 10px;
+            width: 160px;
+            list-style: none;
+        }
+
+        .widget-calendar-old .ganzhi-header {
+            top: 10px;
+        }
+
+        .widget-calendar-old .ganzhi-value {
+            top: 30px;
+        }
+
+        .widget-calendar-old .ganzhi-header li,
+        .widget-calendar-old .ganzhi-value li {
+            float: left;
+            width: 40px;
+            text-align: center;
+        }
+
+        .widget-calendar-old .ganzhi-header li {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .widget-calendar-old .ganzhi-value li {
+            font-size: 14px;
+            color: #222;
+        }
+
+        .widget-calendar-old .yi-content,
+        .widget-calendar-old .ji-content {
+            position: absolute;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-indent: 28px;
+            left: 15px;
+            right: 15px;
+            height: 32px;
+            line-height: 32px;
+            text-align: left;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .widget-calendar-old .yi-content {
+            top: 80px;
+        }
+
+        .widget-calendar-old .ji-content {
+            top: 110px;
+        }
+
+        .widget-calendar-old .yi-content::before,
+        .widget-calendar-old .ji-content::before {
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 22px;
+            height: 22px;
+            line-height: 22px;
+            border-radius: 50%;
+            font-size: 12px;
+            text-indent: 0;
+            text-align: center;
+            color: #fff;
+        }
+
+        .widget-calendar-old .yi-content::before {
+            content: '宜';
+            background-color: #4e6ef2;
+        }
+
+        .widget-calendar-old .ji-content::before {
+            content: '忌';
+            background-color: #ff5a5d;
+        }
+
+        /* widget-calendar-month 卡片 */
+        .widget-calendar-month {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            align-self: flex-start;
+        }
+
+        .widget-calendar-month * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .widget-calendar-month .month-title {
+            display: block;
+            height: 24px;
+            line-height: 24px;
+            font-size: 14px;
+            text-align: center;
+            color: #222;
+        }
+
+        .widget-calendar-month .weekdays,
+        .widget-calendar-month .days {
+            margin-left: 5px;
+            width: 140px;
+            list-style: none;
+        }
+
+        .widget-calendar-month li {
+            float: left;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+        }
+
+        .widget-calendar-month .weekdays li {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .widget-calendar-month .days li {
+            font-size: 11px;
+            color: #555;
+        }
+
+        .widget-calendar-month .days li.gray {
+            color: #bbb;
+        }
+
+        .widget-calendar-month .days li.today {
+            background-color: #4e6ef2;
+            color: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        /* 节假日卡片 */
+        .holiday-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            height: 150px;
+            align-self: flex-start;
+        }
+
+        .holiday-card ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .holiday-card li {
+            position: relative;
+            display: block;
+            height: 32px;
+            line-height: 32px;
+            border-left: 5px solid #ff5a5d;
+            border-radius: 10px;
+            margin: 13px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+        }
+
+        .holiday-card li i {
+            margin-left: 14px;
+            font-size: 13px;
+            color: #222;
+            font-style: normal;
+        }
+
+        .holiday-card li b {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            font-size: 12px;
+            color: #aaa;
+            font-weight: normal;
+        }
+
+        .holiday-card li u {
+            float: right;
+            margin-right: 14px;
+            font-size: 13px;
+            color: #222;
+            text-decoration: none;
+        }
+
+        /* 黄历卡片 */
+        .huangli-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            color: #888;
+        }
+
+        .huangli-card * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .huangli-card .solar {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .huangli-card .lunar {
+            font-size: 22px;
+            color: #d42f32;
+            margin-bottom: 10px;
+        }
+
+        .huangli-card .gz {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .huangli-card .yi,
+        .huangli-card .ji {
+            clear: both;
+            overflow: hidden;
+            padding-left: 30px;
+            position: relative;
+            line-height: 26px;
+            margin-bottom: 10px;
+        }
+
+        .huangli-card .yi::before,
+        .huangli-card .ji::before {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 22px;
+            height: 22px;
+            line-height: 22px;
+            border-radius: 50%;
+            background-color: #4cb153;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .huangli-card .yi::before {
+            content: '宜';
+        }
+
+        .huangli-card .ji::before {
+            content: '忌';
+            background-color: #d42f32;
+        }
+
+        .huangli-card .yi i,
+        .huangli-card .ji i {
+            float: left;
+            margin: 0 3px;
+            font-style: normal;
+            font-size: 14px;
+        }
+
+        .huangli-card table {
+            width: 100%;
+            border-collapse: collapse;
+            border-style: none solid solid none;
+            border-right-width: 1px;
+            border-right-color: #e2e2e2;
+            border-bottom-width: 1px;
+            border-bottom-color: #e2e2e2;
+        }
+
+        .huangli-card table td {
+            border-left: 1px solid #e2e2e2;
+            border-top: 1px solid #e2e2e2;
+            padding: 10px 3px;
+        }
+
+        .huangli-card table td div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0 10px;
+        }
+
+        .huangli-card table td b {
+            color: #333;
+            font-weight: normal;
+            font-size: 14px;
+        }
+
+        .huangli-card table td i {
+            font-style: normal;
+            font-size: 14px;
+        }
+
+        .huangli-card table td i u {
+            color: #d42f32;
+            text-decoration: none;
+        }
+
+        .huangli-card table td i u.luck {
+            color: #4cb153;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .calendar-column {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .widgets-container {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .widgets-container .widget-calendar,
+            .widgets-container .widget-calendar-month {
+                flex: 1;
+                max-width: 150px;
+                min-width: 120px;
+            }
+
+            .widgets-container .widget-calendar-old,
+            .widgets-container .holiday-card {
+                flex: 1;
+                max-width: 300px;
+                min-width: 150px;
+            }
+
+            .huangli-card {
+                padding: 15px;
+            }
+
+            .calendar-title {
+                font-size: 1.2rem;
+            }
+
+            .calendar-nav button {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+
+            .weekday {
+                font-size: 0.85rem;
+            }
+
+            .day-number {
+                font-size: 1.1rem;
+            }
+
+            .day-lunar {
+                font-size: 0.6rem;
+            }
+
+            .day.today::before {
+                width: 38px;
+                height: 38px;
+            }
+
+            .day {
+                height: 48px;
+            }
+
+            .day.holiday::after,
+            .day.workday::after {
+                font-size: 0.5rem;
+            }
+
+            .huangli-card .lunar {
+                font-size: 18px;
+            }
+
+            .huangli-card table td {
+                padding: 8px 2px;
+            }
+
+            .huangli-card table td b,
+            .huangli-card table td i {
+                font-size: 12px;
+            }
+
+            .huangli-card .yi i,
+            .huangli-card .ji i {
+                font-size: 12px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .day-number {
+                font-size: 1.6rem;
+            }
+
+            .day-lunar {
+                font-size: 0.8rem;
+            }
+
+            .weekday {
+                font-size: 1.1rem;
+                padding: 15px 0;
+            }
+
+            .day.today::before {
+                width: 54px;
+                height: 54px;
+            }
+
+            .day {
+                height: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calendar-column">
+            <div class="calendar-card">
+                <div class="calendar-header">
+                    <div class="calendar-title" id="calendarTitle"></div>
+                    <div class="calendar-nav">
+                        <button onclick="changeMonth(-1)">&lt; 上月</button>
+                        <button onclick="changeMonth(1)">下月 &gt;</button>
+                    </div>
+                </div>
+                <div class="weekdays">
+                    <div class="weekday">日</div>
+                    <div class="weekday">一</div>
+                    <div class="weekday">二</div>
+                    <div class="weekday">三</div>
+                    <div class="weekday">四</div>
+                    <div class="weekday">五</div>
+                    <div class="weekday">六</div>
+                </div>
+                <div class="days" id="calendarDays"></div>
+            </div>
+
+            <div class="huangli-card">
+                <div class="solar" id="huangliSolar"></div>
+                <div class="lunar" id="huangliLunar"></div>
+                <div class="gz" id="huangliGz"></div>
+                <div class="yi" id="huangliYi"></div>
+                <div class="ji" id="huangliJi"></div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td colspan="2"><div><b>纳音</b><i id="huangliNayin"></i></div></td>
+                            <td><div><b>冲煞</b><i id="huangliChongsha"></i></div></td>
+                            <td colspan="2"><div><b>值神</b><i><u id="huangliZhishen" class="luck"></u></i></div></td>
+                        </tr>
+                        <tr>
+                            <td><div><b>建除</b><i id="huangliJianchu"></i></div></td>
+                            <td><div><b>星宿</b><i id="huangliXingxiu"></i></div></td>
+                            <td><div><b>月相</b><i id="huangliYuexiang"></i></div></td>
+                            <td><div><b>物候</b><i id="huangliWuhou"></i></div></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><div><b>吉神</b><i id="huangliJishen"></i></div></td>
+                            <td colspan="2"><div><b>凶神</b><i><u id="huangliXiongshen"></u></i></div></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><div><b>彭祖百忌</b><i id="huangliPengzu"></i></div></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><div><b>胎神</b><i id="huangliTaishen"></i></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="widgets-container">
+            <div class="widget-calendar">
+                <div class="widget-calendar-header" id="widgetCalendarHeader"></div>
+                <div class="widget-calendar-day" id="widgetCalendarDay"></div>
+                <div class="widget-calendar-info" id="widgetCalendarInfo"></div>
+                <div class="widget-calendar-lunar" id="widgetCalendarLunar"></div>
+            </div>
+
+            <div class="widget-calendar-old">
+                <div class="lunar-date" id="widgetOldLunar"></div>
+                <ul class="ganzhi-header">
+                    <li>年</li>
+                    <li>月</li>
+                    <li>日</li>
+                    <li>时</li>
+                </ul>
+                <ul class="ganzhi-value" id="widgetOldGanzhi"></ul>
+                <div class="yi-content" id="widgetOldYi"></div>
+                <div class="ji-content" id="widgetOldJi"></div>
+            </div>
+
+            <div class="widget-calendar-month">
+                <div class="month-title" id="widgetMonthTitle"></div>
+                <ul class="weekdays">
+                    <li>一</li>
+                    <li>二</li>
+                    <li>三</li>
+                    <li>四</li>
+                    <li>五</li>
+                    <li>六</li>
+                    <li>日</li>
+                </ul>
+                <ol class="days" id="widgetMonthDays"></ol>
+            </div>
+
+            <div class="holiday-card">
+                <ul id="holidayList"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="lunar.js"></script>
+    <script>
+        let currentYear, currentMonth;
+
+        // 渲染日历
+        function renderCalendar(year, month) {
+            const title = document.getElementById('calendarTitle');
+            title.textContent = `${year}年${month}月`;
+
+            const daysContainer = document.getElementById('calendarDays');
+            daysContainer.innerHTML = '';
+
+            const firstDay = new Date(year, month - 1, 1).getDay();
+            const daysInMonth = new Date(year, month, 0).getDate();
+            const today = new Date();
+
+            const prevMonthDays = new Date(year, month - 1, 0).getDate();
+
+            // 渲染上月日期
+            for (let i = firstDay - 1; i >= 0; i--) {
+                const day = prevMonthDays - i;
+                const prevMonth = month === 1 ? 12 : month - 1;
+                const prevYear = month === 1 ? year - 1 : year;
+                const dayEl = createDayElement(prevYear, prevMonth, day, true);
+                daysContainer.appendChild(dayEl);
+            }
+
+            // 渲染当月日期
+            for (let day = 1; day <= daysInMonth; day++) {
+                const isToday = year === today.getFullYear() && month === today.getMonth() + 1 && day === today.getDate();
+                const dayEl = createDayElement(year, month, day, false, isToday);
+                daysContainer.appendChild(dayEl);
+            }
+
+            // 渲染下月日期
+            const totalCells = firstDay + daysInMonth;
+            const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+            const nextMonth = month === 12 ? 1 : month + 1;
+            const nextYear = month === 12 ? year + 1 : year;
+            for (let i = 1; i <= remainingCells; i++) {
+                const dayEl = createDayElement(nextYear, nextMonth, i, true);
+                daysContainer.appendChild(dayEl);
+            }
+        }
+
+        // 创建日期元素
+        function createDayElement(year, month, day, isOtherMonth, isToday = false) {
+            const dayEl = document.createElement('div');
+            dayEl.className = 'day';
+
+            if (isOtherMonth) dayEl.classList.add('other-month');
+            if (isToday) dayEl.classList.add('today');
+
+            const weekDay = new Date(year, month - 1, day).getDay();
+
+            if (weekDay === 0 || weekDay === 6) {
+                dayEl.classList.add('weekend');
+            }
+
+            // 使用lunar.js获取节假日信息
+            const solar = Solar.fromYmd(year, month, day);
+            const holiday = HolidayUtil.getHoliday(year, month, day);
+
+            if (holiday) {
+                if (holiday.isWork()) {
+                    dayEl.classList.add('workday');
+                    dayEl.classList.remove('weekend');
+                } else {
+                    dayEl.classList.add('holiday');
+                }
+            }
+
+            // 获取农历信息
+            const lunar = solar.getLunar();
+            const solarTerm = lunar.getJieQi();
+            const lunarFestivals = lunar.getFestivals();
+            const solarFestivals = solar.getFestivals();
+
+            let lunarText = lunar.getDayInChinese();
+            let isFestival = false;
+
+            // 节日优先级: 节气 > 农历节日 > 公历节日 > 农历日期
+            if (solarTerm) {
+                lunarText = solarTerm;
+                isFestival = true;
+            } else if (lunarFestivals.length > 0) {
+                lunarText = lunarFestivals[0];
+                isFestival = true;
+            } else if (solarFestivals.length > 0) {
+                lunarText = solarFestivals[0];
+                isFestival = true;
+            } else if (lunar.getDay() === 1) {
+                lunarText = lunar.getMonthInChinese() + '月';
+            }
+
+            if (isFestival) {
+                dayEl.classList.add('festival');
+            }
+
+            // 阳历数字
+            const dayNumber = document.createElement('div');
+            dayNumber.className = 'day-number';
+            dayNumber.textContent = day;
+            dayEl.appendChild(dayNumber);
+
+            // 农历/节日
+            const dayLunar = document.createElement('div');
+            dayLunar.className = 'day-lunar';
+            dayLunar.textContent = lunarText;
+            dayEl.appendChild(dayLunar);
+
+            // 点击事件
+            dayEl.addEventListener('click', () => {
+                document.querySelectorAll('.day').forEach(d => d.classList.remove('selected'));
+                dayEl.classList.add('selected');
+                updateHuangli(year, month, day);
+                updateWidgetCalendar(year, month, day);
+                updateWidgetCalendarOld(year, month, day);
+                updateWidgetCalendarMonth(year, month, day);
+            });
+
+            return dayEl;
+        }
+
+        // 更新黄历显示
+        function updateHuangli(year, month, day) {
+            const solar = Solar.fromYmd(year, month, day);
+            const lunar = solar.getLunar();
+
+            // 建除计算
+            const jianchuNames = ['建', '除', '满', '平', '定', '执', '破', '危', '成', '收', '开', '闭'];
+            const dayZhiIndex = lunar._p.dayZhiIndex;
+            const monthZhiIndex = lunar._p.monthZhiIndex;
+            const jianchuIndex = (dayZhiIndex - monthZhiIndex + 12) % 12;
+
+            // 阳历日期和星期
+            const weekNames = ['日', '一', '二', '三', '四', '五', '六'];
+            document.getElementById('huangliSolar').textContent = `${year}年${month}月${day}日 星期${weekNames[solar.getWeek()]}`;
+
+            // 农历日期
+            let lunarStr = `农历${lunar.getMonthInChinese()}月${lunar.getDayInChinese()}`;
+            if (lunar.getMonth() < 0) {
+                lunarStr = `闰${lunarStr}`;
+            }
+            document.getElementById('huangliLunar').textContent = lunarStr;
+
+            // 干支
+            document.getElementById('huangliGz').textContent = `${lunar.getYearInGanZhi()}(${lunar.getYearShengXiao()})年 ${lunar.getMonthInGanZhi()}月 ${lunar.getDayInGanZhi()}日`;
+
+            // 宜
+            const yiEl = document.getElementById('huangliYi');
+            yiEl.innerHTML = '';
+            lunar.getDayYi().forEach(item => {
+                const i = document.createElement('i');
+                i.textContent = item;
+                yiEl.appendChild(i);
+            });
+
+            // 忌
+            const jiEl = document.getElementById('huangliJi');
+            jiEl.innerHTML = '';
+            lunar.getDayJi().forEach(item => {
+                const i = document.createElement('i');
+                i.textContent = item;
+                jiEl.appendChild(i);
+            });
+
+            // 纳音
+            document.getElementById('huangliNayin').textContent = lunar.getDayNaYin();
+
+            // 冲煞
+            document.getElementById('huangliChongsha').textContent = `${lunar.getChongGan()}${lunar.getChong()} ${lunar.getSha()}`;
+
+            // 值神
+            document.getElementById('huangliZhishen').textContent = lunar.getZhiXing();
+
+            // 建除
+            document.getElementById('huangliJianchu').textContent = jianchuNames[jianchuIndex];
+
+            // 星宿
+            document.getElementById('huangliXingxiu').textContent = lunar.getXiu() + lunar.getXiuLuck();
+
+            // 月相
+            document.getElementById('huangliYuexiang').textContent = lunar.getYueXiang();
+
+            // 物候
+            document.getElementById('huangliWuhou').textContent = lunar.getHou() || '无';
+
+            // 吉神宜趋
+            document.getElementById('huangliJishen').textContent = lunar.getDayJiShen().slice(0, 6).join(' ');
+
+            // 凶神宜忌
+            document.getElementById('huangliXiongshen').textContent = lunar.getDayXiongSha().slice(0, 6).join(' ');
+
+            // 彭祖百忌
+            document.getElementById('huangliPengzu').textContent = `${lunar.getPengZuGan()} ${lunar.getPengZuZhi()}`;
+
+            // 胎神
+            const fetusGodNames = [
+                '占门碓外东南', '占门碓外东南', '占碓磨外正南', '占厨灶炉外正南',
+                '占房床外正南', '占房床外正南', '占碓磨外西南', '占碓磨外西南',
+                '占门炉外东北', '占门炉外东北', '占房床房外南', '占房床房外南',
+                '占碓磨炉外东北', '占碓磨炉外东北', '占门碓外正北', '占门碓外正北',
+                '占房床外东北', '占房床外东北', '占碓磨外西北', '占碓磨外西北',
+                '占门碓外西北', '占门碓外西北', '占厨灶外西北', '占厨灶外西北',
+                '占房床外西南', '占房床外西南', '占门碓外正东', '占门碓外正东',
+                '占碓磨外正东', '占碓磨外正东'
+            ];
+            document.getElementById('huangliTaishen').textContent = fetusGodNames[day % 30];
+        }
+
+        // 切换月份
+        function changeMonth(delta) {
+            currentMonth += delta;
+            if (currentMonth > 12) {
+                currentMonth = 1;
+                currentYear++;
+            } else if (currentMonth < 1) {
+                currentMonth = 12;
+                currentYear--;
+            }
+            renderCalendar(currentYear, currentMonth);
+        }
+
+        // 初始化
+        function init() {
+            const today = new Date();
+            currentYear = today.getFullYear();
+            currentMonth = today.getMonth() + 1;
+
+            renderCalendar(currentYear, currentMonth);
+            updateHuangli(currentYear, currentMonth, today.getDate());
+            updateHolidayList();
+            updateWidgetCalendar(currentYear, currentMonth, today.getDate());
+            updateWidgetCalendarOld(currentYear, currentMonth, today.getDate());
+            updateWidgetCalendarMonth(currentYear, currentMonth, today.getDate());
+        }
+
+        // 更新 widget-calendar
+        function updateWidgetCalendar(year, month, day) {
+            const solar = Solar.fromYmd(year, month, day);
+            const lunar = solar.getLunar();
+            const date = new Date(year, month - 1, day);
+
+            // 头部：年份月份
+            document.getElementById('widgetCalendarHeader').textContent = `${year}年${month}月`;
+
+            // 日期
+            document.getElementById('widgetCalendarDay').textContent = day;
+
+            // 第几天、第几周
+            const startOfYear = new Date(year, 0, 1);
+            const dayOfYear = Math.ceil((date - startOfYear) / (1000 * 60 * 60 * 24)) + 1;
+            const weekOfYear = Math.ceil(dayOfYear / 7);
+            document.getElementById('widgetCalendarInfo').textContent = `第${dayOfYear}天 第${weekOfYear}周`;
+
+            // 农历、星期
+            const weekNames = ['日', '一', '二', '三', '四', '五', '六'];
+            let lunarStr = lunar.getMonthInChinese() + lunar.getDayInChinese();
+            if (lunar.getMonth() < 0) {
+                lunarStr = `闰${lunarStr}`;
+            }
+            document.getElementById('widgetCalendarLunar').textContent = `${lunarStr} 周${weekNames[date.getDay()]}`;
+        }
+
+        // 更新 widget-calendar-old
+        function updateWidgetCalendarOld(year, month, day) {
+            const hour = new Date().getHours();
+
+            const solar = Solar.fromYmd(year, month, day);
+            const lunar = solar.getLunar();
+
+            // 农历日期
+            let lunarStr = lunar.getMonthInChinese() + lunar.getDayInChinese();
+            if (lunar.getMonth() < 0) {
+                lunarStr = `闰${lunarStr}`;
+            }
+            document.getElementById('widgetOldLunar').textContent = lunarStr;
+
+            // 四柱干支
+            const timeZhiIndex = Math.floor((hour + 1) / 2) % 12;
+            const dayGanIndex = (lunar._p.dayGanIndex + 1);
+            const timeGanIndex = (dayGanIndex * 2 + timeZhiIndex) % 10;
+            const hourGanZhi = LunarUtil.GAN[timeGanIndex + 1] + LunarUtil.ZHI[timeZhiIndex + 1];
+
+            const ganzhiEl = document.getElementById('widgetOldGanzhi');
+            ganzhiEl.innerHTML = '';
+
+            // 年柱
+            const yearLi = document.createElement('li');
+            yearLi.textContent = lunar.getYearInGanZhi();
+            ganzhiEl.appendChild(yearLi);
+
+            // 月柱
+            const monthLi = document.createElement('li');
+            monthLi.textContent = lunar.getMonthInGanZhi();
+            ganzhiEl.appendChild(monthLi);
+
+            // 日柱
+            const dayLi = document.createElement('li');
+            dayLi.textContent = lunar.getDayInGanZhi();
+            ganzhiEl.appendChild(dayLi);
+
+            // 时柱
+            const hourLi = document.createElement('li');
+            hourLi.textContent = hourGanZhi;
+            ganzhiEl.appendChild(hourLi);
+
+            // 宜
+            const yiList = lunar.getDayYi();
+            document.getElementById('widgetOldYi').textContent = yiList.join(' ');
+
+            // 忌
+            const jiList = lunar.getDayJi();
+            document.getElementById('widgetOldJi').textContent = jiList.join(' ');
+        }
+
+        // 更新 widget-calendar-month
+        function updateWidgetCalendarMonth(year, month, selectedDay) {
+            // 月份标题
+            document.getElementById('widgetMonthTitle').textContent = `${month}月`;
+
+            // 日期列表
+            const daysEl = document.getElementById('widgetMonthDays');
+            daysEl.innerHTML = '';
+
+            const firstDay = new Date(year, month - 1, 1).getDay();
+            // 转换为周一开始的索引（周一=0, 周日=6）
+            const firstDayIndex = firstDay === 0 ? 6 : firstDay - 1;
+            const daysInMonth = new Date(year, month, 0).getDate();
+            const prevMonthDays = new Date(year, month - 1, 0).getDate();
+
+            // 上月末几天
+            for (let i = firstDayIndex - 1; i >= 0; i--) {
+                const li = document.createElement('li');
+                li.className = 'gray';
+                li.textContent = prevMonthDays - i;
+                daysEl.appendChild(li);
+            }
+
+            // 当月日期
+            for (let day = 1; day <= daysInMonth; day++) {
+                const li = document.createElement('li');
+                if (day === selectedDay) {
+                    li.className = 'today';
+                }
+                li.textContent = day;
+                daysEl.appendChild(li);
+            }
+
+            // 下月初几天（填满6行=42个格子，或者补齐最后一行到7个）
+            const totalCells = firstDayIndex + daysInMonth;
+            const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+            for (let i = 1; i <= remainingCells; i++) {
+                const li = document.createElement('li');
+                li.className = 'gray';
+                li.textContent = i;
+                daysEl.appendChild(li);
+            }
+        }
+
+        // 更新节假日列表
+        function updateHolidayList() {
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            const holidayListEl = document.getElementById('holidayList');
+            holidayListEl.innerHTML = '';
+
+            // 定义法定节假日（按时间顺序）
+            const holidays = [
+                { name: '元旦', month: 1, day: 1, days: 1 },
+                { name: '春节', variable: true, getDates: getSpringFestivalDates },
+                { name: '清明节', month: 4, day: 4, days: 3 },
+                { name: '劳动节', month: 5, day: 1, days: 5 },
+                { name: '端午节', variable: true, getDates: getDragonBoatDates },
+                { name: '中秋节', variable: true, getDates: getMidAutumnDates },
+                { name: '国庆节', month: 10, day: 1, days: 7 }
+            ];
+
+            // 查找接下来的3个节假日
+            const upcomingHolidays = [];
+            let searchYear = currentYear;
+            let searchMonth = today.getMonth() + 1;
+            let searchDay = today.getDate();
+
+            for (let year = currentYear; year <= currentYear + 2; year++) {
+                for (const holiday of holidays) {
+                    let holidayDate, holidayName, holidayDays;
+
+                    if (holiday.variable) {
+                        const dates = holiday.getDates(year);
+                        holidayDate = dates.date;
+                        holidayName = holiday.name;
+                        holidayDays = dates.days;
+                    } else {
+                        holidayDate = new Date(year, holiday.month - 1, holiday.day);
+                        holidayName = holiday.name;
+                        holidayDays = holiday.days;
+                    }
+
+                    const diffDays = Math.ceil((holidayDate - today) / (1000 * 60 * 60 * 24));
+                    if (diffDays > 0 && upcomingHolidays.length < 3) {
+                        upcomingHolidays.push({
+                            name: holidayName,
+                            daysAway: diffDays,
+                            restDays: holidayDays
+                        });
+                    }
+                }
+            }
+
+            // 排序并显示前3个
+            upcomingHolidays.sort((a, b) => a.daysAway - b.daysAway);
+            const displayHolidays = upcomingHolidays.slice(0, 3);
+
+            for (const holiday of displayHolidays) {
+                const li = document.createElement('li');
+                li.innerHTML = `<i>${holiday.name}</i> <b>${holiday.daysAway}天后</b> <u>休${holiday.restDays}天</u>`;
+                holidayListEl.appendChild(li);
+            }
+        }
+
+        // 获取春节日期（农历正月初一）
+        function getSpringFestivalDates(year) {
+            const lunar = Lunar.fromYmd(year, 1, 1);
+            const solar = lunar.getSolar();
+            // 春节假期通常从除夕到正月初六
+            const startDate = new Date(solar.getYear(), solar.getMonth() - 1, solar.getDay() - 1);
+            return { date: startDate, days: 7 };
+        }
+
+        // 获取端午节日期（农历五月初五）
+        function getDragonBoatDates(year) {
+            const lunar = Lunar.fromYmd(year, 5, 5);
+            const solar = lunar.getSolar();
+            return { date: new Date(solar.getYear(), solar.getMonth() - 1, solar.getDay()), days: 3 };
+        }
+
+        // 获取中秋节日期（农历八月十五）
+        function getMidAutumnDates(year) {
+            const lunar = Lunar.fromYmd(year, 8, 15);
+            const solar = lunar.getSolar();
+            // 中秋节通常和国庆节连休
+            const nationalDay = new Date(year, 9, 1);
+            const midAutumnDate = new Date(solar.getYear(), solar.getMonth() - 1, solar.getDay());
+            if (year === solar.getYear() && midAutumnDate.getMonth() === 9) {
+                return { date: midAutumnDate, days: 8 }; // 与国庆连休
+            }
+            return { date: midAutumnDate, days: 3 };
+        }
+
+        init();
+    </script>
+</body>
+</html>
