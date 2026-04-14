@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>万年历</title>
     <style>
+        :root {
+            --primary-color: #ff5a5d;
+            --primary-gradient: linear-gradient(135deg, #ff5a5d 0%, #ff8a5b 100%);
+            --card-bg: #ffffff;
+            --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.08);
+            --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08), 0 12px 32px rgba(0, 0, 0, 0.12);
+            --card-radius: 20px;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a4a68;
+            --text-muted: #8a8aa3;
+            --border-color: rgba(0, 0, 0, 0.06);
+            --hover-bg: rgba(255, 90, 93, 0.08);
+            --festival-color: #ff5a5d;
+            --weekend-color: #ff5a5d;
+            --today-bg: linear-gradient(135deg, #4e6ef2 0%, #6b8cff 100%);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +31,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: transparent;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -23,7 +41,7 @@
             margin: 0 auto;
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 24px;
             justify-content: center;
         }
 
@@ -31,24 +49,29 @@
         .calendar-column {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
             width: 588px;
             align-self: flex-start;
         }
 
         /* 日历卡片 */
         .calendar-card {
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background: var(--card-bg);
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
             overflow: hidden;
             width: 100%;
+            transition: var(--transition);
+        }
+
+        .calendar-card:hover {
+            box-shadow: var(--card-shadow-hover);
         }
 
         .calendar-header {
-            background: #ff5a5d;
+            background: var(--primary-gradient);
             color: white;
-            padding: 15px 20px;
+            padding: 18px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -65,15 +88,16 @@
         .calendar-title .year-picker,
         .calendar-title .month-picker {
             cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 4px;
-            transition: background 0.2s;
+            padding: 6px 12px;
+            border-radius: 8px;
+            transition: var(--transition);
             position: relative;
         }
 
         .calendar-title .year-picker:hover,
         .calendar-title .month-picker:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
         }
 
         .calendar-picker-dropdown {
@@ -94,19 +118,21 @@
         }
 
         .calendar-picker-dropdown .picker-item {
-            padding: 8px 16px;
+            padding: 10px 16px;
             cursor: pointer;
-            color: #333;
-            transition: background 0.2s;
+            color: var(--text-primary);
+            transition: var(--transition);
             white-space: nowrap;
+            border-radius: 6px;
+            margin: 2px 4px;
         }
 
         .calendar-picker-dropdown .picker-item:hover {
-            background: #f5f5f5;
+            background: var(--hover-bg);
         }
 
         .calendar-picker-dropdown .picker-item.selected {
-            background: #ff5a5d;
+            background: var(--primary-gradient);
             color: #fff;
         }
 
@@ -128,38 +154,69 @@
             border: none;
             color: white;
             padding: 8px 16px;
-            border-radius: 6px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 1rem;
-            transition: background 0.3s;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
         }
 
         .calendar-nav button:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .simple-mode-btn {
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .simple-mode-btn.active {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        /* 简洁模式下的日期样式 */
+        .calendar-card.simple-mode .day.other-month {
+            display: none;
+        }
+
+        .day.empty-cell {
+            background: transparent;
+            box-shadow: none;
+            cursor: default;
+            min-height: 30px;
+            pointer-events: none;
+        }
+
+        .calendar-card.simple-mode .day.empty-cell:hover {
+            background: transparent;
         }
 
         .weekdays {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            background: #ffebee;
-            padding: 10px 0;
+            background: linear-gradient(180deg, #fafafa 0%, #f5f5f5 100%);
+            padding: 14px 0;
         }
 
         .weekday {
             text-align: center;
             font-weight: 600;
-            color: #333;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
         }
 
         .weekday:first-child,
         .weekday:last-child {
-            color: #ff5a5d;
+            color: var(--weekend-color);
         }
 
         .days {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            padding: 10px;
+            padding: 12px;
+            gap: 4px;
             align-content: start;
         }
 
@@ -170,37 +227,40 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            border-radius: 8px;
-            transition: background 0.2s;
-            height: 60px;
+            border-radius: 12px;
+            transition: var(--transition);
+            height: 64px;
         }
 
         .day:hover {
-            background: #f5f5f5;
+            background: var(--hover-bg);
         }
 
         .day.selected {
-            background: #e3f2fd;
+            background: linear-gradient(135deg, rgba(78, 110, 242, 0.15) 0%, rgba(107, 140, 255, 0.15) 100%);
+            box-shadow: inset 0 0 0 2px rgba(78, 110, 242, 0.3);
         }
 
         .day-number {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             font-weight: 500;
             line-height: 1.2;
+            color: var(--text-primary);
         }
 
         .day-lunar {
-            font-size: 0.7rem;
-            color: #666;
-            margin-top: 2px;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 3px;
         }
 
         .day.festival .day-lunar {
-            color: #ff5a5d;
+            color: var(--festival-color);
+            font-weight: 500;
         }
 
         .day.weekend .day-number {
-            color: #ff5a5d;
+            color: var(--weekend-color);
         }
 
         .day.today {
@@ -210,11 +270,12 @@
         .day.today::before {
             content: '';
             position: absolute;
-            width: 48px;
-            height: 48px;
-            background: #ff5a5d;
+            width: 50px;
+            height: 50px;
+            background: var(--today-bg);
             border-radius: 50%;
             z-index: 0;
+            box-shadow: 0 2px 8px rgba(78, 110, 242, 0.4);
         }
 
         .day.today .day-number,
@@ -227,46 +288,58 @@
         .day.holiday::after {
             content: '休';
             position: absolute;
-            top: 2px;
-            right: 2px;
-            font-size: 0.6rem;
-            color: #1976d2;
+            top: 4px;
+            right: 4px;
+            font-size: 0.55rem;
+            color: #4e6ef2;
             font-weight: 600;
+            background: rgba(78, 110, 242, 0.1);
+            padding: 1px 4px;
+            border-radius: 4px;
         }
 
         .day.workday::after {
             content: '班';
             position: absolute;
-            top: 2px;
-            right: 2px;
-            font-size: 0.6rem;
-            color: #1976d2;
+            top: 4px;
+            right: 4px;
+            font-size: 0.55rem;
+            color: #ff8a5b;
             font-weight: 600;
+            background: rgba(255, 138, 91, 0.1);
+            padding: 1px 4px;
+            border-radius: 4px;
         }
 
         .other-month {
-            opacity: 0.3;
+            opacity: 0.35;
         }
 
         /* widgets 容器 */
         .widgets-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 16px;
             width: 470px;
             align-self: flex-start;
         }
 
         /* widget-calendar 卡片 */
         .widget-calendar {
-            background: #fff;
+            background: var(--card-bg);
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--card-shadow);
             width: 150px;
             max-width: 150px;
             aspect-ratio: 1;
             overflow: hidden;
             align-self: flex-start;
+            transition: var(--transition);
+        }
+
+        .widget-calendar:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-2px);
         }
 
         .widget-calendar * {
@@ -277,40 +350,47 @@
         }
 
         .widget-calendar-header {
-            height: 38px;
-            line-height: 38px;
-            font-size: 16px;
-            background-color: #ff5a5d;
+            height: 40px;
+            line-height: 40px;
+            font-size: 15px;
+            background: var(--primary-gradient);
             color: #fff;
         }
 
         .widget-calendar-day {
-            height: 60px;
-            line-height: 60px;
-            font-size: 46px;
-            color: #222;
+            height: 58px;
+            line-height: 58px;
+            font-size: 42px;
+            color: var(--text-primary);
+            font-weight: 600;
         }
 
         .widget-calendar-info {
-            font-size: 13px;
-            color: #aaa;
+            font-size: 12px;
+            color: var(--text-muted);
         }
 
         .widget-calendar-lunar {
-            font-size: 13px;
-            color: #222;
+            font-size: 12px;
+            color: var(--text-secondary);
         }
 
         /* widget-calendar-old 卡片 */
         .widget-calendar-old {
-            background: #fff;
+            background: var(--card-bg);
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--card-shadow);
             width: 300px;
             height: 150px;
             overflow: hidden;
             position: relative;
             align-self: flex-start;
+            transition: var(--transition);
+        }
+
+        .widget-calendar-old:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-2px);
         }
 
         .widget-calendar-old * {
@@ -323,8 +403,9 @@
             position: absolute;
             left: 15px;
             top: 15px;
-            font-size: 20px;
-            color: #222;
+            font-size: 18px;
+            color: var(--text-primary);
+            font-weight: 500;
         }
 
         .widget-calendar-old .ganzhi-header,
@@ -351,13 +432,14 @@
         }
 
         .widget-calendar-old .ganzhi-header li {
-            font-size: 12px;
-            color: #aaa;
+            font-size: 11px;
+            color: var(--text-muted);
         }
 
         .widget-calendar-old .ganzhi-value li {
-            font-size: 14px;
-            color: #222;
+            font-size: 13px;
+            color: var(--text-primary);
+            font-weight: 500;
         }
 
         .widget-calendar-old .yi-content,
@@ -373,7 +455,7 @@
             line-height: 32px;
             text-align: left;
             font-size: 12px;
-            color: #666;
+            color: var(--text-secondary);
         }
 
         .widget-calendar-old .yi-content {
@@ -401,24 +483,30 @@
 
         .widget-calendar-old .yi-content::before {
             content: '宜';
-            background-color: #4e6ef2;
+            background: linear-gradient(135deg, #4e6ef2 0%, #6b8cff 100%);
         }
 
         .widget-calendar-old .ji-content::before {
             content: '忌';
-            background-color: #ff5a5d;
+            background: var(--primary-gradient);
         }
 
         /* widget-calendar-month 卡片 */
         .widget-calendar-month {
-            background: #fff;
+            background: var(--card-bg);
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--card-shadow);
             width: 150px;
             max-width: 150px;
             aspect-ratio: 1;
             overflow: hidden;
             align-self: flex-start;
+            transition: var(--transition);
+        }
+
+        .widget-calendar-month:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-2px);
         }
 
         .widget-calendar-month * {
@@ -429,11 +517,12 @@
 
         .widget-calendar-month .month-title {
             display: block;
-            height: 24px;
-            line-height: 24px;
-            font-size: 14px;
+            height: 22px;
+            line-height: 22px;
+            font-size: 12px;
             text-align: center;
-            color: #222;
+            color: var(--text-primary);
+            font-weight: 500;
         }
 
         .widget-calendar-month .weekdays,
@@ -446,41 +535,57 @@
         .widget-calendar-month li {
             float: left;
             width: 20px;
-            height: 20px;
-            line-height: 20px;
+            height: 18px;
+            line-height: 18px;
             text-align: center;
         }
 
         .widget-calendar-month .weekdays li {
-            font-size: 12px;
-            color: #aaa;
+            font-size: 10px;
+            color: var(--text-muted);
         }
 
         .widget-calendar-month .days li {
-            font-size: 11px;
-            color: #555;
+            font-size: 10px;
+            color: var(--text-secondary);
         }
 
         .widget-calendar-month .days li.gray {
-            color: #bbb;
+            color: var(--text-muted);
+            opacity: 0.5;
         }
 
         .widget-calendar-month .days li.today {
-            background-color: #4e6ef2;
+            background: var(--today-bg);
             color: #fff;
-            border-radius: 5px;
+            border-radius: 4px;
             overflow: hidden;
+        }
+
+        .widget-calendar-month .days li.weekend {
+            color: var(--weekend-color);
+        }
+
+        .widget-calendar-month .weekdays li:first-child,
+        .widget-calendar-month .weekdays li:last-child {
+            color: var(--weekend-color);
         }
 
         /* 节假日卡片 */
         .holiday-card {
-            background: #fff;
+            background: var(--card-bg);
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--card-shadow);
             overflow: hidden;
             width: 300px;
             height: 150px;
             align-self: flex-start;
+            transition: var(--transition);
+        }
+
+        .holiday-card:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-2px);
         }
 
         .holiday-card ul {
@@ -494,16 +599,18 @@
             display: block;
             height: 32px;
             line-height: 32px;
-            border-left: 5px solid #ff5a5d;
+            border-left: 4px solid;
+            border-image: var(--primary-gradient) 1;
             border-radius: 10px;
             margin: 13px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            background: rgba(255, 90, 93, 0.04);
         }
 
         .holiday-card li i {
             margin-left: 14px;
             font-size: 13px;
-            color: #222;
+            color: var(--text-primary);
             font-style: normal;
         }
 
@@ -516,7 +623,7 @@
             line-height: 32px;
             text-align: center;
             font-size: 12px;
-            color: #aaa;
+            color: var(--text-muted);
             font-weight: normal;
         }
 
@@ -524,20 +631,25 @@
             float: right;
             margin-right: 14px;
             font-size: 13px;
-            color: #222;
+            color: var(--text-primary);
             text-decoration: none;
         }
 
         /* 黄历卡片 */
         .huangli-card {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background: var(--card-bg);
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
             overflow: hidden;
             width: 100%;
             padding: 20px;
             text-align: center;
             color: #888;
+            transition: var(--transition);
+        }
+
+        .huangli-card:hover {
+            box-shadow: var(--card-shadow-hover);
         }
 
         .huangli-card * {
@@ -581,13 +693,13 @@
             height: 22px;
             line-height: 22px;
             border-radius: 50%;
-            background-color: #4cb153;
             color: #fff;
             font-size: 12px;
         }
 
         .huangli-card .yi::before {
             content: '宜';
+            background-color: #4cb153;
         }
 
         .huangli-card .ji::before {
@@ -606,11 +718,9 @@
         .huangli-card table {
             width: 100%;
             border-collapse: collapse;
-            border-style: none solid solid none;
-            border-right-width: 1px;
-            border-right-color: #e2e2e2;
-            border-bottom-width: 1px;
-            border-bottom-color: #e2e2e2;
+            border-style: none;
+            border-right: 1px solid #e2e2e2;
+            border-bottom: 1px solid #e2e2e2;
         }
 
         .huangli-card table td {
@@ -628,7 +738,7 @@
         }
 
         .huangli-card table td b {
-            color: #333;
+            color: #c69c70;
             font-weight: normal;
             font-size: 14px;
         }
@@ -650,34 +760,36 @@
         /* 响应式设计 */
         @media (max-width: 768px) {
             body {
-                padding: 10px;
+                padding: 12px;
             }
 
             .container {
                 flex-direction: column;
                 align-items: center;
+                gap: 20px;
             }
 
             .calendar-column {
                 width: 100%;
                 max-width: 100%;
+                gap: 20px;
             }
 
             .widgets-container {
                 width: 100%;
                 justify-content: center;
-                gap: 15px;
+                gap: 12px;
             }
 
             .widgets-container .widget-calendar {
-                width: calc(50% - 7.5px);
+                width: calc(50% - 6px);
                 min-width: 130px;
                 flex: none;
                 order: 1;
             }
 
             .widgets-container .widget-calendar-month {
-                width: calc(50% - 7.5px);
+                width: calc(50% - 6px);
                 min-width: 130px;
                 flex: none;
                 order: 2;
@@ -769,8 +881,18 @@
             }
 
             .calendar-nav button {
-                padding: 6px 12px;
-                font-size: 0.9rem;
+                padding: 6px 10px;
+                font-size: 0.85rem;
+            }
+
+            .simple-mode-btn {
+                padding: 6px 8px;
+                font-size: 0.8rem;
+            }
+
+            .calendar-nav {
+                flex-wrap: wrap;
+                gap: 6px;
             }
 
             .weekday {
@@ -859,6 +981,7 @@
                         </span>
                     </div>
                     <div class="calendar-nav">
+                        <button class="simple-mode-btn" id="simpleModeBtn" onclick="toggleSimpleMode()">简洁模式</button>
                         <button onclick="changeMonth(-1)">&lt; 上月</button>
                         <button onclick="changeMonth(1)">下月 &gt;</button>
                     </div>
@@ -933,13 +1056,13 @@
             <div class="widget-calendar-month">
                 <div class="month-title" id="widgetMonthTitle"></div>
                 <ul class="weekdays">
+                    <li>日</li>
                     <li>一</li>
                     <li>二</li>
                     <li>三</li>
                     <li>四</li>
                     <li>五</li>
                     <li>六</li>
-                    <li>日</li>
                 </ul>
                 <ol class="days" id="widgetMonthDays"></ol>
             </div>
@@ -953,6 +1076,33 @@
     <script src="lunar.js"></script>
     <script>
         let currentYear, currentMonth;
+        let isSimpleMode = false;
+
+        // 核心节日列表（简洁模式下只显示这些节日）
+        const coreFestivals = [
+            '春节', '元宵节', '清明节', '端午节', '七夕', '中秋节', '重阳节', '除夕',
+            '元旦', '劳动节', '国庆节', '圣诞节', '母亲节', '父亲节', '教师节', '儿童节',
+            '妇女节', '植树节', '建军节', '腊八节', '小年', '冬至', '寒食节', '下元节'
+        ];
+
+        // 切换简洁模式
+        function toggleSimpleMode() {
+            isSimpleMode = !isSimpleMode;
+            const btn = document.getElementById('simpleModeBtn');
+            const calendarCard = document.querySelector('.calendar-card');
+
+            if (isSimpleMode) {
+                btn.textContent = '完整模式';
+                btn.classList.add('active');
+                calendarCard.classList.add('simple-mode');
+            } else {
+                btn.textContent = '简洁模式';
+                btn.classList.remove('active');
+                calendarCard.classList.remove('simple-mode');
+            }
+
+            renderCalendar(currentYear, currentMonth);
+        }
 
         // 渲染日历
         function renderCalendar(year, month) {
@@ -971,13 +1121,23 @@
 
             const prevMonthDays = new Date(year, month - 1, 0).getDate();
 
-            // 渲染上月日期
-            for (let i = firstDay - 1; i >= 0; i--) {
-                const day = prevMonthDays - i;
-                const prevMonth = month === 1 ? 12 : month - 1;
-                const prevYear = month === 1 ? year - 1 : year;
-                const dayEl = createDayElement(prevYear, prevMonth, day, true);
-                daysContainer.appendChild(dayEl);
+            // 渲染上月日期或空白格子
+            if (isSimpleMode) {
+                // 简洁模式：用空白格子填充
+                for (let i = 0; i < firstDay; i++) {
+                    const emptyEl = document.createElement('div');
+                    emptyEl.className = 'day empty-cell';
+                    daysContainer.appendChild(emptyEl);
+                }
+            } else {
+                // 完整模式：显示上月日期
+                for (let i = firstDay - 1; i >= 0; i--) {
+                    const day = prevMonthDays - i;
+                    const prevMonth = month === 1 ? 12 : month - 1;
+                    const prevYear = month === 1 ? year - 1 : year;
+                    const dayEl = createDayElement(prevYear, prevMonth, day, true);
+                    daysContainer.appendChild(dayEl);
+                }
             }
 
             // 渲染当月日期
@@ -987,14 +1147,25 @@
                 daysContainer.appendChild(dayEl);
             }
 
-            // 渲染下月日期
+            // 渲染下月日期或空白格子
             const totalCells = firstDay + daysInMonth;
             const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
-            const nextMonth = month === 12 ? 1 : month + 1;
-            const nextYear = month === 12 ? year + 1 : year;
-            for (let i = 1; i <= remainingCells; i++) {
-                const dayEl = createDayElement(nextYear, nextMonth, i, true);
-                daysContainer.appendChild(dayEl);
+
+            if (isSimpleMode) {
+                // 简洁模式：用空白格子填充
+                for (let i = 0; i < remainingCells; i++) {
+                    const emptyEl = document.createElement('div');
+                    emptyEl.className = 'day empty-cell';
+                    daysContainer.appendChild(emptyEl);
+                }
+            } else {
+                // 完整模式：显示下月日期
+                const nextMonth = month === 12 ? 1 : month + 1;
+                const nextYear = month === 12 ? year + 1 : year;
+                for (let i = 1; i <= remainingCells; i++) {
+                    const dayEl = createDayElement(nextYear, nextMonth, i, true);
+                    daysContainer.appendChild(dayEl);
+                }
             }
         }
 
@@ -1039,11 +1210,19 @@
                 lunarText = solarTerm;
                 isFestival = true;
             } else if (lunarFestivals.length > 0) {
-                lunarText = lunarFestivals[0];
-                isFestival = true;
+                const festivalName = lunarFestivals[0];
+                // 简洁模式下只显示核心节日
+                if (!isSimpleMode || coreFestivals.includes(festivalName)) {
+                    lunarText = festivalName;
+                    isFestival = true;
+                }
             } else if (solarFestivals.length > 0) {
-                lunarText = solarFestivals[0];
-                isFestival = true;
+                const festivalName = solarFestivals[0];
+                // 简洁模式下只显示核心节日
+                if (!isSimpleMode || coreFestivals.includes(festivalName)) {
+                    lunarText = festivalName;
+                    isFestival = true;
+                }
             } else if (lunar.getDay() === 1) {
                 lunarText = lunar.getMonthInChinese() + '月';
             }
@@ -1381,8 +1560,8 @@
             daysEl.innerHTML = '';
 
             const firstDay = new Date(year, month - 1, 1).getDay();
-            // 转换为周一开始的索引（周一=0, 周日=6）
-            const firstDayIndex = firstDay === 0 ? 6 : firstDay - 1;
+            // 周日开始：周日=0, 周一=1, ..., 周六=6
+            const firstDayIndex = firstDay;
             const daysInMonth = new Date(year, month, 0).getDate();
             const prevMonthDays = new Date(year, month - 1, 0).getDate();
 
@@ -1397,8 +1576,13 @@
             // 当月日期
             for (let day = 1; day <= daysInMonth; day++) {
                 const li = document.createElement('li');
+                const dayOfWeek = new Date(year, month - 1, day).getDay();
+                // 周日(0)和周六(6)为周末
+                if (dayOfWeek === 0 || dayOfWeek === 6) {
+                    li.classList.add('weekend');
+                }
                 if (day === selectedDay) {
-                    li.className = 'today';
+                    li.classList.add('today');
                 }
                 li.textContent = day;
                 daysEl.appendChild(li);
