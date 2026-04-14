@@ -46,7 +46,7 @@
         }
 
         .calendar-header {
-            background: #e53935;
+            background: #ff5a5d;
             color: white;
             padding: 15px 20px;
             display: flex;
@@ -57,6 +57,65 @@
         .calendar-title {
             font-size: 1.5rem;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .calendar-title .year-picker,
+        .calendar-title .month-picker {
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+            position: relative;
+        }
+
+        .calendar-title .year-picker:hover,
+        .calendar-title .month-picker:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .calendar-picker-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .calendar-picker-dropdown.show {
+            display: block;
+        }
+
+        .calendar-picker-dropdown .picker-item {
+            padding: 8px 16px;
+            cursor: pointer;
+            color: #333;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .calendar-picker-dropdown .picker-item:hover {
+            background: #f5f5f5;
+        }
+
+        .calendar-picker-dropdown .picker-item.selected {
+            background: #ff5a5d;
+            color: #fff;
+        }
+
+        .month-dropdown {
+            min-width: 80px;
+        }
+
+        .year-dropdown {
+            min-width: 70px;
         }
 
         .calendar-nav {
@@ -94,7 +153,7 @@
 
         .weekday:first-child,
         .weekday:last-child {
-            color: #e53935;
+            color: #ff5a5d;
         }
 
         .days {
@@ -137,11 +196,11 @@
         }
 
         .day.festival .day-lunar {
-            color: #e53935;
+            color: #ff5a5d;
         }
 
         .day.weekend .day-number {
-            color: #e53935;
+            color: #ff5a5d;
         }
 
         .day.today {
@@ -153,7 +212,7 @@
             position: absolute;
             width: 48px;
             height: 48px;
-            background: #e53935;
+            background: #ff5a5d;
             border-radius: 50%;
             z-index: 0;
         }
@@ -204,7 +263,8 @@
             border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             width: 150px;
-            height: 150px;
+            max-width: 150px;
+            aspect-ratio: 1;
             overflow: hidden;
             align-self: flex-start;
         }
@@ -355,7 +415,8 @@
             border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             width: 150px;
-            height: 150px;
+            max-width: 150px;
+            aspect-ratio: 1;
             overflow: hidden;
             align-self: flex-start;
         }
@@ -605,20 +666,98 @@
             .widgets-container {
                 width: 100%;
                 justify-content: center;
+                gap: 15px;
             }
 
-            .widgets-container .widget-calendar,
+            .widgets-container .widget-calendar {
+                width: calc(50% - 7.5px);
+                min-width: 130px;
+                flex: none;
+                order: 1;
+            }
+
             .widgets-container .widget-calendar-month {
-                flex: 1;
-                max-width: 150px;
-                min-width: 120px;
+                width: calc(50% - 7.5px);
+                min-width: 130px;
+                flex: none;
+                order: 2;
             }
 
-            .widgets-container .widget-calendar-old,
+            .widgets-container .widget-calendar-old {
+                width: 100%;
+                flex: none;
+                order: 3;
+            }
+
             .widgets-container .holiday-card {
-                flex: 1;
-                max-width: 300px;
-                min-width: 150px;
+                width: 100%;
+                flex: none;
+                order: 4;
+            }
+
+            /* widget-calendar-old 响应式调整 */
+            .widget-calendar-old .lunar-date {
+                font-size: 16px;
+                left: 10px;
+                top: 10px;
+            }
+
+            .widget-calendar-old .ganzhi-header,
+            .widget-calendar-old .ganzhi-value {
+                width: 130px;
+                right: 8px;
+            }
+
+            .widget-calendar-old .ganzhi-header li,
+            .widget-calendar-old .ganzhi-value li {
+                width: 32px;
+                font-size: 11px;
+            }
+
+            .widget-calendar-old .ganzhi-value li {
+                font-size: 12px;
+            }
+
+            .widget-calendar-old .yi-content,
+            .widget-calendar-old .ji-content {
+                font-size: 10px;
+                left: 10px;
+                right: 10px;
+                text-indent: 22px;
+            }
+
+            .widget-calendar-old .yi-content { top: 70px; }
+            .widget-calendar-old .ji-content { top: 102px; }
+
+            .widget-calendar-old .yi-content::before,
+            .widget-calendar-old .ji-content::before {
+                width: 16px;
+                height: 16px;
+                line-height: 16px;
+                font-size: 10px;
+            }
+
+            /* holiday-card 响应式调整 */
+            .holiday-card li i,
+            .holiday-card li u {
+                font-size: 11px;
+            }
+
+            .holiday-card li b {
+                font-size: 10px;
+            }
+
+            /* widget-calendar-month 响应式调整 */
+            .widget-calendar-month .weekdays,
+            .widget-calendar-month .days {
+                width: 140px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .widget-calendar-month li {
+                width: 20px;
+                float: left;
             }
 
             .huangli-card {
@@ -709,7 +848,16 @@
         <div class="calendar-column">
             <div class="calendar-card">
                 <div class="calendar-header">
-                    <div class="calendar-title" id="calendarTitle"></div>
+                    <div class="calendar-title">
+                        <span class="year-picker" id="yearPicker">
+                            <span id="yearText"></span>年
+                            <div class="calendar-picker-dropdown year-dropdown" id="yearDropdown"></div>
+                        </span>
+                        <span class="month-picker" id="monthPicker">
+                            <span id="monthText"></span>月
+                            <div class="calendar-picker-dropdown month-dropdown" id="monthDropdown"></div>
+                        </span>
+                    </div>
                     <div class="calendar-nav">
                         <button onclick="changeMonth(-1)">&lt; 上月</button>
                         <button onclick="changeMonth(1)">下月 &gt;</button>
@@ -808,8 +956,11 @@
 
         // 渲染日历
         function renderCalendar(year, month) {
-            const title = document.getElementById('calendarTitle');
-            title.textContent = `${year}年${month}月`;
+            document.getElementById('yearText').textContent = year;
+            document.getElementById('monthText').textContent = month;
+
+            // 更新下拉框选中状态
+            updatePickerSelection(year, month);
 
             const daysContainer = document.getElementById('calendarDays');
             daysContainer.innerHTML = '';
@@ -1032,12 +1183,113 @@
             currentYear = today.getFullYear();
             currentMonth = today.getMonth() + 1;
 
+            initYearMonthPicker();
+
             renderCalendar(currentYear, currentMonth);
             updateHuangli(currentYear, currentMonth, today.getDate());
             updateHolidayList();
             updateWidgetCalendar(currentYear, currentMonth, today.getDate());
             updateWidgetCalendarOld(currentYear, currentMonth, today.getDate());
             updateWidgetCalendarMonth(currentYear, currentMonth, today.getDate());
+        }
+
+        // 初始化年月选择器
+        function initYearMonthPicker() {
+            const yearDropdown = document.getElementById('yearDropdown');
+            const monthDropdown = document.getElementById('monthDropdown');
+            const yearPicker = document.getElementById('yearPicker');
+            const monthPicker = document.getElementById('monthPicker');
+
+            // 生成年份选项（1900年到当前年份+20年）
+            const currentYear = new Date().getFullYear();
+            for (let y = 1900; y <= currentYear + 20; y++) {
+                const item = document.createElement('div');
+                item.className = 'picker-item';
+                item.textContent = y;
+                item.dataset.value = y;
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    selectYear(y);
+                });
+                yearDropdown.appendChild(item);
+            }
+
+            // 生成月份选项
+            for (let m = 1; m <= 12; m++) {
+                const item = document.createElement('div');
+                item.className = 'picker-item';
+                item.textContent = m;
+                item.dataset.value = m;
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    selectMonth(m);
+                });
+                monthDropdown.appendChild(item);
+            }
+
+            // 点击年份显示/隐藏下拉框
+            yearPicker.addEventListener('click', (e) => {
+                e.stopPropagation();
+                monthDropdown.classList.remove('show');
+                yearDropdown.classList.toggle('show');
+                // 滚动到当前选中的年份
+                if (yearDropdown.classList.contains('show')) {
+                    const selectedYear = yearDropdown.querySelector('.picker-item.selected');
+                    if (selectedYear) {
+                        yearDropdown.scrollTop = selectedYear.offsetTop - yearDropdown.offsetHeight / 2 + selectedYear.offsetHeight / 2;
+                    }
+                }
+            });
+
+            // 点击月份显示/隐藏下拉框
+            monthPicker.addEventListener('click', (e) => {
+                e.stopPropagation();
+                yearDropdown.classList.remove('show');
+                monthDropdown.classList.toggle('show');
+            });
+
+            // 点击其他地方关闭下拉框
+            document.addEventListener('click', () => {
+                yearDropdown.classList.remove('show');
+                monthDropdown.classList.remove('show');
+            });
+        }
+
+        // 选择年份
+        function selectYear(year) {
+            currentYear = year;
+            renderCalendar(currentYear, currentMonth);
+            const firstDay = new Date(currentYear, currentMonth, 1);
+            updateHuangli(currentYear, currentMonth, 1);
+            updateWidgetCalendar(currentYear, currentMonth, 1);
+            updateWidgetCalendarOld(currentYear, currentMonth, 1);
+            updateWidgetCalendarMonth(currentYear, currentMonth, 1);
+            document.getElementById('yearDropdown').classList.remove('show');
+        }
+
+        // 选择月份
+        function selectMonth(month) {
+            currentMonth = month;
+            renderCalendar(currentYear, currentMonth);
+            updateHuangli(currentYear, currentMonth, 1);
+            updateWidgetCalendar(currentYear, currentMonth, 1);
+            updateWidgetCalendarOld(currentYear, currentMonth, 1);
+            updateWidgetCalendarMonth(currentYear, currentMonth, 1);
+            document.getElementById('monthDropdown').classList.remove('show');
+        }
+
+        // 更新下拉框选中状态
+        function updatePickerSelection(year, month) {
+            const yearDropdown = document.getElementById('yearDropdown');
+            const monthDropdown = document.getElementById('monthDropdown');
+
+            yearDropdown.querySelectorAll('.picker-item').forEach(item => {
+                item.classList.toggle('selected', parseInt(item.dataset.value) === year);
+            });
+
+            monthDropdown.querySelectorAll('.picker-item').forEach(item => {
+                item.classList.toggle('selected', parseInt(item.dataset.value) === month);
+            });
         }
 
         // 更新 widget-calendar
