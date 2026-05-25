@@ -583,6 +583,288 @@
             transition: var(--transition);
         }
 
+        /* 节气节日海报卡片 */
+        .festival-poster-card {
+            background: var(--card-bg);
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            width: 100%;
+            align-self: flex-start;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .festival-poster-card:hover {
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .poster-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: var(--primary-gradient);
+            opacity: 0.9;
+            z-index: 0;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .poster-bg.spring {
+            background: linear-gradient(135deg, #a8e6cf 0%, #88d8b0 100%);
+        }
+        .poster-bg.summer {
+            background: linear-gradient(135deg, #ffd93d 0%, #ff8a5b 100%);
+        }
+        .poster-bg.autumn {
+            background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%);
+        }
+        .poster-bg.winter {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+        }
+        .poster-bg.festival {
+            background: linear-gradient(135deg, #ff5a5d 0%, #ff8a5b 100%);
+        }
+
+        /* 图片背景样式 */
+        .poster-bg.has-image {
+            opacity: 1;
+        }
+
+        .poster-bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);
+            z-index: 1;
+        }
+
+        /* 装饰图案 */
+        .poster-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .poster-decoration::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+
+        .poster-decoration::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        /* 节气图标 */
+        .poster-icon {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 48px;
+            color: rgba(255, 255, 255, 0.85);
+            z-index: 2;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 传统装饰边框 */
+        .poster-border-decor {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(255, 90, 93, 0.6) 20%,
+                rgba(255, 90, 93, 0.8) 50%,
+                rgba(255, 90, 93, 0.6) 80%,
+                transparent 100%);
+            z-index: 3;
+        }
+
+        .poster-header {
+            position: relative;
+            padding: 50px 24px 28px;
+            color: #fff;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .poster-type {
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0.85;
+            margin-bottom: 8px;
+            letter-spacing: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 16px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        .poster-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 6px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .poster-date {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .poster-countdown {
+            font-size: 14px;
+            padding: 5px 14px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 12px;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .poster-date-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .poster-content {
+            padding: 20px 24px 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 节气节日装饰图案 */
+        .poster-art {
+            width: 100%;
+            margin-bottom: 16px;
+            display: block;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .poster-art svg {
+            width: 100%;
+            height: 140px;
+            display: block;
+        }
+
+        .poster-art img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+        }
+
+        /* 春季节气图案 - 花朵嫩芽 */
+        .poster-art.spring-pattern {
+            background: linear-gradient(180deg, rgba(168, 230, 207, 0.2) 0%, rgba(136, 216, 176, 0.1) 100%);
+        }
+
+        /* 夏季节气图案 - 荷花阳光 */
+        .poster-art.summer-pattern {
+            background: linear-gradient(180deg, rgba(255, 217, 61, 0.2) 0%, rgba(255, 138, 91, 0.1) 100%);
+        }
+
+        /* 秋季节气图案 - 枫叶菊花 */
+        .poster-art.autumn-pattern {
+            background: linear-gradient(180deg, rgba(255, 179, 71, 0.2) 0%, rgba(255, 204, 51, 0.1) 100%);
+        }
+
+        /* 冬季节气图案 - 雪花冰晶 */
+        .poster-art.winter-pattern {
+            background: linear-gradient(180deg, rgba(161, 196, 253, 0.2) 0%, rgba(194, 233, 251, 0.1) 100%);
+        }
+
+        /* 节日图案 */
+        .poster-art.festival-pattern {
+            background: linear-gradient(180deg, rgba(255, 90, 93, 0.15) 0%, rgba(255, 138, 91, 0.08) 100%);
+        }
+
+        .poster-poem {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 2;
+            margin-bottom: 16px;
+            white-space: pre-line;
+            font-style: italic;
+        }
+
+        .poster-poem-title {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .poster-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .poster-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .poster-nav-btn {
+            background: rgba(255, 90, 93, 0.1);
+            border: none;
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: var(--transition);
+        }
+
+        .poster-nav-btn:hover {
+            background: rgba(255, 90, 93, 0.2);
+            color: var(--text-primary);
+        }
+
+        .poster-nav-btn.active {
+            background: var(--primary-gradient);
+            color: #fff;
+        }
+
+        .poster-nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .holiday-card:hover {
             box-shadow: var(--card-shadow-hover);
             transform: translateY(-2px);
@@ -805,6 +1087,72 @@
                 width: 100%;
                 flex: none;
                 order: 4;
+            }
+
+            .widgets-container .festival-poster-card {
+                width: 100%;
+                flex: none;
+                order: 10;
+            }
+
+            .poster-title {
+                font-size: 26px;
+                letter-spacing: 3px;
+            }
+
+            .poster-header {
+                padding: 35px 16px 16px;
+            }
+
+            .poster-bg,
+            .poster-decoration {
+                height: 165px;
+            }
+
+            .poster-bg-overlay {
+                height: 165px;
+            }
+
+            .poster-icon {
+                font-size: 32px;
+                top: 20px;
+                right: 16px;
+            }
+
+            .poster-type {
+                font-size: 11px;
+                padding: 3px 12px;
+            }
+
+            .poster-date {
+                font-size: 13px;
+            }
+
+            .poster-countdown {
+                font-size: 13px;
+                padding: 5px 14px;
+            }
+
+            .poster-content {
+                padding: 14px 16px 18px;
+            }
+
+            .poster-art img {
+                max-height: 180px;
+            }
+
+            .poster-poem {
+                font-size: 12px;
+                line-height: 1.7;
+            }
+
+            .poster-desc {
+                font-size: 11px;
+            }
+
+            .poster-nav-btn {
+                padding: 5px 10px;
+                font-size: 11px;
             }
 
             /* widget-calendar-old 响应式调整 */
@@ -1070,6 +1418,33 @@
             <div class="holiday-card">
                 <ul id="holidayList"></ul>
             </div>
+
+            <div class="festival-poster-card" id="festivalPosterCard">
+                <div class="poster-bg" id="posterBg"></div>
+                <div class="poster-bg-overlay" id="posterBgOverlay"></div>
+                <div class="poster-decoration"></div>
+                <div class="poster-icon" id="posterIcon"></div>
+                <div class="poster-header">
+                    <div class="poster-type" id="posterType"></div>
+                    <div class="poster-title" id="posterTitle"></div>
+                    <div class="poster-date-row">
+                        <div class="poster-date" id="posterDate"></div>
+                        <div class="poster-countdown" id="posterCountdown"></div>
+                    </div>
+                </div>
+                <div class="poster-border-decor"></div>
+                <div class="poster-content">
+                    <div class="poster-art" id="posterArt"></div>
+                    <div class="poster-poem-title" id="posterPoemTitle"></div>
+                    <div class="poster-poem" id="posterPoem"></div>
+                    <div class="poster-desc" id="posterDesc"></div>
+                    <div class="poster-nav">
+                        <button class="poster-nav-btn" id="posterBtnPrev">上一个</button>
+                        <button class="poster-nav-btn active" id="posterBtnNearest">最近</button>
+                        <button class="poster-nav-btn" id="posterBtnNext">下一个</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1077,6 +1452,8 @@
     <script>
         let currentYear, currentMonth;
         let isSimpleMode = false;
+        let posterEventsList = [];  // 存储所有节气和节日事件
+        let currentPosterIndex = -1; // 当前显示的事件索引，-1表示最近
 
         // 核心节日列表（简洁模式下只显示这些节日）
         const coreFestivals = [
@@ -1084,6 +1461,50 @@
             '元旦', '劳动节', '国庆节', '圣诞节', '母亲节', '父亲节', '教师节', '儿童节',
             '妇女节', '植树节', '建军节', '腊八节', '小年', '冬至', '寒食节', '下元节'
         ];
+
+        // 24节气数据
+        const solarTermsData = {
+            '立春': { season: 'spring', icon: '🌱', image: 'images/solar_terms/li_chun.jpg', poem: '春风送暖入屠苏\n万物复苏待新绿', desc: '春季开始，万物复苏。东风解冻，蛰虫始振，鱼上冰。' },
+            '雨水': { season: 'spring', icon: '💧', image: 'images/solar_terms/yu_shui.jpg', poem: '雨水润泽万物生\n桃花含苞待放时', desc: '降雨开始，雨量渐增。獭祭鱼，鸿雁来，草木萌动。' },
+            '惊蛰': { season: 'spring', icon: '⚡', image: 'images/solar_terms/jing_zhe.jpg', poem: '春雷惊醒冬眠虫\n万物生长正当时', desc: '春雷乍动，惊醒蛰伏。桃始华，仓庚鸣，鹰化为鸠。' },
+            '春分': { season: 'spring', icon: '🌸', image: 'images/solar_terms/chun_fen.jpg', poem: '昼夜平分春意浓\n百花争艳满园春', desc: '昼夜平分，春季过半。玄鸟至，雷乃发声，始电。' },
+            '清明': { season: 'spring', icon: '🌿', image: 'images/solar_terms/qing_ming.jpg', poem: '清明时节雨纷纷\n路上行人欲断魂', desc: '天清地明，气候温暖。桐始华，田鼠化为鴽，虹始见。' },
+            '谷雨': { season: 'spring', icon: '🌾', image: 'images/solar_terms/gu_yu.jpg', poem: '谷雨时节雨充沛\n秧苗初插待丰收', desc: '雨生百谷，春将尽。萍始生，鸣鸠拂其羽，戴胜降于桑。' },
+            '立夏': { season: 'summer', icon: '☀️', image: 'images/solar_terms/li_xia.jpg', poem: '立夏之日万物繁\n绿树成荫夏日长', desc: '夏季开始，万物繁茂。蝼蝈鸣，蚯蚓出，王瓜生。' },
+            '小满': { season: 'summer', icon: '🌻', image: 'images/solar_terms/xiao_man.jpg', poem: '小满时节麦渐黄\n夏熟作物待收割', desc: '麦类等夏熟作物籽粒开始饱满。苦菜秀，靡草死，麦秋至。' },
+            '芒种': { season: 'summer', icon: '🌾', image: 'images/solar_terms/mang_zhong.jpg', poem: '芒种忙种庄稼活\n有芒之谷快播种', desc: '麦类等有芒作物成熟。螳螂生，鵙始鸣，反舌无声。' },
+            '夏至': { season: 'summer', icon: '🌞', image: 'images/solar_terms/xia_zhi.jpg', poem: '夏至日长阳气盛\n蝉鸣蛙噪夏日深', desc: '日光直射北回归线，白昼最长。鹿角解，蜩始鸣，半夏生。' },
+            '小暑': { season: 'summer', icon: '🔥', image: 'images/solar_terms/xiao_shu.jpg', poem: '小暑天气渐炎热\n荷花盛开映池塘', desc: '暑热渐增，未到最热。温风至，蟋蟀居壁，鹰始挚。' },
+            '大暑': { season: 'summer', icon: '🔥', image: 'images/solar_terms/da_shu.jpg', poem: '大暑正值中伏天\n烈日炎炎似火烧', desc: '一年中最热的时期。腐草为萤，土润溽暑，大雨时行。' },
+            '立秋': { season: 'autumn', icon: '🍂', image: 'images/solar_terms/li_qiu.jpg', poem: '立秋凉风始徐来\n梧桐叶落秋意浓', desc: '秋季开始，暑去凉来。凉风至，白露降，寒蝉鸣。' },
+            '处暑': { season: 'autumn', icon: '🍃', image: 'images/solar_terms/chu_shu.jpg', poem: '处暑炎热渐消退\n秋高气爽天转凉', desc: '暑气结束，气温下降。鹰乃祭鸟，天地始肃，禾乃登。' },
+            '白露': { season: 'autumn', icon: '🌙', image: 'images/solar_terms/bai_lu.jpg', poem: '白露时节露凝霜\n夜凉如水秋意浓', desc: '天气转凉，露水凝白。鸿雁来，玄鸟归，群鸟养羞。' },
+            '秋分': { season: 'autumn', icon: '🍁', image: 'images/solar_terms/qiu_fen.jpg', poem: '秋分昼夜又平分\n金黄遍野丰收景', desc: '昼夜平分，秋季过半。雷始收声，蛰虫坯户，水始涸。' },
+            '寒露': { season: 'autumn', icon: '❄️', image: 'images/solar_terms/han_lu.jpg', poem: '寒露时节露渐寒\n枫叶染红秋色深', desc: '露水寒冷，将要结霜。鸿雁来宾，雀入大水为蛤，菊有黄华。' },
+            '霜降': { season: 'autumn', icon: '❄️', image: 'images/solar_terms/shuang_jiang.jpg', poem: '霜降时节霜始降\n秋尽冬来万物藏', desc: '开始降霜，秋季结束。豺乃祭兽，草木黄落，蛰虫咸俯。' },
+            '立冬': { season: 'winter', icon: '❄️', image: 'images/solar_terms/li_dong.jpg', poem: '立冬时节水始冰\n大地封冻冬意浓', desc: '冬季开始，万物收藏。水始冰，地始冻，雉入大水为蜃。' },
+            '小雪': { season: 'winter', icon: '🌨️', image: 'images/solar_terms/xiao_xue.jpg', poem: '小雪时节雪初飘\n寒风凛冽冬日来', desc: '开始降雪，雪量渐增。虹藏不见，天气上升地气下降，闭塞而成冬。' },
+            '大雪': { season: 'winter', icon: '❄️', image: 'images/solar_terms/da_xue.jpg', poem: '大雪纷飞遍地白\n瑞雪兆丰好年景', desc: '雪量增大，大雪纷飞。鹖鴠不鸣，虎始交，荔挺出。' },
+            '冬至': { season: 'winter', icon: '冬至', image: 'images/solar_terms/dong_zhi.jpg', poem: '冬至数九寒天始\n家家户户吃饺子', desc: '日光直射南回归线，白昼最短。蚯蚓结，麋角解，水泉动。' },
+            '小寒': { season: 'winter', icon: '🥶', image: 'images/solar_terms/xiao_han.jpg', poem: '小寒时节天渐寒\n未达极点犹有暖', desc: '天气寒冷，未到最冷。雁北乡，鹊始巢，雉始雊。' },
+            '大寒': { season: 'winter', icon: '🥶', image: 'images/solar_terms/da_han.jpg', poem: '大寒时节寒极至\n冰天雪地待春回', desc: '一年中最冷的时期。鸡乳，征鸟厉疾，水泽腹坚。' }
+        };
+
+        // 传统节日数据
+        const festivalsData = {
+            '春节': { icon: '🧧', image: 'images/festivals/chun_jie.png', poem: '爆竹声中一岁除\n春风送暖入屠苏', desc: '农历新年，中华民族最隆重的传统佳节，家家户户团圆欢庆。' },
+            '元宵节': { icon: '🏮', image: 'images/festivals/yuan_xiao.png', poem: '火树银花合\n星桥铁锁开', desc: '农历正月十五，又称上元节、灯节，赏花灯、吃元宵、猜灯谜。' },
+            '端午节': { icon: '🐉', image: 'images/festivals/duan_wu.png', poem: '五月五日午\n赠我一枝艾', desc: '农历五月初五，纪念屈原的传统节日，吃粽子、赛龙舟、挂艾草。' },
+            '七夕': { icon: '💕', image: 'images/festivals/qi_xi.png', poem: '纤云弄巧\n飞星传恨\n银汉迢迢暗度', desc: '农历七月初七，中国情人节，牛郎织女鹊桥相会的传说。' },
+            '中秋节': { icon: '🥮', image: 'images/festivals/zhong_qiu.png', poem: '但愿人长久\n千里共婵娟', desc: '农历八月十五，团圆赏月的传统佳节，吃月饼、赏明月。' },
+            '重阳节': { icon: '⛰️', image: 'images/festivals/chong_yang.png', poem: '独在异乡为异客\n每逢佳节倍思亲', desc: '农历九月初九，登高赏菊的传统节日，敬老爱老的节日。' },
+            '除夕': { icon: '🎆', image: 'images/festivals/chu_xi.png', poem: '千门万户曈曈日\n总把新桃换旧符', desc: '农历腊月最后一天，辞旧迎新之夜，年夜饭、守岁、放鞭炮。' },
+            '腊八节': { icon: '🥣', image: 'images/festivals/la_ba.png', poem: '腊八粥香飘万家\n寒冬腊月暖意浓', desc: '农历腊月初八，喝腊八粥的传统节日，祭祀祖先和神灵。' },
+            '小年': { icon: '🔥', image: 'images/festivals/xiao_nian.png', poem: '祭灶扫尘忙过年\n糖瓜供奉灶王爷', desc: '农历腊月二十三/二十四，春节序幕，祭灶王爷、扫尘土。' },
+            '元旦': { icon: '🎉', image: 'images/festivals/yuan_dan.png', poem: '一元复始万象新\n欢度佳节贺新年', desc: '公历新年第一天，辞旧迎新，展望未来。' },
+            '劳动节': { icon: '💪', image: 'images/festivals/lao_dong.png', poem: '劳动光荣创辉煌\n辛勤耕耘收获满', desc: '国际劳动节，致敬劳动者，赞美劳动创造美好生活。' },
+            '国庆节': { icon: '🇨🇳', poem: '举国欢庆盛世颜\n五星红旗迎风飘', desc: '中华人民共和国成立纪念日，普天同庆，国泰民安。' }
+        };
 
         // 切换简洁模式
         function toggleSimpleMode() {
@@ -1356,6 +1777,790 @@
             renderCalendar(currentYear, currentMonth);
         }
 
+        // 更新节气节日海报卡片
+        function updateFestivalPoster() {
+            const today = new Date();
+            const solarToday = Solar.fromDate(today);
+            const lunarToday = solarToday.getLunar();
+
+            posterEventsList = [];
+            const currentYear = today.getFullYear();
+
+            // 获取接下来一年内的所有节气（使用getNextJieQi循环）
+            let tempLunar = lunarToday;
+            for (let i = 0; i < 24; i++) {
+                const jieQi = tempLunar.getNextJieQi();
+                if (jieQi) {
+                    const name = jieQi.getName();
+                    const solar = jieQi.getSolar();
+                    const date = new Date(solar.getYear(), solar.getMonth() - 1, solar.getDay());
+                    const daysAway = Math.ceil((date - today) / (1000 * 60 * 60 * 24));
+                    if (daysAway > 0 && daysAway <= 365) {
+                        posterEventsList.push({ name, date, daysAway, isSolarTerm: true });
+                    }
+                    // 移动到这个节气之后的日期，继续查找下一个
+                    tempLunar = Solar.fromYmd(solar.getYear(), solar.getMonth(), solar.getDay() + 1).getLunar();
+                }
+            }
+
+            // 获取农历节日
+            const lunarFestivalNames = ['春节', '元宵节', '端午节', '七夕', '中秋节', '重阳节', '腊八节', '小年'];
+            for (let year = currentYear; year <= currentYear + 1; year++) {
+                for (const name of lunarFestivalNames) {
+                    let festivalDate;
+                    if (name === '春节') {
+                        const lunar = Lunar.fromYmd(year, 1, 1);
+                        festivalDate = lunar.getSolar();
+                    } else if (name === '元宵节') {
+                        const lunar = Lunar.fromYmd(year, 1, 15);
+                        festivalDate = lunar.getSolar();
+                    } else if (name === '端午节') {
+                        const lunar = Lunar.fromYmd(year, 5, 5);
+                        festivalDate = lunar.getSolar();
+                    } else if (name === '七夕') {
+                        const lunar = Lunar.fromYmd(year, 7, 7);
+                        festivalDate = lunar.getSolar();
+                    } else if (name === '中秋节') {
+                        const lunar = Lunar.fromYmd(year, 8, 15);
+                        festivalDate = lunar.getSolar();
+                    } else if (name === '重阳节') {
+                        const lunar = Lunar.fromYmd(year, 9, 9);
+                        festivalDate = lunar.getSolar();
+                    } else if (name === '腊八节') {
+                        const lunar = Lunar.fromYmd(year, 12, 8);
+                        festivalDate = lunar.getSolar();
+                    } else if (name === '小年') {
+                        const lunar = Lunar.fromYmd(year, 12, 23);
+                        festivalDate = lunar.getSolar();
+                    }
+
+                    if (festivalDate) {
+                        const festDate = new Date(festivalDate.getYear(), festivalDate.getMonth() - 1, festivalDate.getDay());
+                        const daysAway = Math.ceil((festDate - today) / (1000 * 60 * 60 * 24));
+                        if (daysAway > 0 && daysAway <= 365) {
+                            posterEventsList.push({ name, date: festDate, daysAway, isSolarTerm: false });
+                        }
+                    }
+                }
+
+                // 除夕
+                const nextYearLunar = Lunar.fromYmd(year + 1, 1, 1);
+                const nextYearSolar = nextYearLunar.getSolar();
+                const chuxiDate = Solar.fromYmd(nextYearSolar.getYear(), nextYearSolar.getMonth(), nextYearSolar.getDay() - 1);
+                const chuxi = new Date(chuxiDate.getYear(), chuxiDate.getMonth() - 1, chuxiDate.getDay());
+                const chuxiDaysAway = Math.ceil((chuxi - today) / (1000 * 60 * 60 * 24));
+                if (chuxiDaysAway > 0 && chuxiDaysAway <= 365) {
+                    posterEventsList.push({ name: '除夕', date: chuxi, daysAway: chuxiDaysAway, isSolarTerm: false });
+                }
+            }
+
+            // 公历节日
+            for (let year = currentYear; year <= currentYear + 1; year++) {
+                const solarFestivals = [
+                    { name: '元旦', month: 1, day: 1 },
+                    { name: '劳动节', month: 5, day: 1 },
+                    { name: '国庆节', month: 10, day: 1 }
+                ];
+                for (const fest of solarFestivals) {
+                    const festDate = new Date(year, fest.month - 1, fest.day);
+                    const daysAway = Math.ceil((festDate - today) / (1000 * 60 * 60 * 24));
+                    if (daysAway > 0 && daysAway <= 365) {
+                        posterEventsList.push({ name: fest.name, date: festDate, daysAway, isSolarTerm: false });
+                    }
+                }
+            }
+
+            // 按时间排序并去重（同一天只保留一个）
+            posterEventsList.sort((a, b) => a.daysAway - b.daysAway);
+            posterEventsList = posterEventsList.filter((item, index, self) =>
+                index === self.findIndex(t => t.name === item.name && t.daysAway === item.daysAway)
+            );
+
+            // 默认显示最近的
+            currentPosterIndex = 0;
+            renderPosterContent(posterEventsList[0]);
+        }
+
+        // 生成SVG装饰图案
+        function generatePosterArt(name, isSolarTerm) {
+            const posterArt = document.getElementById('posterArt');
+            let seasonClass = 'spring-pattern';
+            let svgContent = '';
+
+            if (isSolarTerm) {
+                const season = solarTermsData[name]?.season || 'spring';
+                seasonClass = season + '-pattern';
+
+                // 根据节气名称生成不同的图案
+                if (name === '立春' || name === '春分') {
+                    svgContent = generateSpringFlowersSVG();
+                } else if (name === '雨水' || name === '谷雨') {
+                    svgContent = generateRainDropsSVG();
+                } else if (name === '惊蛰') {
+                    svgContent = generateThunderSVG();
+                } else if (name === '清明') {
+                    svgContent = generateWillowSVG();
+                } else if (name === '立夏' || name === '夏至') {
+                    svgContent = generateSunSVG();
+                } else if (name === '小满' || name === '芒种') {
+                    svgContent = generateWheatSVG();
+                } else if (name === '小暑' || name === '大暑') {
+                    svgContent = generateLotusSVG();
+                } else if (name === '立秋' || name === '处暑' || name === '秋分') {
+                    svgContent = generateAutumnLeavesSVG();
+                } else if (name === '白露' || name === '寒露') {
+                    svgContent = generateDewSVG();
+                } else if (name === '霜降') {
+                    svgContent = generateFrostSVG();
+                } else if (name === '立冬' || name === '冬至') {
+                    svgContent = generateWinterSVG();
+                } else if (name === '小雪' || name === '大雪') {
+                    svgContent = generateSnowSVG();
+                } else if (name === '小寒' || name === '大寒') {
+                    svgContent = generateIceSVG();
+                } else {
+                    svgContent = generateDefaultSVG(season);
+                }
+            } else {
+                seasonClass = 'festival-pattern';
+
+                // 根据节日名称生成不同的图案
+                if (name === '春节' || name === '除夕') {
+                    svgContent = generateLanternSVG();
+                } else if (name === '元宵节') {
+                    svgContent = generateFestivalLanternSVG();
+                } else if (name === '清明节') {
+                    svgContent = generateWillowSVG();
+                } else if (name === '端午节') {
+                    svgContent = generateDragonBoatSVG();
+                } else if (name === '七夕') {
+                    svgContent = generateStarsSVG();
+                } else if (name === '中秋节') {
+                    svgContent = generateMoonSVG();
+                } else if (name === '重阳节') {
+                    svgContent = generateMountainSVG();
+                } else if (name === '腊八节' || name === '小年') {
+                    svgContent = generateWarmSVG();
+                } else if (name === '元旦') {
+                    svgContent = generateNewYearSVG();
+                } else if (name === '劳动节') {
+                    svgContent = generateFlowerSVG();
+                } else if (name === '国庆节') {
+                    svgContent = generateFlagSVG();
+                } else {
+                    svgContent = generateFestivalDefaultSVG();
+                }
+            }
+
+            posterArt.className = 'poster-art ' + seasonClass;
+            posterArt.innerHTML = svgContent;
+        }
+
+        // 春季花朵图案
+        function generateSpringFlowersSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="flowerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ffb7c5;stop-opacity:1"/>
+                        <stop offset="100%" style="stop-color:#ff69b4;stop-opacity:0.8"/>
+                    </linearGradient>
+                </defs>
+                <!-- 花枝 -->
+                <path d="M30 110 Q50 80 70 60" stroke="#8b4513" stroke-width="3" fill="none"/>
+                <path d="M150 110 Q150 70 150 40" stroke="#8b4513" stroke-width="3" fill="none"/>
+                <path d="M270 110 Q250 80 230 50" stroke="#8b4513" stroke-width="3" fill="none"/>
+                <!-- 花朵 -->
+                <circle cx="70" cy="50" r="15" fill="url(#flowerGrad)"/>
+                <circle cx="65" cy="35" r="10" fill="url(#flowerGrad)"/>
+                <circle cx="85" cy="40" r="12" fill="url(#flowerGrad)"/>
+                <circle cx="150" cy="35" r="18" fill="url(#flowerGrad)"/>
+                <circle cx="140" cy="20" r="12" fill="#ffb7c5"/>
+                <circle cx="160" cy="25" r="14" fill="#ff69b4"/>
+                <circle cx="230" cy="45" r="16" fill="url(#flowerGrad)"/>
+                <circle cx="220" cy="30" r="11" fill="url(#flowerGrad)"/>
+                <!-- 小花瓣点缀 -->
+                <circle cx="100" cy="70" r="6" fill="#ffb7c5" opacity="0.7"/>
+                <circle cx="200" cy="65" r="7" fill="#ff69b4" opacity="0.7"/>
+                <!-- 嫩芽 -->
+                <ellipse cx="45" cy="85" rx="8" ry="4" fill="#90EE90" opacity="0.8"/>
+                <ellipse cx="260" cy="90" rx="6" ry="3" fill="#98FB98" opacity="0.8"/>
+            </svg>`;
+        }
+
+        // 雨滴图案
+        function generateRainDropsSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="rainGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:0.9"/>
+                        <stop offset="100%" style="stop-color:#4169E1;stop-opacity:0.7"/>
+                    </linearGradient>
+                </defs>
+                <!-- 雨滴 -->
+                <ellipse cx="50" cy="30" rx="4" ry="12" fill="url(#rainGrad)" opacity="0.8"/>
+                <ellipse cx="80" cy="50" rx="3" ry="10" fill="url(#rainGrad)" opacity="0.9"/>
+                <ellipse cx="120" cy="25" rx="5" ry="15" fill="url(#rainGrad)" opacity="0.7"/>
+                <ellipse cx="150" cy="45" rx="4" ry="12" fill="url(#rainGrad)" opacity="0.85"/>
+                <ellipse cx="180" cy="35" rx="3" ry="10" fill="url(#rainGrad)" opacity="0.9"/>
+                <ellipse cx="220" cy="55" rx="5" ry="14" fill="url(#rainGrad)" opacity="0.75"/>
+                <ellipse cx="250" cy="30" rx="4" ry="11" fill="url(#rainGrad)" opacity="0.8"/>
+                <!-- 水面涟漪 -->
+                <ellipse cx="100" cy="100" rx="25" ry="8" fill="none" stroke="#87CEEB" stroke-width="1" opacity="0.6"/>
+                <ellipse cx="100" cy="100" rx="15" ry="5" fill="none" stroke="#87CEEB" stroke-width="1" opacity="0.5"/>
+                <ellipse cx="200" cy="105" rx="20" ry="6" fill="none" stroke="#4169E1" stroke-width="1" opacity="0.5"/>
+                <!-- 云朵 -->
+                <ellipse cx="150" cy="15" rx="30" ry="10" fill="#E0E0E0" opacity="0.4"/>
+            </svg>`;
+        }
+
+        // 雷电图案
+        function generateThunderSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- 闪电 -->
+                <path d="M140 10 L130 40 L145 40 L135 70 L155 70 L145 100" stroke="#FFD700" stroke-width="4" fill="none"/>
+                <path d="M160 15 L155 35 L165 35 L160 55" stroke="#FFA500" stroke-width="3" fill="none"/>
+                <!-- 云朵 -->
+                <ellipse cx="100" cy="25" rx="35" ry="15" fill="#708090" opacity="0.7"/>
+                <ellipse cx="200" cy="30" rx="40" ry="18" fill="#5A5A5A" opacity="0.6"/>
+                <ellipse cx="150" cy="35" rx="50" ry="20" fill="#4A4A4A" opacity="0.5"/>
+                <!-- 新芽 -->
+                <path d="M50 90 L50 70 L45 65 L50 60 L55 65 L50 70" stroke="#90EE90" stroke-width="2" fill="#90EE90"/>
+                <path d="M250 95 L250 75 L245 70 L250 65 L255 70 L250 75" stroke="#98FB98" stroke-width="2" fill="#98FB98"/>
+            </svg>`;
+        }
+
+        // 柳树图案
+        function generateWillowSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- 柳树主干 -->
+                <path d="M80 110 L80 50" stroke="#8B4513" stroke-width="6" fill="none"/>
+                <!-- 柳枝 -->
+                <path d="M80 50 Q60 40 40 60" stroke="#228B22" stroke-width="2" fill="none"/>
+                <path d="M80 50 Q90 35 110 55" stroke="#32CD32" stroke-width="2" fill="none"/>
+                <path d="M80 55 Q50 50 30 70" stroke="#228B22" stroke-width="1.5" fill="none"/>
+                <path d="M80 55 Q100 45 120 65" stroke="#32CD32" stroke-width="1.5" fill="none"/>
+                <path d="M80 60 Q55 55 35 80" stroke="#90EE90" stroke-width="1" fill="none"/>
+                <!-- 柳叶 -->
+                <ellipse cx="40" cy="60" rx="3" ry="8" fill="#228B22" opacity="0.8"/>
+                <ellipse cx="110" cy="55" rx="4" ry="10" fill="#32CD32" opacity="0.8"/>
+                <ellipse cx="30" cy="70" rx="2" ry="7" fill="#228B22" opacity="0.7"/>
+                <ellipse cx="120" cy="65" rx="3" ry="9" fill="#32CD32" opacity="0.7"/>
+                <!-- 细雨 -->
+                <line x1="180" y1="20" x2="175" y2="50" stroke="#87CEEB" stroke-width="1" opacity="0.5"/>
+                <line x1="200" y1="25" x2="195" y2="55" stroke="#87CEEB" stroke-width="1" opacity="0.4"/>
+                <line x1="220" y1="15" x2="215" y2="45" stroke="#87CEEB" stroke-width="1" opacity="0.6"/>
+                <line x1="250" y1="30" x2="245" y2="60" stroke="#87CEEB" stroke-width="1" opacity="0.5"/>
+            </svg>`;
+        }
+
+        // 阳光图案
+        function generateSunSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" style="stop-color:#FFD700"/>
+                        <stop offset="100%" style="stop-color:#FFA500"/>
+                    </radialGradient>
+                </defs>
+                <!-- 太阳 -->
+                <circle cx="150" cy="50" r="25" fill="url(#sunGrad)"/>
+                <!-- 光线 -->
+                <line x1="150" y1="20" x2="150" y2="5" stroke="#FFD700" stroke-width="3"/>
+                <line x1="175" y1="35" x2="190" y2="20" stroke="#FFA500" stroke-width="2"/>
+                <line x1="125" y1="35" x2="110" y2="20" stroke="#FFA500" stroke-width="2"/>
+                <line x1="180" y1="50" x2="200" y2="50" stroke="#FFD700" stroke-width="3"/>
+                <line x1="120" y1="50" x2="100" y2="50" stroke="#FFD700" stroke-width="3"/>
+                <line x1="175" y1="65" x2="185" y2="80" stroke="#FFA500" stroke-width="2"/>
+                <line x1="125" y1="65" x2="115" y2="80" stroke="#FFA500" stroke-width="2"/>
+                <!-- 绿叶 -->
+                <ellipse cx="50" cy="90" rx="15" ry="8" fill="#228B22" opacity="0.7"/>
+                <ellipse cx="250" cy="95" rx="12" ry="6" fill="#32CD32" opacity="0.7"/>
+            </svg>`;
+        }
+
+        // 麦穗图案
+        function generateWheatSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- 麦穗 -->
+                <path d="M80 110 L80 40" stroke="#DAA520" stroke-width="3" fill="none"/>
+                <path d="M150 110 L150 30" stroke="#DAA520" stroke-width="3" fill="none"/>
+                <path d="M220 110 L220 50" stroke="#DAA520" stroke-width="3" fill="none"/>
+                <!-- 麦粒 -->
+                <ellipse cx="80" cy="40" rx="6" ry="10" fill="#FFD700"/>
+                <ellipse cx="75" cy="50" rx="5" ry="8" fill="#DAA520"/>
+                <ellipse cx="85" cy="50" rx="5" ry="8" fill="#DAA520"/>
+                <ellipse cx="150" cy="30" rx="7" ry="12" fill="#FFD700"/>
+                <ellipse cx="145" cy="42" rx="5" ry="9" fill="#DAA520"/>
+                <ellipse cx="155" cy="42" rx="5" ry="9" fill="#DAA520"/>
+                <ellipse cx="220" cy="50" rx="6" ry="10" fill="#FFD700"/>
+                <ellipse cx="215" cy="60" rx="5" ry="8" fill="#DAA520"/>
+                <ellipse cx="225" cy="60" rx="5" ry="8" fill="#DAA520"/>
+                <!-- 麦芒 -->
+                <line x1="80" y1="30" x2="75" y2="20" stroke="#B8860B" stroke-width="1"/>
+                <line x1="80" y1="30" x2="85" y2="18" stroke="#B8860B" stroke-width="1"/>
+                <line x1="150" y1="20" x2="145" y2="8" stroke="#B8860B" stroke-width="1"/>
+                <line x1="150" y1="20" x2="155" y2="6" stroke="#B8860B" stroke-width="1"/>
+            </svg>`;
+        }
+
+        // 荷花图案
+        function generateLotusSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="lotusGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+                        <stop offset="0%" style="stop-color:#FFB7C5"/>
+                        <stop offset="100%" style="stop-color:#FF69B4"/>
+                    </linearGradient>
+                </defs>
+                <!-- 荷叶 -->
+                <ellipse cx="60" cy="90" rx="30" ry="15" fill="#228B22" opacity="0.7"/>
+                <ellipse cx="240" cy="95" rx="25" ry="12" fill="#32CD32" opacity="0.6"/>
+                <ellipse cx="150" cy="100" rx="40" ry="20" fill="#228B22" opacity="0.5"/>
+                <!-- 荷花花瓣 -->
+                <path d="M150 50 Q130 30 150 10 Q170 30 150 50" fill="url(#lotusGrad)"/>
+                <path d="M140 55 Q115 35 140 15 Q155 35 140 55" fill="#FFB7C5" opacity="0.8"/>
+                <path d="M160 55 Q185 35 160 15 Q145 35 160 55" fill="#FFB7C5" opacity="0.8"/>
+                <path d="M130 60 Q105 40 130 25 Q145 45 130 60" fill="#FFC0CB" opacity="0.6"/>
+                <path d="M170 60 Q195 40 170 25 Q155 45 170 60" fill="#FFC0CB" opacity="0.6"/>
+                <!-- 荷花中心 -->
+                <circle cx="150" cy="40" r="8" fill="#FFD700"/>
+            </svg>`;
+        }
+
+        // 秋叶图案
+        function generateAutumnLeavesSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- 枫叶 -->
+                <path d="M80 30 L70 10 L60 30 L40 25 L60 50 L80 80 L100 50 L120 25 L100 30 L90 10 L80 30" fill="#FF4500" opacity="0.8"/>
+                <path d="M220 35 L210 15 L200 35 L180 30 L200 55 L220 85 L240 55 L260 30 L240 35 L230 15 L220 35" fill="#FF6347" opacity="0.7"/>
+                <!-- 秋叶飘落 -->
+                <ellipse cx="50" cy="70" rx="10" ry="5" fill="#DAA520" opacity="0.6" transform="rotate(-30 50 70)"/>
+                <ellipse cx="150" cy="90" rx="8" ry="4" fill="#CD853F" opacity="0.7" transform="rotate(20 150 90)"/>
+                <ellipse cx="270" cy="75" rx="12" ry="6" fill="#B8860B" opacity="0.5" transform="rotate(-45 270 75)"/>
+            </svg>`;
+        }
+
+        // 白露/寒露图案
+        function generateDewSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- 草叶 -->
+                <path d="M50 110 Q60 80 55 50" stroke="#228B22" stroke-width="2" fill="none"/>
+                <path d="M100 110 Q90 70 95 40" stroke="#32CD32" stroke-width="2" fill="none"/>
+                <path d="M200 110 Q210 75 205 45" stroke="#228B22" stroke-width="2" fill="none"/>
+                <path d="M250 110 Q240 65 245 35" stroke="#90EE90" stroke-width="2" fill="none"/>
+                <!-- 露珠 -->
+                <circle cx="55" cy="55" r="5" fill="#87CEEB" opacity="0.9"/>
+                <circle cx="95" cy="45" r="4" fill="#B0E0E6" opacity="0.85"/>
+                <circle cx="205" cy="50" r="6" fill="#87CEEB" opacity="0.8"/>
+                <circle cx="245" cy="40" r="3" fill="#ADD8E6" opacity="0.9"/>
+                <!-- 露珠光泽 -->
+                <circle cx="53" cy="53" r="2" fill="#FFFFFF" opacity="0.5"/>
+                <circle cx="203" cy="48" r="2.5" fill="#FFFFFF" opacity="0.4"/>
+            </svg>`;
+        }
+
+        // 霜降图案
+        function generateFrostSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- 霜晶 -->
+                <polygon points="50,50 45,35 50,20 55,35" fill="#E0FFFF" opacity="0.7"/>
+                <polygon points="50,50 35,45 20,50 35,55" fill="#B0E0E6" opacity="0.6"/>
+                <polygon points="50,50 65,45 80,50 65,55" fill="#E0FFFF" opacity="0.7"/>
+                <polygon points="150,40 145,25 150,10 155,25" fill="#87CEEB" opacity="0.8"/>
+                <polygon points="150,40 135,35 120,40 135,45" fill="#ADD8E6" opacity="0.7"/>
+                <polygon points="150,40 165,35 180,40 165,45" fill="#87CEEB" opacity="0.8"/>
+                <polygon points="250,60 245,45 250,30 255,45" fill="#E0FFFF" opacity="0.6"/>
+                <polygon points="250,60 235,55 220,60 235,65" fill="#B0E0E6" opacity="0.5"/>
+                <polygon points="250,60 265,55 280,60 265,65" fill="#E0FFFF" opacity="0.6"/>
+            </svg>`;
+        }
+
+        // 冬季图案
+        function generateWinterSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- 树枝 -->
+                <path d="M100 110 L100 60 L80 40" stroke="#4A4A4A" stroke-width="3" fill="none"/>
+                <path d="M100 60 L120 30" stroke="#5A5A5A" stroke-width="2" fill="none"/>
+                <path d="M200 110 L200 70 L180 50" stroke="#4A4A4A" stroke-width="3" fill="none"/>
+                <path d="M200 70 L220 40" stroke="#5A5A5A" stroke-width="2" fill="none"/>
+                <!-- 雪 -->
+                <circle cx="80" cy="42" r="3" fill="#FFFFFF" opacity="0.8"/>
+                <circle cx="120" cy="32" r="4" fill="#F0F0F0" opacity="0.9"/>
+                <circle cx="180" cy="52" r="3" fill="#FFFFFF" opacity="0.85"/>
+                <circle cx="220" cy="42" r="4" fill="#F0F0F0" opacity="0.9"/>
+            </svg>`;
+        }
+
+        // 雪花图案
+        function generateSnowSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- 雪花 -->
+                <g transform="translate(75, 50)">
+                    <line x1="0" y1="-20" x2="0" y2="20" stroke="#FFFFFF" stroke-width="2"/>
+                    <line x1="-17" y1="-10" x2="17" y2="10" stroke="#E0FFFF" stroke-width="2"/>
+                    <line x1="-17" y1="10" x2="17" y2="-10" stroke="#E0FFFF" stroke-width="2"/>
+                    <circle cx="0" cy="-20" r="3" fill="#FFFFFF"/>
+                    <circle cx="0" cy="20" r="3" fill="#FFFFFF"/>
+                    <circle cx="17" cy="10" r="2" fill="#E0FFFF"/>
+                    <circle cx="-17" cy="10" r="2" fill="#E0FFFF"/>
+                </g>
+                <g transform="translate(150, 40)">
+                    <line x1="0" y1="-25" x2="0" y2="25" stroke="#FFFFFF" stroke-width="2"/>
+                    <line x1="-22" y1="-12" x2="22" y2="12" stroke="#E0FFFF" stroke-width="2"/>
+                    <line x1="-22" y1="12" x2="22" y2="-12" stroke="#E0FFFF" stroke-width="2"/>
+                    <circle cx="0" cy="-25" r="4" fill="#FFFFFF"/>
+                    <circle cx="0" cy="25" r="4" fill="#FFFFFF"/>
+                    <circle cx="22" cy="12" r="3" fill="#E0FFFF"/>
+                    <circle cx="-22" cy="12" r="3" fill="#E0FFFF"/>
+                </g>
+                <g transform="translate(225, 60)">
+                    <line x1="0" y1="-18" x2="0" y2="18" stroke="#FFFFFF" stroke-width="2"/>
+                    <line x1="-15" y1="-9" x2="15" y2="9" stroke="#E0FFFF" stroke-width="2"/>
+                    <line x1="-15" y1="9" x2="15" y2="-9" stroke="#E0FFFF" stroke-width="2"/>
+                    <circle cx="0" cy="-18" r="2" fill="#FFFFFF"/>
+                    <circle cx="0" cy="18" r="2" fill="#FFFFFF"/>
+                </g>
+            </svg>`;
+        }
+
+        // 冰晶图案
+        function generateIceSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- 冰晶结构 -->
+                <polygon points="150,10 140,30 120,30 140,50 120,70 150,50 180,70 160,50 180,30 160,30" fill="#87CEEB" opacity="0.4"/>
+                <polygon points="150,10 145,25 150,40 155,25" fill="#ADD8E6" opacity="0.6"/>
+                <!-- 小冰晶 -->
+                <polygon points="50,60 45,50 35,55 45,70 55,55" fill="#E0FFFF" opacity="0.5"/>
+                <polygon points="250,50 245,40 235,45 245,60 255,45" fill="#B0E0E6" opacity="0.5"/>
+            </svg>`;
+        }
+
+        // 灯笼图案（春节/除夕）
+        function generateLanternSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="lanternGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#FF4500"/>
+                        <stop offset="100%" style="stop-color:#FF0000"/>
+                    </linearGradient>
+                </defs>
+                <!-- 灯笼挂绳 -->
+                <line x1="100" y1="5" x2="100" y2="20" stroke="#8B4513" stroke-width="2"/>
+                <line x1="200" y1="5" x2="200" y2="20" stroke="#8B4513" stroke-width="2"/>
+                <!-- 灯笼顶 -->
+                <rect x="85" y="18" width="30" height="8" fill="#FFD700"/>
+                <rect x="185" y="18" width="30" height="8" fill="#FFD700"/>
+                <!-- 灯笼主体 -->
+                <ellipse cx="100" cy="55" rx="25" ry="35" fill="url(#lanternGrad)"/>
+                <ellipse cx="200" cy="55" rx="25" ry="35" fill="url(#lanternGrad)"/>
+                <!-- 灯笼横纹 -->
+                <ellipse cx="100" cy="40" rx="20" ry="3" fill="none" stroke="#FFD700" stroke-width="1"/>
+                <ellipse cx="100" cy="70" rx="20" ry="3" fill="none" stroke="#FFD700" stroke-width="1"/>
+                <ellipse cx="200" cy="40" rx="20" ry="3" fill="none" stroke="#FFD700" stroke-width="1"/>
+                <ellipse cx="200" cy="70" rx="20" ry="3" fill="none" stroke="#FFD700" stroke-width="1"/>
+                <!-- 灯笼穗 -->
+                <path d="M100 90 L100 110" stroke="#FF4500" stroke-width="2"/>
+                <path d="M95 90 L93 105" stroke="#FF0000" stroke-width="1"/>
+                <path d="M105 90 L107 105" stroke="#FF0000" stroke-width="1"/>
+                <path d="M200 90 L200 110" stroke="#FF4500" stroke-width="2"/>
+            </svg>`;
+        }
+
+        // 元宵花灯图案
+        function generateFestivalLanternSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="lightGrad" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" style="stop-color:#FFD700"/>
+                        <stop offset="100%" style="stop-color:#FFA500"/>
+                    </radialGradient>
+                </defs>
+                <!-- 多彩花灯 -->
+                <circle cx="60" cy="50" r="20" fill="#FF69B4" opacity="0.8"/>
+                <circle cx="60" cy="50" r="12" fill="url(#lightGrad)"/>
+                <circle cx="150" cy="40" r="25" fill="#FF4500" opacity="0.8"/>
+                <circle cx="150" cy="40" r="15" fill="url(#lightGrad)"/>
+                <circle cx="240" cy="55" r="18" fill="#9370DB" opacity="0.8"/>
+                <circle cx="240" cy="55" r="10" fill="url(#lightGrad)"/>
+                <!-- 光芒 -->
+                <line x1="60" y1="30" x2="60" y2="10" stroke="#FFD700" stroke-width="1" opacity="0.6"/>
+                <line x1="150" y1="20" x2="150" y2="5" stroke="#FFD700" stroke-width="1.5" opacity="0.7"/>
+                <line x1="240" y1="37" x2="240" y2="20" stroke="#FFD700" stroke-width="1" opacity="0.6"/>
+            </svg>`;
+        }
+
+        // 龙舟图案
+        function generateDragonBoatSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- 龙舟 -->
+                <path d="M50 70 Q100 60 150 70 Q200 60 250 70 L240 80 Q150 75 60 80 L50 70" fill="#FF4500" opacity="0.8"/>
+                <!-- 龙头 -->
+                <ellipse cx="50" cy="65" rx="15" ry="10" fill="#FFD700"/>
+                <circle cx="40" cy="60" r="3" fill="#000"/>
+                <!-- 龙尾 -->
+                <path d="M250 70 Q260 60 270 65 Q275 55 280 60" stroke="#FF4500" stroke-width="2" fill="none"/>
+                <!-- 波浪 -->
+                <path d="M30 90 Q60 85 90 90 Q120 85 150 90 Q180 85 210 90 Q240 85 270 90" stroke="#4169E1" stroke-width="2" fill="none"/>
+                <path d="M20 100 Q50 95 80 100 Q110 95 140 100 Q170 95 200 100 Q230 95 260 100" stroke="#1E90FF" stroke-width="1.5" fill="none"/>
+            </svg>`;
+        }
+
+        // 星空图案（七夕）
+        function generateStarsSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="starGrad" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" style="stop-color:#FFFFFF"/>
+                        <stop offset="100%" style="stop-color:#87CEEB"/>
+                    </radialGradient>
+                </defs>
+                <!-- 星星 -->
+                <circle cx="50" cy="30" r="3" fill="url(#starGrad)"/>
+                <circle cx="100" cy="50" r="4" fill="url(#starGrad)"/>
+                <circle cx="150" cy="25" r="5" fill="url(#starGrad)"/>
+                <circle cx="200" cy="45" r="3" fill="url(#starGrad)"/>
+                <circle cx="250" cy="35" r="4" fill="url(#starGrad)"/>
+                <circle cx="75" cy="60" r="2" fill="#FFFFFF" opacity="0.7"/>
+                <circle cx="175" cy="70" r="2.5" fill="#FFFFFF" opacity="0.8"/>
+                <circle cx="225" cy="55" r="2" fill="#FFFFFF" opacity="0.6"/>
+                <!-- 银河 -->
+                <path d="M30 80 Q100 60 170 80 Q240 60 280 80" stroke="#E6E6FA" stroke-width="8" fill="none" opacity="0.3"/>
+                <!-- 月亮 -->
+                <circle cx="280" cy="20" r="15" fill="#F0E68C" opacity="0.6"/>
+            </svg>`;
+        }
+
+        // 月亮图案（中秋）
+        function generateMoonSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="moonGrad" cx="30%" cy="30%" r="70%">
+                        <stop offset="0%" style="stop-color:#FFFACD"/>
+                        <stop offset="100%" style="stop-color:#F0E68C"/>
+                    </radialGradient>
+                </defs>
+                <!-- 满月 -->
+                <circle cx="150" cy="50" r="35" fill="url(#moonGrad)"/>
+                <!-- 月亮纹理 -->
+                <circle cx="140" cy="40" r="8" fill="#EEE8AA" opacity="0.5"/>
+                <circle cx="160" cy="55" r="6" fill="#EEE8AA" opacity="0.4"/>
+                <circle cx="135" cy="60" r="5" fill="#EEE8AA" opacity="0.3"/>
+                <!-- 桂花 -->
+                <circle cx="50" cy="80" r="5" fill="#FFD700" opacity="0.6"/>
+                <circle cx="45" cy="90" r="4" fill="#DAA520" opacity="0.5"/>
+                <circle cx="250" cy="85" r="5" fill="#FFD700" opacity="0.6"/>
+                <circle cx="255" cy="95" r="4" fill="#DAA520" opacity="0.5"/>
+            </svg>`;
+        }
+
+        // 山峰图案（重阳）
+        function generateMountainSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- 山峰 -->
+                <path d="M50 110 L100 40 L150 110" fill="#8B4513" opacity="0.6"/>
+                <path d="M150 110 L200 30 L250 110" fill="#A0522D" opacity="0.7"/>
+                <!-- 云雾 -->
+                <ellipse cx="100" cy="60" rx="20" ry="8" fill="#FFFFFF" opacity="0.4"/>
+                <ellipse cx="200" cy="50" rx="25" ry="10" fill="#F5F5F5" opacity="0.3"/>
+                <!-- 菊花 -->
+                <circle cx="80" cy="95" r="6" fill="#FFD700" opacity="0.7"/>
+                <circle cx="220" cy="100" r="5" fill="#FFA500" opacity="0.6"/>
+            </svg>`;
+        }
+
+        // 温暖图案（腊八/小年）
+        function generateWarmSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="warmGrad" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" style="stop-color:#FF6347"/>
+                        <stop offset="100%" style="stop-color:#FF4500"/>
+                    </radialGradient>
+                </defs>
+                <!-- 火焰 -->
+                <ellipse cx="150" cy="70" rx="30" ry="40" fill="url(#warmGrad)" opacity="0.7"/>
+                <path d="M130 50 Q150 30 170 50" fill="#FFA500" opacity="0.8"/>
+                <path d="M140 40 Q150 20 160 40" fill="#FFD700" opacity="0.9"/>
+                <!-- 烟气 -->
+                <path d="M140 20 Q135 10 140 5" stroke="#D3D3D3" stroke-width="2" fill="none" opacity="0.4"/>
+                <path d="M160 20 Q165 10 160 5" stroke="#D3D3D3" stroke-width="2" fill="none" opacity="0.4"/>
+            </svg>`;
+        }
+
+        // 新年图案
+        function generateNewYearSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- 烟花 -->
+                <circle cx="100" cy="50" r="25" fill="none" stroke="#FF4500" stroke-width="1" opacity="0.6"/>
+                <circle cx="100" cy="50" r="20" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.7"/>
+                <circle cx="100" cy="50" r="15" fill="none" stroke="#FF69B4" stroke-width="1" opacity="0.8"/>
+                <circle cx="200" cy="40" r="30" fill="none" stroke="#4169E1" stroke-width="1" opacity="0.5"/>
+                <circle cx="200" cy="40" r="25" fill="none" stroke="#87CEEB" stroke-width="1" opacity="0.6"/>
+                <circle cx="200" cy="40" r="20" fill="none" stroke="#ADD8E6" stroke-width="1" opacity="0.7"/>
+                <!-- 光点 -->
+                <circle cx="100" cy="50" r="5" fill="#FFD700"/>
+                <circle cx="200" cy="40" r="4" fill="#87CEEB"/>
+            </svg>`;
+        }
+
+        // 花朵图案（劳动节）
+        function generateFlowerSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- 花朵 -->
+                <circle cx="100" cy="50" r="20" fill="#FF69B4" opacity="0.7"/>
+                <circle cx="85" cy="35" r="15" fill="#FFB7C5" opacity="0.6"/>
+                <circle cx="115" cy="35" r="15" fill="#FFB7C5" opacity="0.6"/>
+                <circle cx="85" cy="65" r="15" fill="#FFC0CB" opacity="0.5"/>
+                <circle cx="115" cy="65" r="15" fill="#FFC0CB" opacity="0.5"/>
+                <circle cx="100" cy="50" r="8" fill="#FFD700"/>
+                <circle cx="200" cy="55" r="18" fill="#9370DB" opacity="0.6"/>
+                <circle cx="185" cy="40" r="12" fill="#DDA0DD" opacity="0.5"/>
+                <circle cx="215" cy="40" r="12" fill="#DDA0DD" opacity="0.5"/>
+                <circle cx="200" cy="55" r="6" fill="#FFD700"/>
+            </svg>`;
+        }
+
+        // 国旗图案
+        function generateFlagSVG() {
+            return `<svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- 红旗 -->
+                <rect x="80" y="30" width="140" height="80" fill="#DE2910"/>
+                <!-- 五星 -->
+                <circle cx="120" cy="55" r="12" fill="#FFDE00"/>
+                <polygon points="120,43 117,50 110,50 115,55 113,62 120,58 127,62 125,55 130,50 123,50" fill="#FFDE00"/>
+                <!-- 小星星 -->
+                <circle cx="155" cy="45" r="5" fill="#FFDE00"/>
+                <circle cx="165" cy="55" r="4" fill="#FFDE00"/>
+                <circle cx="165" cy="70" r="4" fill="#FFDE00"/>
+                <circle cx="155" cy="80" r="5" fill="#FFDE00"/>
+            </svg>`;
+        }
+
+        // 默认春季图案
+        function generateDefaultSVG(season) {
+            if (season === 'summer') return generateSunSVG();
+            if (season === 'autumn') return generateAutumnLeavesSVG();
+            if (season === 'winter') return generateSnowSVG();
+            return generateSpringFlowersSVG();
+        }
+
+        // 默认节日图案
+        function generateFestivalDefaultSVG() {
+            return generateLanternSVG();
+        }
+
+        // 渲染海报内容
+        function renderPosterContent(event) {
+            const posterBg = document.getElementById('posterBg');
+            const posterBgOverlay = document.getElementById('posterBgOverlay');
+            const posterArt = document.getElementById('posterArt');
+            const posterIcon = document.getElementById('posterIcon');
+            const posterType = document.getElementById('posterType');
+            const posterTitle = document.getElementById('posterTitle');
+            const posterDate = document.getElementById('posterDate');
+            const posterCountdown = document.getElementById('posterCountdown');
+            const posterPoemTitle = document.getElementById('posterPoemTitle');
+            const posterPoem = document.getElementById('posterPoem');
+            const posterDesc = document.getElementById('posterDesc');
+
+            posterTitle.textContent = event.name;
+            posterCountdown.textContent = `${event.daysAway}天后`;
+
+            const weekNames = ['日', '一', '二', '三', '四', '五', '六'];
+            posterDate.textContent = `${event.date.getFullYear()}年${event.date.getMonth() + 1}月${event.date.getDate()}日 星期${weekNames[event.date.getDay()]}`;
+
+            // 获取数据
+            let data, season;
+            if (event.isSolarTerm) {
+                posterType.textContent = '二十四节气';
+                data = solarTermsData[event.name];
+                season = data?.season || 'spring';
+                posterBg.className = 'poster-bg ' + season;
+            } else {
+                posterType.textContent = '传统佳节';
+                data = festivalsData[event.name];
+                posterBg.className = 'poster-bg festival';
+                season = 'festival';
+            }
+
+            // header保持原有渐变背景，不显示图片
+            posterBg.style.backgroundImage = '';
+            posterBg.classList.remove('has-image');
+            posterBgOverlay.style.display = 'none';
+
+            // 尝试在content区域显示图片
+            if (data?.image) {
+                const img = new Image();
+                img.onload = function() {
+                    posterArt.innerHTML = `<img src="${data.image}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" />`;
+                    posterArt.style.display = 'block';
+                };
+                img.onerror = function() {
+                    // 图片加载失败，显示SVG图案
+                    generatePosterArt(event.name, event.isSolarTerm);
+                };
+                img.src = data.image;
+            } else {
+                // 没有图片路径，显示SVG图案
+                generatePosterArt(event.name, event.isSolarTerm);
+            }
+
+            if (data) {
+                posterIcon.textContent = data.icon || '🌸';
+                posterPoemTitle.textContent = '— 诗词赏析 —';
+                posterPoem.textContent = data.poem;
+                posterDesc.textContent = data.desc;
+            } else {
+                posterIcon.textContent = '🌸';
+                posterPoemTitle.textContent = '';
+                posterPoem.textContent = '';
+                posterDesc.textContent = '';
+            }
+        }
+
+        // 显示上一个海报（循环）
+        function showPrevPoster() {
+            if (posterEventsList.length === 0) return;
+            if (currentPosterIndex <= 0) {
+                currentPosterIndex = posterEventsList.length - 1; // 跳到最后一个
+            } else {
+                currentPosterIndex--;
+            }
+            renderPosterContent(posterEventsList[currentPosterIndex]);
+            updatePosterNavButtons();
+        }
+
+        // 显示最近的
+        function showNearestPoster() {
+            if (posterEventsList.length === 0) return;
+            currentPosterIndex = 0;
+            renderPosterContent(posterEventsList[0]);
+            updatePosterNavButtons();
+        }
+
+        // 显示下一个海报（循环）
+        function showNextPoster() {
+            if (posterEventsList.length === 0) return;
+            if (currentPosterIndex >= posterEventsList.length - 1) {
+                currentPosterIndex = 0; // 跳到第一个
+            } else {
+                currentPosterIndex++;
+            }
+            renderPosterContent(posterEventsList[currentPosterIndex]);
+            updatePosterNavButtons();
+        }
+
+        // 更新导航按钮状态
+        function updatePosterNavButtons() {
+            const prevBtn = document.getElementById('posterBtnPrev');
+            const nearestBtn = document.getElementById('posterBtnNearest');
+            const nextBtn = document.getElementById('posterBtnNext');
+
+            nearestBtn.classList.toggle('active', currentPosterIndex === 0);
+            prevBtn.classList.toggle('active', false);
+            nextBtn.classList.toggle('active', false);
+        }
+
         // 初始化
         function init() {
             const today = new Date();
@@ -1364,12 +2569,18 @@
 
             initYearMonthPicker();
 
+            // 绑定海报导航按钮事件
+            document.getElementById('posterBtnPrev').addEventListener('click', showPrevPoster);
+            document.getElementById('posterBtnNearest').addEventListener('click', showNearestPoster);
+            document.getElementById('posterBtnNext').addEventListener('click', showNextPoster);
+
             renderCalendar(currentYear, currentMonth);
             updateHuangli(currentYear, currentMonth, today.getDate());
             updateHolidayList();
             updateWidgetCalendar(currentYear, currentMonth, today.getDate());
             updateWidgetCalendarOld(currentYear, currentMonth, today.getDate());
             updateWidgetCalendarMonth(currentYear, currentMonth, today.getDate());
+            updateFestivalPoster();
         }
 
         // 初始化年月选择器
