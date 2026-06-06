@@ -691,18 +691,7 @@
 
         /* 传统装饰边框 */
         .poster-border-decor {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg,
-                transparent 0%,
-                rgba(255, 90, 93, 0.6) 20%,
-                rgba(255, 90, 93, 0.8) 50%,
-                rgba(255, 90, 93, 0.6) 80%,
-                transparent 100%);
-            z-index: 3;
+            display: none;
         }
 
         .poster-header {
@@ -781,6 +770,27 @@
             height: auto;
             display: block;
             border-radius: 12px;
+        }
+
+        /* 海报图片加载动画 */
+        .poster-art.loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 140px;
+        }
+
+        .poster-art .loading-spinner {
+            width: 36px;
+            height: 36px;
+            border: 3px solid rgba(255, 90, 93, 0.15);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: poster-spin 0.8s linear infinite;
+        }
+
+        @keyframes poster-spin {
+            to { transform: rotate(360deg); }
         }
 
         /* 春季节气图案 - 花朵嫩芽 */
@@ -1795,7 +1805,7 @@
                     const solar = jieQi.getSolar();
                     const date = new Date(solar.getYear(), solar.getMonth() - 1, solar.getDay());
                     const daysAway = Math.ceil((date - today) / (1000 * 60 * 60 * 24));
-                    if (daysAway > 0 && daysAway <= 365) {
+                    if (daysAway >= 0 && daysAway <= 365) {
                         posterEventsList.push({ name, date, daysAway, isSolarTerm: true });
                     }
                     // 移动到这个节气之后的日期，继续查找下一个
@@ -1837,7 +1847,7 @@
                     if (festivalDate) {
                         const festDate = new Date(festivalDate.getYear(), festivalDate.getMonth() - 1, festivalDate.getDay());
                         const daysAway = Math.ceil((festDate - today) / (1000 * 60 * 60 * 24));
-                        if (daysAway > 0 && daysAway <= 365) {
+                        if (daysAway >= 0 && daysAway <= 365) {
                             posterEventsList.push({ name, date: festDate, daysAway, isSolarTerm: false });
                         }
                     }
@@ -1864,7 +1874,7 @@
                 for (const fest of solarFestivals) {
                     const festDate = new Date(year, fest.month - 1, fest.day);
                     const daysAway = Math.ceil((festDate - today) / (1000 * 60 * 60 * 24));
-                    if (daysAway > 0 && daysAway <= 365) {
+                    if (daysAway >= 0 && daysAway <= 365) {
                         posterEventsList.push({ name: fest.name, date: festDate, daysAway, isSolarTerm: false });
                     }
                 }
@@ -2490,8 +2500,14 @@
 
             // 尝试在content区域显示图片
             if (data?.image) {
+                // 立即显示加载动画，清除旧图片
+                posterArt.className = 'poster-art loading';
+                posterArt.innerHTML = '<div class="loading-spinner"></div>';
+                posterArt.style.display = 'flex';
+
                 const img = new Image();
                 img.onload = function() {
+                    posterArt.className = 'poster-art';
                     posterArt.innerHTML = `<img src="${data.image}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" />`;
                     posterArt.style.display = 'block';
                 };
