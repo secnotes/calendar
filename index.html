@@ -2500,22 +2500,34 @@
 
             // 尝试在content区域显示图片
             if (data?.image) {
-                // 立即显示加载动画，清除旧图片
-                posterArt.className = 'poster-art loading';
-                posterArt.innerHTML = '<div class="loading-spinner"></div>';
-                posterArt.style.display = 'flex';
+                let loadingTimer = null;
+                let isLoaded = false;
+
+                const showLoading = () => {
+                    if (!isLoaded) {
+                        posterArt.className = 'poster-art loading';
+                        posterArt.innerHTML = '<div class="loading-spinner"></div>';
+                        posterArt.style.display = 'flex';
+                    }
+                };
 
                 const img = new Image();
                 img.onload = function() {
+                    isLoaded = true;
+                    if (loadingTimer) clearTimeout(loadingTimer);
                     posterArt.className = 'poster-art';
                     posterArt.innerHTML = `<img src="${data.image}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" />`;
                     posterArt.style.display = 'block';
                 };
                 img.onerror = function() {
-                    // 图片加载失败，显示SVG图案
+                    isLoaded = true;
+                    if (loadingTimer) clearTimeout(loadingTimer);
                     generatePosterArt(event.name, event.isSolarTerm);
                 };
                 img.src = data.image;
+
+                // 延迟显示加载动画，如果图片在150ms内加载完成则不显示动画
+                loadingTimer = setTimeout(showLoading, 150);
             } else {
                 // 没有图片路径，显示SVG图案
                 generatePosterArt(event.name, event.isSolarTerm);
