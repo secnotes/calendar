@@ -483,12 +483,12 @@
 
         .widget-calendar-old .yi-content::before {
             content: '宜';
-            background: linear-gradient(135deg, #4e6ef2 0%, #6b8cff 100%);
+            background: #4cb153;
         }
 
         .widget-calendar-old .ji-content::before {
             content: '忌';
-            background: var(--primary-gradient);
+            background: #d42f32;
         }
 
         /* widget-calendar-month 卡片 */
@@ -974,6 +974,18 @@
             position: relative;
             line-height: 26px;
             margin-bottom: 10px;
+            border-radius: 8px;
+            padding-top: 6px;
+            padding-bottom: 6px;
+            padding-right: 10px;
+        }
+
+        .huangli-card .yi {
+            background-color: #e8f5e9;
+        }
+
+        .huangli-card .ji {
+            background-color: #fdecea;
         }
 
         .huangli-card .yi::before,
@@ -2177,118 +2189,78 @@
         .hl-section-ji {
             position: relative;
             border-bottom: 1px solid rgb(244, 196, 147);
-            height: 180px;
+            min-height: 180px;
             overflow: hidden;
         }
 
         .hl-section-jishen {
-            height: 165px;
+            min-height: 165px;
             overflow: hidden;
             border-bottom: 1px solid rgb(244, 196, 147);
         }
 
         .hl-section-xiongsha {
-            height: 165px;
+            min-height: 165px;
             overflow: hidden;
             border-bottom: 1px solid rgb(244, 196, 147);
         }
 
-        /* 宜徽章 - 绿色三层同心圆 */
+        /* 宜徽章 - 绿色实心圆 + 白色外环 */
         .hl-badge-yi {
-            position: relative;
-            width: 36px;
-            height: 36px;
-            line-height: 36px;
+            position: absolute;
+            left: 50%;
+            top: 14px;
+            transform: translateX(-50%);
+            width: 46px;
+            height: 46px;
+            line-height: 46px;
             border-radius: 50%;
-            background: rgb(92, 184, 92);
-            color: #fff;
-            font-size: 16px;
+            background: rgb(76, 175, 80);
+            color: #fff !important;
+            font-size: 20px;
             font-weight: 700;
             text-align: center;
-            margin: 8px 0 0 8px;
-            z-index: 2;
+            z-index: 1;
+            box-shadow: 0 0 0 3px #fff, 0 0 0 6px rgb(76, 175, 80);
         }
 
-        .hl-badge-yi::before {
-            content: '';
-            position: absolute;
-            left: -2px;
-            top: -2px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #fff;
-            z-index: -1;
-        }
-
-        .hl-badge-yi::after {
-            content: '';
-            position: absolute;
-            left: -4px;
-            top: -4px;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgb(92, 184, 92);
-            z-index: -2;
-        }
-
-        /* 忌徽章 - 红色三层同心圆 */
+        /* 忌徽章 - 红色实心圆 + 白色外环 */
         .hl-badge-ji {
-            position: relative;
-            width: 36px;
-            height: 36px;
-            line-height: 36px;
+            position: absolute;
+            left: 50%;
+            top: 14px;
+            transform: translateX(-50%);
+            width: 46px;
+            height: 46px;
+            line-height: 46px;
             border-radius: 50%;
-            background: rgb(217, 83, 79);
-            color: #fff;
-            font-size: 16px;
+            background: rgb(211, 47, 47);
+            color: #fff !important;
+            font-size: 20px;
             font-weight: 700;
             text-align: center;
-            margin: 8px 0 0 8px;
-            z-index: 2;
-        }
-
-        .hl-badge-ji::before {
-            content: '';
-            position: absolute;
-            left: -2px;
-            top: -2px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #fff;
-            z-index: -1;
-        }
-
-        .hl-badge-ji::after {
-            content: '';
-            position: absolute;
-            left: -4px;
-            top: -4px;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgb(217, 83, 79);
-            z-index: -2;
+            z-index: 1;
+            box-shadow: 0 0 0 3px #fff, 0 0 0 6px rgb(211, 47, 47);
         }
 
         /* 宜忌列表 */
         .hl-yi-list,
         .hl-ji-list {
-            padding: 8px 8px 4px 56px;
+            padding: 60px 8px 8px 8px;
             display: flex;
             flex-wrap: wrap;
             gap: 4px;
             align-content: flex-start;
+            height: 100%;
+            overflow-y: auto;
         }
 
         .hl-yi-item {
-            width: 25%;
-            height: 32px;
-            line-height: 32px;
+            width: 20%;
+            height: 28px;
+            line-height: 28px;
             text-align: center;
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-primary);
             background: rgba(92, 184, 92, 0.06);
             border-radius: 4px;
@@ -2296,11 +2268,11 @@
         }
 
         .hl-ji-item {
-            width: 25%;
-            height: 32px;
-            line-height: 32px;
+            width: 20%;
+            height: 28px;
+            line-height: 28px;
             text-align: center;
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-primary);
             background: rgba(217, 83, 79, 0.06);
             border-radius: 4px;
@@ -2319,55 +2291,80 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px 0 10px;
+            padding: 30px 0 40px;
             gap: 20px;
+            background: linear-gradient(180deg, #fff9f5 0%, #fff5ee 100%);
+            position: relative;
+            margin: 0 15px 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(188, 47, 63, 0.08);
+        }
+
+        /* 手撕日历撕裂效果 */
+        .hl-center-top::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(135deg, transparent 33.33%, #fff5ee 33.33%, #fff5ee 66.67%, transparent 66.67%),
+                        linear-gradient(225deg, transparent 33.33%, #fff5ee 33.33%, #fff5ee 66.67%, transparent 66.67%);
+            background-size: 12px 8px;
+            background-position: 0 0;
         }
 
         .hl-day-number {
-            font-size: 120px;
-            font-weight: 700;
+            font-size: 180px;
+            font-weight: 800;
             color: rgb(188, 47, 63);
             line-height: 1;
-            min-width: 140px;
+            min-width: 180px;
             text-align: center;
+            text-shadow: 2px 2px 4px rgba(188, 47, 63, 0.1);
+            letter-spacing: -8px;
         }
 
         .hl-arrow {
             width: 0;
             height: 0;
             cursor: pointer;
-            transition: filter 0.2s;
+            transition: all 0.2s;
+            opacity: 0.6;
         }
 
         .hl-arrow-prev {
-            border-top: 30px solid transparent;
-            border-bottom: 30px solid transparent;
-            border-right: 30px solid rgb(188, 47, 63);
+            border-top: 24px solid transparent;
+            border-bottom: 24px solid transparent;
+            border-right: 24px solid rgb(188, 47, 63);
         }
 
         .hl-arrow-next {
-            border-top: 30px solid transparent;
-            border-bottom: 30px solid transparent;
-            border-left: 30px solid rgb(188, 47, 63);
+            border-top: 24px solid transparent;
+            border-bottom: 24px solid transparent;
+            border-left: 24px solid rgb(188, 47, 63);
         }
 
         .hl-arrow:hover {
-            filter: brightness(1.2);
+            opacity: 1;
+            transform: scale(1.1);
         }
 
         .hl-center-date {
             text-align: center;
-            font-size: 16px;
+            font-size: 17px;
             color: var(--text-secondary);
-            padding: 4px 0;
+            padding: 8px 0 4px;
+            margin: 0 15px;
         }
 
         .hl-center-lunar {
             text-align: center;
-            font-size: 18px;
+            font-size: 20px;
             color: rgb(188, 47, 63);
             font-weight: 600;
-            padding: 4px 0 12px;
+            padding: 4px 0 16px;
+            margin: 0 15px;
         }
 
         /* 中栏网格区 */
