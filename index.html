@@ -1748,6 +1748,155 @@
             }
         }
 
+        /* ===== 合婚卡片 ===== */
+        .hehun-card {
+            margin-top: 24px;
+        }
+
+        .hehun-input-area {
+            display: flex;
+            align-items: stretch;
+            gap: 16px;
+            padding: 22px 28px;
+            background: #fbfcfd;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hehun-person {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: flex-end;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 16px;
+        }
+
+        .hehun-person-title {
+            width: 100%;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 0.95rem;
+        }
+
+        .hehun-person .bazi-input-group {
+            flex: 1;
+            min-width: 110px;
+        }
+
+        .hehun-vs {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .hehun-result {
+            padding: 24px 28px;
+        }
+
+        .hehun-score-wrap {
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .hehun-score {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .hehun-score small {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .hehun-score.good { color: #2e7d32; }
+        .hehun-score.ok   { color: #4e6ef2; }
+        .hehun-score.mid  { color: #c0881e; }
+        .hehun-score.bad  { color: #d9534f; }
+
+        .hehun-rating {
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 20px;
+            color: #fff;
+        }
+
+        .hehun-rating.good { background: #2e7d32; }
+        .hehun-rating.ok   { background: #4e6ef2; }
+        .hehun-rating.mid  { background: #c0881e; }
+        .hehun-rating.bad  { background: #d9534f; }
+
+        .hehun-dims {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .hehun-dim {
+            background: #fbfcfd;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 10px 14px;
+        }
+
+        .hehun-dim-head {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+
+        .hehun-dim-bar {
+            height: 6px;
+            background: rgba(0, 0, 0, 0.06);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+
+        .hehun-dim-bar i {
+            display: block;
+            height: 100%;
+            background: var(--primary-gradient);
+        }
+
+        .hehun-dim-detail {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .hehun-people {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .hehun-people span {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .hehun-disclaimer {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
         /* ===== 年历页 ===== */
         .year-container {
             max-width: 1200px;
@@ -2022,12 +2171,38 @@
             margin: 0 auto;
         }
 
+        .hl-card {
+            background: var(--card-bg);
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+        }
+
+        .hl-header {
+            background: var(--primary-gradient);
+            color: #fff;
+            padding: 22px 28px;
+        }
+
+        .hl-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .hl-header p {
+            font-size: 0.88rem;
+            opacity: 0.92;
+        }
+
         .hl-toolbar {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
-            margin-bottom: 18px;
+            padding: 18px 28px;
+            border-bottom: 1px solid var(--border-color);
+            background: #fbfcfd;
             flex-wrap: wrap;
         }
 
@@ -2092,8 +2267,6 @@
         /* 三栏布局 */
         .hl-layout {
             display: flex;
-            border: 2px solid rgb(246, 208, 123);
-            border-radius: 4px;
             overflow: hidden;
         }
 
@@ -2293,25 +2466,7 @@
             justify-content: center;
             padding: 30px 0 40px;
             gap: 20px;
-            background: linear-gradient(180deg, #fff9f5 0%, #fff5ee 100%);
-            position: relative;
             margin: 0 15px 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(188, 47, 63, 0.08);
-        }
-
-        /* 手撕日历撕裂效果 */
-        .hl-center-top::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            right: 0;
-            height: 8px;
-            background: linear-gradient(135deg, transparent 33.33%, #fff5ee 33.33%, #fff5ee 66.67%, transparent 66.67%),
-                        linear-gradient(225deg, transparent 33.33%, #fff5ee 33.33%, #fff5ee 66.67%, transparent 66.67%);
-            background-size: 12px 8px;
-            background-position: 0 0;
         }
 
         .hl-day-number {
@@ -2563,7 +2718,7 @@
         <nav class="nav-tabs" id="navTabs">
             <button class="nav-tab active" data-page="calendar">万年历</button>
             <button class="nav-tab" data-page="year">年历</button>
-            <button class="nav-tab" data-page="bazi">八字排盘</button>
+            <button class="nav-tab" data-page="bazi">八字</button>
             <button class="nav-tab" data-page="huangli">黄历</button>
         </nav>
     </header>
@@ -2761,6 +2916,80 @@
                 <div class="bazi-section-title">五行力量</div>
                 <div class="bazi-wuxing" id="baziWuxing"></div>
             </div>
+
+            <!-- 双人合婚卡片 -->
+            <div class="bazi-card hehun-card">
+                <div class="bazi-header">
+                    <h2>双人合婚</h2>
+                    <p>输入双方生辰，从日柱、五行、生肖、干支等维度评估相合度</p>
+                </div>
+                <div class="hehun-input-area">
+                    <div class="hehun-person">
+                        <div class="hehun-person-title">甲方</div>
+                        <div class="bazi-input-group">
+                            <label>出生日期</label>
+                            <input type="date" id="hehunDateA" min="1900-01-01">
+                        </div>
+                        <div class="bazi-input-group">
+                            <label>出生时辰</label>
+                            <select id="hehunShichenA">
+                                <option value="子">子时 (23:00-01:00)</option>
+                                <option value="丑">丑时 (01:00-03:00)</option>
+                                <option value="寅">寅时 (03:00-05:00)</option>
+                                <option value="卯">卯时 (05:00-07:00)</option>
+                                <option value="辰">辰时 (07:00-09:00)</option>
+                                <option value="巳">巳时 (09:00-11:00)</option>
+                                <option value="午">午时 (11:00-13:00)</option>
+                                <option value="未">未时 (13:00-15:00)</option>
+                                <option value="申">申时 (15:00-17:00)</option>
+                                <option value="酉">酉时 (17:00-19:00)</option>
+                                <option value="戌">戌时 (19:00-21:00)</option>
+                                <option value="亥">亥时 (21:00-23:00)</option>
+                            </select>
+                        </div>
+                        <div class="bazi-input-group">
+                            <label>性别</label>
+                            <select id="hehunGenderA">
+                                <option value="1">男</option>
+                                <option value="0">女</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hehun-vs">×</div>
+                    <div class="hehun-person">
+                        <div class="hehun-person-title">乙方</div>
+                        <div class="bazi-input-group">
+                            <label>出生日期</label>
+                            <input type="date" id="hehunDateB" min="1900-01-01">
+                        </div>
+                        <div class="bazi-input-group">
+                            <label>出生时辰</label>
+                            <select id="hehunShichenB">
+                                <option value="子">子时 (23:00-01:00)</option>
+                                <option value="丑">丑时 (01:00-03:00)</option>
+                                <option value="寅">寅时 (03:00-05:00)</option>
+                                <option value="卯">卯时 (05:00-07:00)</option>
+                                <option value="辰">辰时 (07:00-09:00)</option>
+                                <option value="巳">巳时 (09:00-11:00)</option>
+                                <option value="午">午时 (11:00-13:00)</option>
+                                <option value="未">未时 (13:00-15:00)</option>
+                                <option value="申">申时 (15:00-17:00)</option>
+                                <option value="酉">酉时 (17:00-19:00)</option>
+                                <option value="戌">戌时 (19:00-21:00)</option>
+                                <option value="亥">亥时 (21:00-23:00)</option>
+                            </select>
+                        </div>
+                        <div class="bazi-input-group">
+                            <label>性别</label>
+                            <select id="hehunGenderB">
+                                <option value="1">男</option>
+                                <option value="0">女</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="hehun-result" id="hehunResult"></div>
+            </div>
         </div>
     </main>
 
@@ -2778,6 +3007,11 @@
 
     <main class="page" id="page-huangli">
         <div class="hl-container">
+        <div class="hl-card">
+            <div class="hl-header">
+                <h2>黄历</h2>
+                <p>查询每日宜忌、干支、神煞与方位</p>
+            </div>
             <div class="hl-toolbar">
                 <input type="number" class="hl-year-input" id="hlYearInput" min="1900" max="2100">
                 <span class="hl-toolbar-sep">年</span>
@@ -2925,6 +3159,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </main>
 
@@ -4127,6 +4362,7 @@
             });
 
             renderBazi();
+            initHehun();
         }
 
         function renderBazi() {
@@ -4217,11 +4453,7 @@
             ).join('');
 
             // 五行统计(4干 + 4支 + 全部藏干)
-            const tally = { '金': 0, '木': 0, '水': 0, '火': 0, '土': 0 };
-            data.forEach(p => {
-                [p.gan, p.zhi].forEach(s => { const wx = wuxingOf(s); if (wx) tally[wx]++; });
-                (Array.isArray(p.hideGan) ? p.hideGan : []).forEach(s => { const wx = wuxingOf(s); if (wx) tally[wx]++; });
-            });
+            const tally = tallyOf(ec);
             const order = ['金', '木', '水', '火', '土'];
             const max = Math.max(...order.map(k => tally[k]));
             const wxHtml = order.map(k => {
@@ -4234,6 +4466,178 @@
             const lacking = order.filter(k => tally[k] === 0).map(k => `<span class="tag weak">缺${k}</span>`).join('');
             const strongest = max > 0 ? order.filter(k => tally[k] === max).map(k => `<span class="tag strong">${k}旺</span>`).join('') : '';
             document.getElementById('baziWuxing').innerHTML = wxHtml + `<div class="bazi-wx-summary">${lacking}${strongest}</div>`;
+        }
+
+        // ===== 双人合婚 =====
+        // 地支/天干关系表（固定常量）
+        const HE_LIUHE = { '子':'丑','丑':'子','寅':'亥','亥':'寅','卯':'戌','戌':'卯','辰':'酉','酉':'辰','巳':'申','申':'巳','午':'未','未':'午' };
+        const HE_SANHE  = [['申','子','辰'], ['亥','卯','未'], ['寅','午','戌'], ['巳','酉','丑']];
+        const HE_CHONG  = { '子':'午','午':'子','丑':'未','未':'丑','寅':'申','申':'寅','卯':'酉','酉':'卯','辰':'戌','戌':'辰','巳':'亥','亥':'巳' };
+        const HE_HAI    = { '子':'未','未':'子','丑':'午','午':'丑','寅':'巳','巳':'寅','卯':'辰','辰':'卯','申':'亥','亥':'申','酉':'戌','戌':'酉' };
+        const HE_XING   = [['寅','巳','申'], ['丑','戌','未'], ['子','卯']];
+        const GAN_HE    = { '甲':'己','己':'甲','乙':'庚','庚':'乙','丙':'辛','辛':'丙','丁':'壬','壬':'丁','戊':'癸','癸':'戊' };
+        const WX_SHENG  = { '木':'火','火':'土','土':'金','金':'水','水':'木' }; // X 生 Y
+        const WX_KE     = { '木':'土','土':'水','水':'火','火':'金','金':'木' }; // X 克 Y
+        const ZHI_SHENGXIAO = { '子':'鼠','丑':'牛','寅':'虎','卯':'兔','辰':'龙','巳':'蛇','午':'马','未':'羊','申':'猴','酉':'鸡','戌':'狗','亥':'猪' };
+
+        // 五行统计（4 干 + 4 支 + 全部藏干），与 renderBazi 一致
+        function tallyOf(ec) {
+            const tally = { '金': 0, '木': 0, '水': 0, '火': 0, '土': 0 };
+            ['Year', 'Month', 'Day', 'Time'].forEach(cap => {
+                [ec['get' + cap + 'Gan'](), ec['get' + cap + 'Zhi']()].forEach(s => { const wx = wuxingOf(s); if (wx) tally[wx]++; });
+                (ec['get' + cap + 'HideGan']() || []).forEach(s => { const wx = wuxingOf(s); if (wx) tally[wx]++; });
+            });
+            return tally;
+        }
+
+        // 两个地支的关系
+        function zhiRelation(a, b) {
+            if (a === b) return 'same';
+            if (HE_LIUHE[a] === b) return 'liuhe';
+            if (HE_SANHE.some(g => g.includes(a) && g.includes(b))) return 'sanhe';
+            if (HE_CHONG[a] === b) return 'chong';
+            if (HE_HAI[a] === b) return 'hai';
+            if (HE_XING.some(g => g.includes(a) && g.includes(b))) return 'xing';
+            return 'none';
+        }
+        function ganHe(a, b) { return GAN_HE[a] === b; }
+        // 两个日干五行关系：比和 / 相生 / 相克 / 无
+        function ganWxRelation(aWx, bWx) {
+            if (aWx === bWx) return 'bihe';
+            if (WX_SHENG[aWx] === bWx || WX_SHENG[bWx] === aWx) return 'sheng';
+            if (WX_KE[aWx] === bWx || WX_KE[bWx] === aWx) return 'ke';
+            return 'none';
+        }
+        // 配偶星五行：男看财（日主所克）、女看官（克日主者）
+        function spouseWx(dayGan, gender) {
+            const wx = wuxingOf(dayGan);
+            if (String(gender) === '1') return WX_KE[wx];
+            return Object.keys(WX_KE).find(k => WX_KE[k] === wx);
+        }
+
+        function buildEightChar(dateStr, shichen) {
+            if (!dateStr) return null;
+            const [y, m, d] = dateStr.split('-').map(Number);
+            const hour = shichen === '子' ? 23 : SHICHEN_HOUR[shichen];
+            return Solar.fromYmdHms(y, m, d, hour, 30, 0).getLunar().getEightChar(); // sect 默认 2（晚子时）
+        }
+
+        function profileOf(ec, gender) {
+            return {
+                yearGan: ec.getYearGan(), yearZhi: ec.getYearZhi(),
+                monthGan: ec.getMonthGan(), monthZhi: ec.getMonthZhi(),
+                dayGan: ec.getDayGan(), dayZhi: ec.getDayZhi(),
+                timeGan: ec.getTimeGan(), timeZhi: ec.getTimeZhi(),
+                dayGanWx: wuxingOf(ec.getDayGan()),
+                yinYang: ec.getDayGanIndex() % 2 === 0 ? '阳' : '阴',
+                gender: gender,
+                wuxing: tallyOf(ec)
+            };
+        }
+
+        // 打分模型（满分 100）
+        function computeHehun(A, B) {
+            const dims = [];
+
+            // 1. 日柱 30：日干五行生克(15) + 日支合冲(15)
+            const ganRel = ganWxRelation(A.dayGanWx, B.dayGanWx);
+            const zhiRel = zhiRelation(A.dayZhi, B.dayZhi);
+            const ganMap = { sheng:[15,'相生'], bihe:[12,'比和'], none:[9,'—'], ke:[4,'相克'] };
+            const zhiMap = { liuhe:[15,'日支六合，配偶宫相合'], sanhe:[13,'日支三合'], same:[10,'日支同类'], none:[8,'日支无明显合冲'], hai:[3,'日支相害'], xing:[3,'日支相刑'], chong:[0,'日支六冲，配偶宫相冲'] };
+            const [gs, gd] = ganMap[ganRel];
+            const [zs, zd] = zhiMap[zhiRel];
+            dims.push({ name: '日柱', weight: 30, got: gs + zs, detail: `日干${A.dayGanWx}与${B.dayGanWx}${gd}；${zd}` });
+
+            // 2. 五行互补 25：A 缺而 B 有、B 缺而 A 有 → 互补（A 方案）
+            const elems = ['金', '木', '水', '火', '土'];
+            const aLack = elems.filter(e => A.wuxing[e] === 0);
+            const bLack = elems.filter(e => B.wuxing[e] === 0);
+            let complement = 0;
+            aLack.forEach(e => { if (B.wuxing[e] > 0) complement++; });
+            bLack.forEach(e => { if (A.wuxing[e] > 0) complement++; });
+            let ws, wd;
+            if (aLack.length === 0 && bLack.length === 0) { ws = 14; wd = '双方五行齐备，势均力敌'; }
+            else { ws = Math.min(25, 8 + complement * 5); wd = complement > 0 ? `缺补互补 ${complement} 处（彼此补足所缺）` : '所缺五行未能互补'; }
+            dims.push({ name: '五行互补', weight: 25, got: ws, detail: wd });
+
+            // 3. 年柱·生肖 20
+            const yRel = zhiRelation(A.yearZhi, B.yearZhi);
+            const yearMap = { liuhe:[20,'生肖六合'], sanhe:[18,'生肖三合'], same:[12,'生肖同类'], none:[11,'生肖无明显合冲'], hai:[5,'生肖相害'], xing:[5,'生肖相刑'], chong:[0,'生肖六冲'] };
+            const [ys, yd] = yearMap[yRel];
+            dims.push({ name: '年柱·生肖', weight: 20, got: ys, detail: `${yd}（${ZHI_SHENGXIAO[A.yearZhi]}·${ZHI_SHENGXIAO[B.yearZhi]}）` });
+
+            // 4. 四柱干支相合 15：年×年…时×时 的天干五合 + 地支六合 计数
+            const pos = [['yearGan','yearZhi'], ['monthGan','monthZhi'], ['dayGan','dayZhi'], ['timeGan','timeZhi']];
+            const posName = ['年', '月', '日', '时'];
+            let matches = 0; const md = [];
+            pos.forEach((p, i) => {
+                if (ganHe(A[p[0]], B[p[0]])) { matches++; md.push(`${posName[i]}柱天干五合`); }
+                if (zhiRelation(A[p[1]], B[p[1]]) === 'liuhe') { matches++; md.push(`${posName[i]}柱地支六合`); }
+            });
+            dims.push({ name: '四柱干支相合', weight: 15, got: Math.min(15, matches * 4), detail: matches > 0 ? md.join('、') : '四柱干支无明显相合' });
+
+            // 5. 配偶星互见 10
+            const sA = spouseWx(A.dayGan, A.gender), sB = spouseWx(B.dayGan, B.gender);
+            const aHas = B.wuxing[sA] > 0, bHas = A.wuxing[sB] > 0;
+            let ps, pd;
+            if (aHas && bHas) { ps = 10; pd = '双方命局互见配偶星五行'; }
+            else if (aHas || bHas) { ps = 6; pd = '单方命局见配偶星五行'; }
+            else { ps = 3; pd = '配偶星五行互见较弱'; }
+            dims.push({ name: '配偶星互见', weight: 10, got: ps, detail: pd });
+
+            const score = dims.reduce((s, d) => s + d.got, 0);
+            let rating, ratingClass;
+            if (score >= 80) { rating = '大吉'; ratingClass = 'good'; }
+            else if (score >= 65) { rating = '中吉'; ratingClass = 'ok'; }
+            else if (score >= 50) { rating = '平和'; ratingClass = 'mid'; }
+            else { rating = '慎重'; ratingClass = 'bad'; }
+            return { score, rating, ratingClass, dims };
+        }
+
+        function renderHehun() {
+            const resultEl = document.getElementById('hehunResult');
+            const dateA = document.getElementById('hehunDateA').value;
+            const dateB = document.getElementById('hehunDateB').value;
+            if (!dateA || !dateB) { resultEl.innerHTML = ''; return; }
+            const ecA = buildEightChar(dateA, document.getElementById('hehunShichenA').value);
+            const ecB = buildEightChar(dateB, document.getElementById('hehunShichenB').value);
+            if (!ecA || !ecB) return;
+            const A = profileOf(ecA, document.getElementById('hehunGenderA').value);
+            const B = profileOf(ecB, document.getElementById('hehunGenderB').value);
+            const r = computeHehun(A, B);
+
+            const dimsHtml = r.dims.map(d => `
+                <div class="hehun-dim">
+                    <div class="hehun-dim-head"><span>${d.name}</span><span>${d.got}/${d.weight}</span></div>
+                    <div class="hehun-dim-bar"><i style="width:${Math.round(d.got / d.weight * 100)}%"></i></div>
+                    <div class="hehun-dim-detail">${d.detail}</div>
+                </div>`).join('');
+
+            resultEl.innerHTML = `
+                <div class="hehun-score-wrap">
+                    <div class="hehun-score ${r.ratingClass}">${r.score}<small>分</small></div>
+                    <div class="hehun-rating ${r.ratingClass}">${r.rating}</div>
+                </div>
+                <div class="hehun-dims">${dimsHtml}</div>
+                <div class="hehun-people">
+                    <span>甲方：<i class="wx wx-${A.dayGanWx}">${A.dayGan}${A.dayZhi}</i> 日主${A.dayGanWx}${A.yinYang} · ${ZHI_SHENGXIAO[A.yearZhi]}</span>
+                    <span>乙方：<i class="wx wx-${B.dayGanWx}">${B.dayGan}${B.dayZhi}</i> 日主${B.dayGanWx}${B.yinYang} · ${ZHI_SHENGXIAO[B.yearZhi]}</span>
+                </div>
+                <div class="hehun-disclaimer">※ 仅供娱乐参考，相合与否在于彼此经营，请勿以此定论姻缘。</div>`;
+        }
+
+        function initHehun() {
+            const setDefaults = (suffix, gender, y, m, d, shichen) => {
+                document.getElementById('hehunDate' + suffix).value = `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                document.getElementById('hehunShichen' + suffix).value = shichen;
+                document.getElementById('hehunGender' + suffix).value = gender;
+            };
+            setDefaults('A', '1', 1990, 6, 15, '午'); // 男
+            setDefaults('B', '0', 1992, 9, 20, '卯'); // 女
+            ['hehunDateA', 'hehunShichenA', 'hehunGenderA', 'hehunDateB', 'hehunShichenB', 'hehunGenderB'].forEach(id => {
+                document.getElementById(id).addEventListener('change', renderHehun);
+            });
+            renderHehun();
         }
 
         // ===== 年历 =====
