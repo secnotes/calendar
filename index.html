@@ -45,13 +45,22 @@
             justify-content: center;
         }
 
-        /* 日历列容器 */
-        .calendar-column {
+        /* 日历行容器 - calendar-card + huangli-card 并排 */
+        .calendar-row {
             display: flex;
-            flex-direction: column;
             gap: 24px;
-            width: 588px;
-            align-self: flex-start;
+            align-items: stretch;
+            width: 100%;
+        }
+
+        .calendar-row > .calendar-card {
+            flex: 1.4 1 0;
+            min-width: 0;
+        }
+
+        .calendar-row > .huangli-card {
+            flex: 1 1 0;
+            min-width: 0;
         }
 
         /* 日历卡片 */
@@ -320,7 +329,8 @@
             display: flex;
             flex-wrap: wrap;
             gap: 16px;
-            width: 470px;
+            width: 100%;
+            justify-content: flex-start;
             align-self: flex-start;
         }
 
@@ -604,7 +614,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 200px;
+            height: 350px;
             background: var(--primary-gradient);
             opacity: 0.9;
             z-index: 0;
@@ -638,7 +648,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 200px;
+            height: 350px;
             background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);
             z-index: 1;
         }
@@ -649,7 +659,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 200px;
+            height: 350px;
             z-index: 1;
             overflow: hidden;
         }
@@ -657,10 +667,10 @@
         .poster-decoration::before {
             content: '';
             position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 60px;
-            height: 60px;
+            top: 18px;
+            left: 18px;
+            width: 96px;
+            height: 96px;
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             opacity: 0.6;
@@ -669,10 +679,10 @@
         .poster-decoration::after {
             content: '';
             position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
+            top: 34px;
+            right: 34px;
+            width: 68px;
+            height: 68px;
             border: 2px solid rgba(255, 255, 255, 0.25);
             border-radius: 50%;
             opacity: 0.5;
@@ -681,9 +691,9 @@
         /* 节气图标 */
         .poster-icon {
             position: absolute;
-            top: 30px;
-            right: 30px;
-            font-size: 48px;
+            top: 50px;
+            right: 50px;
+            font-size: 76px;
             color: rgba(255, 255, 255, 0.85);
             z-index: 2;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -696,42 +706,42 @@
 
         .poster-header {
             position: relative;
-            padding: 50px 24px 28px;
+            padding: 84px 38px 44px;
             color: #fff;
             text-align: center;
             z-index: 2;
         }
 
         .poster-type {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 500;
             opacity: 0.85;
-            margin-bottom: 8px;
+            margin-bottom: 14px;
             letter-spacing: 3px;
             background: rgba(255, 255, 255, 0.2);
-            padding: 4px 16px;
-            border-radius: 12px;
+            padding: 6px 22px;
+            border-radius: 14px;
             display: inline-block;
         }
 
         .poster-title {
-            font-size: 36px;
+            font-size: 60px;
             font-weight: 700;
-            margin-bottom: 10px;
-            letter-spacing: 6px;
+            margin-bottom: 16px;
+            letter-spacing: 10px;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .poster-date {
-            font-size: 14px;
+            font-size: 20px;
             opacity: 0.9;
         }
 
         .poster-countdown {
-            font-size: 14px;
-            padding: 5px 14px;
+            font-size: 20px;
+            padding: 7px 22px;
             background: rgba(255, 255, 255, 0.25);
-            border-radius: 12px;
+            border-radius: 16px;
             display: inline-block;
             font-weight: 500;
         }
@@ -740,14 +750,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 12px;
-            margin-top: 8px;
+            gap: 20px;
+            margin-top: 14px;
         }
 
         .poster-content {
-            padding: 20px 24px 24px;
+            padding: 34px 38px 38px;
             position: relative;
             z-index: 2;
+            background: var(--card-bg);
         }
 
         /* 节气节日装饰图案 */
@@ -761,7 +772,7 @@
 
         .poster-art svg {
             width: 100%;
-            height: 140px;
+            height: 240px;
             display: block;
         }
 
@@ -777,7 +788,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 140px;
+            min-height: 240px;
         }
 
         .poster-art .loading-spinner {
@@ -821,42 +832,42 @@
         .poster-poem {
             text-align: center;
             color: var(--text-secondary);
-            font-size: 14px;
+            font-size: 20px;
             line-height: 2;
-            margin-bottom: 16px;
+            margin-bottom: 24px;
             white-space: pre-line;
             font-style: italic;
         }
 
         .poster-poem-title {
-            font-size: 12px;
+            font-size: 16px;
             color: var(--text-muted);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             text-align: center;
         }
 
         .poster-desc {
-            font-size: 13px;
+            font-size: 18px;
             color: var(--text-muted);
-            line-height: 1.6;
+            line-height: 1.7;
             text-align: center;
-            margin-bottom: 16px;
+            margin-bottom: 24px;
         }
 
         .poster-nav {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 14px;
         }
 
         .poster-nav-btn {
             background: rgba(255, 90, 93, 0.1);
             border: none;
             color: var(--text-secondary);
-            padding: 8px 16px;
-            border-radius: 10px;
+            padding: 12px 26px;
+            border-radius: 14px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 18px;
             transition: var(--transition);
         }
 
@@ -938,6 +949,28 @@
             text-align: center;
             color: #888;
             transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .huangli-card-footer {
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 16px 0 4px;
+            border-top: 1px dashed #ececec;
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .huangli-card-footer .extra-tag {
+            padding: 4px 12px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(255, 90, 93, 0.08), rgba(255, 138, 91, 0.08));
+            color: var(--primary-color);
+            font-weight: 600;
         }
 
         .huangli-card:hover {
@@ -1073,9 +1106,9 @@
                 gap: 20px;
             }
 
-            .calendar-column {
+            .calendar-row {
+                flex-direction: column;
                 width: 100%;
-                max-width: 100%;
                 gap: 20px;
             }
 
@@ -1337,29 +1370,18 @@
         /* ===== 顶部导航与分页 ===== */
         .top-nav {
             max-width: 1200px;
-            margin: 0 auto 22px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .nav-brand {
-            font-size: 1.25rem;
-            font-weight: 700;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 1px;
+            margin: 0 auto 24px;
         }
 
         .nav-tabs {
             display: flex;
-            gap: 4px;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            width: 100%;
+            box-sizing: border-box;
             background: var(--card-bg);
-            padding: 5px;
+            padding: 5px 8px;
             border-radius: 14px;
             box-shadow: var(--card-shadow);
         }
@@ -1404,8 +1426,17 @@
 
         /* ===== 八字排盘 ===== */
         .bazi-container {
-            max-width: 920px;
+            max-width: 1200px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .bazi-row {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
         }
 
         .bazi-card {
@@ -1413,6 +1444,8 @@
             border-radius: var(--card-radius);
             box-shadow: var(--card-shadow);
             overflow: hidden;
+            flex: 1;
+            min-width: 0;
         }
 
         .bazi-header {
@@ -1434,11 +1467,14 @@
 
         .bazi-input-area {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 16px;
-            padding: 22px 28px;
-            border-bottom: 1px solid var(--border-color);
-            background: #fbfcfd;
+            padding: 24px;
+            width: 300px;
+            flex-shrink: 0;
+            background: var(--card-bg);
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
         }
 
         .bazi-input-group {
@@ -1690,14 +1726,9 @@
 
         /* ===== 响应式：导航与八字页 ===== */
         @media (max-width: 768px) {
-            .top-nav {
+            .nav-tabs {
                 justify-content: center;
-                text-align: center;
-            }
-
-            .nav-brand {
-                width: 100%;
-                text-align: center;
+                padding: 5px;
             }
 
             .nav-tab {
@@ -1705,12 +1736,22 @@
                 font-size: 0.9rem;
             }
 
+            .bazi-row {
+                flex-direction: column;
+            }
+
             .bazi-header,
-            .bazi-input-area,
             .bazi-info,
-            .bazi-wuxing {
+            .bazi-wuxing,
+            .hehun-result {
                 padding-left: 16px;
                 padding-right: 16px;
+            }
+
+            .bazi-input-area,
+            .hehun-input-area {
+                width: 100%;
+                padding: 18px 16px;
             }
 
             .bazi-section-title {
@@ -1738,11 +1779,6 @@
                 font-size: 0.72rem;
             }
 
-            .bazi-input-area {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
             .bazi-input-group {
                 width: 100%;
             }
@@ -1750,25 +1786,26 @@
 
         /* ===== 合婚卡片 ===== */
         .hehun-card {
-            margin-top: 24px;
+            margin-top: 0;
         }
 
         .hehun-input-area {
             display: flex;
-            align-items: stretch;
-            gap: 16px;
-            padding: 22px 28px;
-            background: #fbfcfd;
-            border-bottom: 1px solid var(--border-color);
+            flex-direction: column;
+            gap: 14px;
+            padding: 24px;
+            width: 300px;
+            flex-shrink: 0;
+            background: var(--card-bg);
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
         }
 
         .hehun-person {
-            flex: 1;
             display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            align-items: flex-end;
-            background: #fff;
+            flex-direction: column;
+            gap: 12px;
+            background: #fbfcfd;
             border: 1px solid var(--border-color);
             border-radius: 14px;
             padding: 16px;
@@ -1782,17 +1819,17 @@
         }
 
         .hehun-person .bazi-input-group {
-            flex: 1;
-            min-width: 110px;
+            width: 100%;
         }
 
         .hehun-vs {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--text-muted);
+            padding: 2px 0;
         }
 
         .hehun-result {
@@ -2166,9 +2203,26 @@
         }
 
         /* ===== 黄历页 ===== */
-        .hl-container {
-            max-width: 1000px;
+        .page--active.hl-page {
+            display: grid;
+            grid-template-columns: 1fr 480px;
+            gap: 24px;
+            max-width: 1200px;
             margin: 0 auto;
+            align-items: start;
+        }
+
+        .page--active.hl-page > .hl-toolbar-area {
+            grid-column: 1 / -1;
+        }
+
+        .page--active.hl-page > .hl-card {
+            min-width: 0;
+        }
+
+        .page--active.hl-page > .festival-poster-card {
+            width: 100%;
+            max-width: 480px;
         }
 
         .hl-card {
@@ -2176,6 +2230,7 @@
             border-radius: var(--card-radius);
             box-shadow: var(--card-shadow);
             overflow: hidden;
+            min-width: 0;
         }
 
         .hl-header {
@@ -2195,25 +2250,89 @@
             opacity: 0.92;
         }
 
-        .hl-toolbar {
+        /* 工具栏（顶部横向） */
+        .hl-toolbar-area {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 12px 18px;
+            background: var(--card-bg);
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+            flex-wrap: wrap;
+        }
+
+        .hl-toolbar-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            flex: 0 0 auto;
+        }
+
+        .hl-toolbar-title {
+            flex: 1;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .hl-nav-btn {
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: #fff;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 18px;
+            line-height: 1;
+            padding: 0;
+            font-family: inherit;
+        }
+
+        .hl-nav-btn:hover {
+            background: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(255, 90, 93, 0.25);
+        }
+
+        .hl-toolbar-items {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .hl-toolbar-item {
+            display: flex;
+            align-items: center;
             gap: 6px;
-            padding: 18px 28px;
-            border-bottom: 1px solid var(--border-color);
-            background: #fbfcfd;
-            flex-wrap: wrap;
+        }
+
+        .hl-toolbar-item label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
         }
 
         .hl-year-input,
         .hl-month-input,
         .hl-day-input {
-            border: 1px solid rgb(215, 217, 224);
-            padding: 7px 4px;
-            border-radius: 6px;
-            width: 80px;
-            font-size: 20px;
+            border: 1px solid var(--border-color);
+            padding: 6px 4px;
+            border-radius: 8px;
+            width: 72px;
+            font-size: 15px;
             color: var(--text-primary);
             background: #fff;
             text-align: center;
@@ -2227,8 +2346,8 @@
         .hl-year-input:focus,
         .hl-month-input:focus,
         .hl-day-input:focus {
-            border-color: rgb(188, 47, 63);
-            box-shadow: 0 0 0 3px rgba(188, 47, 63, 0.12);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 90, 93, 0.12);
         }
 
         .hl-year-input::-webkit-outer-spin-button,
@@ -2241,27 +2360,22 @@
             margin: 0;
         }
 
-        .hl-toolbar-sep {
-            font-size: 16px;
-            color: var(--text-secondary);
-            font-weight: 600;
-        }
-
         .hl-today-btn {
-            padding: 8px 16px;
-            border-radius: 8px;
-            border: 2px solid rgb(188, 47, 63);
-            background: rgb(188, 47, 63);
+            padding: 8px 18px;
+            border-radius: 10px;
+            border: none;
+            background: var(--primary-gradient);
             color: #fff;
             font-weight: 600;
             font-size: 14px;
             cursor: pointer;
             transition: var(--transition);
+            flex: 0 0 auto;
         }
 
         .hl-today-btn:hover {
-            background: rgba(188, 47, 63, 0.85);
             transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 90, 93, 0.3);
         }
 
         /* 三栏布局 */
@@ -2278,17 +2392,17 @@
 
         .hl-col-center {
             flex: 2;
-            background: rgb(252, 248, 239);
-            border-left: 1px solid rgb(244, 196, 147);
-            border-right: 1px solid rgb(244, 196, 147);
+            background: transparent;
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
         }
 
         /* 行结构 */
         .hl-row {
             display: flex;
             align-items: center;
-            height: 40px;
-            border-bottom: 1px solid rgb(244, 196, 147);
+            min-height: 40px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .hl-row:last-child {
@@ -2296,29 +2410,28 @@
         }
 
         .hl-row-bg {
-            background: rgba(255, 138, 91, 0.06);
+            background: rgba(255, 90, 93, 0.04);
         }
 
         .hl-label-bar {
             width: 80px;
-            height: 40px;
-            line-height: 40px;
-            text-indent: 10px;
-            font-size: 16px;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+            font-size: 15px;
             font-weight: 700;
-            color: rgb(188, 47, 63);
+            color: var(--primary-color);
             flex-shrink: 0;
         }
 
         .hl-row-content {
             flex: 1;
-            padding: 0 8px;
+            padding: 8px 10px;
             font-size: 14px;
             color: var(--text-primary);
-            line-height: 40px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
+            line-height: 1.6;
+            word-break: break-all;
         }
 
         /* 干支行 */
@@ -2335,7 +2448,7 @@
         }
 
         .hl-gz-zodiac {
-            color: rgb(188, 47, 63);
+            color: var(--primary-color);
             font-weight: 700;
         }
 
@@ -2361,21 +2474,21 @@
         .hl-section-yi,
         .hl-section-ji {
             position: relative;
-            border-bottom: 1px solid rgb(244, 196, 147);
-            min-height: 180px;
+            border-bottom: 1px solid var(--border-color);
+            min-height: 220px;
             overflow: hidden;
         }
 
         .hl-section-jishen {
             min-height: 165px;
             overflow: hidden;
-            border-bottom: 1px solid rgb(244, 196, 147);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .hl-section-xiongsha {
             min-height: 165px;
             overflow: hidden;
-            border-bottom: 1px solid rgb(244, 196, 147);
+            border-bottom: 1px solid var(--border-color);
         }
 
         /* 宜徽章 - 绿色实心圆 + 白色外环 */
@@ -2388,13 +2501,13 @@
             height: 46px;
             line-height: 46px;
             border-radius: 50%;
-            background: rgb(76, 175, 80);
+            background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
             color: #fff !important;
             font-size: 20px;
             font-weight: 700;
             text-align: center;
             z-index: 1;
-            box-shadow: 0 0 0 3px #fff, 0 0 0 6px rgb(76, 175, 80);
+            box-shadow: 0 0 0 3px #fff, 0 0 0 6px #66bb6a, 0 6px 14px rgba(76, 175, 80, 0.25);
         }
 
         /* 忌徽章 - 红色实心圆 + 白色外环 */
@@ -2407,19 +2520,19 @@
             height: 46px;
             line-height: 46px;
             border-radius: 50%;
-            background: rgb(211, 47, 47);
+            background: linear-gradient(135deg, #ef5350 0%, #d32f2f 100%);
             color: #fff !important;
             font-size: 20px;
             font-weight: 700;
             text-align: center;
             z-index: 1;
-            box-shadow: 0 0 0 3px #fff, 0 0 0 6px rgb(211, 47, 47);
+            box-shadow: 0 0 0 3px #fff, 0 0 0 6px #ef5350, 0 6px 14px rgba(211, 47, 47, 0.25);
         }
 
         /* 宜忌列表 */
         .hl-yi-list,
         .hl-ji-list {
-            padding: 60px 8px 8px 8px;
+            padding: 80px 8px 8px 8px;
             display: flex;
             flex-wrap: wrap;
             gap: 4px;
@@ -2429,27 +2542,39 @@
         }
 
         .hl-yi-item {
-            width: 20%;
-            height: 28px;
-            line-height: 28px;
+            width: calc(33.333% - 3px);
+            height: 30px;
+            line-height: 30px;
             text-align: center;
-            font-size: 12px;
-            color: var(--text-primary);
-            background: rgba(92, 184, 92, 0.06);
-            border-radius: 4px;
+            font-size: 13px;
+            color: #2e7d32;
+            background: rgba(76, 175, 80, 0.08);
+            border-radius: 6px;
             list-style: none;
+            transition: var(--transition);
         }
 
         .hl-ji-item {
-            width: 20%;
-            height: 28px;
-            line-height: 28px;
+            width: calc(33.333% - 3px);
+            height: 30px;
+            line-height: 30px;
             text-align: center;
-            font-size: 12px;
-            color: var(--text-primary);
-            background: rgba(217, 83, 79, 0.06);
-            border-radius: 4px;
+            font-size: 13px;
+            color: #c62828;
+            background: rgba(211, 47, 47, 0.08);
+            border-radius: 6px;
             list-style: none;
+            transition: var(--transition);
+        }
+
+        .hl-yi-item:hover {
+            background: rgba(76, 175, 80, 0.18);
+            transform: translateY(-1px);
+        }
+
+        .hl-ji-item:hover {
+            background: rgba(211, 47, 47, 0.18);
+            transform: translateY(-1px);
         }
 
         .hl-list-content {
@@ -2464,20 +2589,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 30px 0 40px;
-            gap: 20px;
+            padding: 24px 0 32px;
+            gap: 18px;
             margin: 0 15px 10px;
         }
 
         .hl-day-number {
-            font-size: 180px;
+            font-size: 140px;
             font-weight: 800;
-            color: rgb(188, 47, 63);
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
             line-height: 1;
-            min-width: 180px;
+            min-width: 140px;
             text-align: center;
-            text-shadow: 2px 2px 4px rgba(188, 47, 63, 0.1);
-            letter-spacing: -8px;
+            letter-spacing: -6px;
+            filter: drop-shadow(0 4px 10px rgba(255, 90, 93, 0.18));
         }
 
         .hl-arrow {
@@ -2491,13 +2619,13 @@
         .hl-arrow-prev {
             border-top: 24px solid transparent;
             border-bottom: 24px solid transparent;
-            border-right: 24px solid rgb(188, 47, 63);
+            border-right: 24px solid var(--primary-color);
         }
 
         .hl-arrow-next {
             border-top: 24px solid transparent;
             border-bottom: 24px solid transparent;
-            border-left: 24px solid rgb(188, 47, 63);
+            border-left: 24px solid var(--primary-color);
         }
 
         .hl-arrow:hover {
@@ -2515,18 +2643,18 @@
 
         .hl-center-lunar {
             text-align: center;
-            font-size: 20px;
-            color: rgb(188, 47, 63);
-            font-weight: 600;
-            padding: 4px 0 16px;
+            font-size: 18px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 4px 0 18px;
             margin: 0 15px;
         }
 
         /* 中栏网格区 */
         .hl-grid-section {
             display: flex;
-            border-top: 1px solid rgb(244, 196, 147);
-            border-bottom: 1px solid rgb(244, 196, 147);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
             height: 182px;
             overflow: hidden;
         }
@@ -2540,11 +2668,11 @@
         }
 
         .hl-grid-position {
-            border-right: 1px solid rgb(244, 196, 147);
+            border-right: 1px solid var(--border-color);
         }
 
         .hl-grid-kong {
-            border-right: 1px solid rgb(244, 196, 147);
+            border-right: 1px solid var(--border-color);
         }
 
         /* 纵向标签条 */
@@ -2554,7 +2682,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgb(188, 47, 63);
+            background: var(--primary-gradient);
             color: #fff;
             font-size: 13px;
             font-weight: 700;
@@ -2565,6 +2693,7 @@
             margin: 0 12px;
             text-align: center;
             padding: 4px 2px;
+            box-shadow: 0 4px 10px rgba(255, 90, 93, 0.25);
         }
 
         .hl-label-bar-vertical::before,
@@ -2572,15 +2701,15 @@
             content: '';
             position: absolute;
             left: 50%;
-            width: 16px;
-            height: 16px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background: rgb(188, 47, 63);
-            margin-left: -8px;
+            background: var(--primary-gradient);
+            margin-left: -6px;
         }
 
-        .hl-label-bar-vertical::before { top: -6px; }
-        .hl-label-bar-vertical::after { bottom: -6px; }
+        .hl-label-bar-vertical::before { top: -5px; }
+        .hl-label-bar-vertical::after { bottom: -5px; }
 
         .hl-grid-items {
             flex: 1;
@@ -2599,11 +2728,45 @@
 
         .hl-grid-label {
             font-weight: 700;
-            color: rgb(188, 47, 63);
+            color: var(--primary-color);
         }
 
-        /* 黄历页响应式 */
-        @media (max-width: 768px) {
+        /* 黄历页响应式 - 真正小屏才竖排 */
+        @media (max-width: 600px) {
+            .page--active.hl-page {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .page--active.hl-page > .festival-poster-card {
+                max-width: none;
+            }
+
+            .hl-toolbar-area {
+                padding: 10px 14px;
+                gap: 10px;
+            }
+
+            .hl-toolbar-title-row {
+                flex: 1 1 100%;
+                justify-content: center;
+            }
+
+            .hl-toolbar-items {
+                flex: 1 1 100%;
+                justify-content: space-between;
+            }
+
+            .hl-toolbar-item {
+                flex: 1;
+                min-width: 70px;
+            }
+
+            .hl-today-btn {
+                flex: 1 1 100%;
+                margin-top: 4px;
+            }
+
             .hl-layout {
                 flex-direction: column;
             }
@@ -2638,13 +2801,6 @@
             .hl-yi-item,
             .hl-ji-item {
                 width: 33.3%;
-            }
-
-            .hl-year-input,
-            .hl-month-input,
-            .hl-day-input {
-                width: 60px;
-                font-size: 16px;
             }
 
             .hl-label-bar {
@@ -2695,26 +2851,34 @@
             }
         }
 
-        @media (min-width: 769px) and (max-width: 1000px) {
-            .hl-layout {
-                flex-direction: column;
+        @media (min-width: 769px) and (max-width: 1099px) {
+            .page--active.hl-page {
+                max-width: 900px;
+            }
+
+            .hl-toolbar-area {
+                padding: 10px 14px;
+                gap: 12px;
+            }
+
+            .hl-toolbar-items {
+                flex: 1;
+            }
+
+            .hl-toolbar-item {
+                flex: 1;
+                min-width: 100px;
             }
 
             .hl-col-left,
             .hl-col-right {
-                width: 100%;
-            }
-
-            .hl-col-center {
-                border-left: none;
-                border-right: none;
+                width: 180px;
             }
         }
     </style>
 </head>
 <body>
     <header class="top-nav">
-        <div class="nav-brand">历法工具箱</div>
         <nav class="nav-tabs" id="navTabs">
             <button class="nav-tab active" data-page="calendar">万年历</button>
             <button class="nav-tab" data-page="year">年历</button>
@@ -2725,7 +2889,47 @@
 
     <main class="page page--active" id="page-calendar">
     <div class="container">
-        <div class="calendar-column">
+        <div class="widgets-container">
+            <div class="widget-calendar">
+                <div class="widget-calendar-header" id="widgetCalendarHeader"></div>
+                <div class="widget-calendar-day" id="widgetCalendarDay"></div>
+                <div class="widget-calendar-info" id="widgetCalendarInfo"></div>
+                <div class="widget-calendar-lunar" id="widgetCalendarLunar"></div>
+            </div>
+
+            <div class="widget-calendar-old">
+                <div class="lunar-date" id="widgetOldLunar"></div>
+                <ul class="ganzhi-header">
+                    <li>年</li>
+                    <li>月</li>
+                    <li>日</li>
+                    <li>时</li>
+                </ul>
+                <ul class="ganzhi-value" id="widgetOldGanzhi"></ul>
+                <div class="yi-content" id="widgetOldYi"></div>
+                <div class="ji-content" id="widgetOldJi"></div>
+            </div>
+
+            <div class="widget-calendar-month">
+                <div class="month-title" id="widgetMonthTitle"></div>
+                <ul class="weekdays">
+                    <li>日</li>
+                    <li>一</li>
+                    <li>二</li>
+                    <li>三</li>
+                    <li>四</li>
+                    <li>五</li>
+                    <li>六</li>
+                </ul>
+                <ol class="days" id="widgetMonthDays"></ol>
+            </div>
+
+            <div class="holiday-card">
+                <ul id="holidayList"></ul>
+            </div>
+        </div>
+
+        <div class="calendar-row">
             <div class="calendar-card">
                 <div class="calendar-header">
                     <div class="calendar-title">
@@ -2787,86 +2991,18 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-
-        <div class="widgets-container">
-            <div class="widget-calendar">
-                <div class="widget-calendar-header" id="widgetCalendarHeader"></div>
-                <div class="widget-calendar-day" id="widgetCalendarDay"></div>
-                <div class="widget-calendar-info" id="widgetCalendarInfo"></div>
-                <div class="widget-calendar-lunar" id="widgetCalendarLunar"></div>
-            </div>
-
-            <div class="widget-calendar-old">
-                <div class="lunar-date" id="widgetOldLunar"></div>
-                <ul class="ganzhi-header">
-                    <li>年</li>
-                    <li>月</li>
-                    <li>日</li>
-                    <li>时</li>
-                </ul>
-                <ul class="ganzhi-value" id="widgetOldGanzhi"></ul>
-                <div class="yi-content" id="widgetOldYi"></div>
-                <div class="ji-content" id="widgetOldJi"></div>
-            </div>
-
-            <div class="widget-calendar-month">
-                <div class="month-title" id="widgetMonthTitle"></div>
-                <ul class="weekdays">
-                    <li>日</li>
-                    <li>一</li>
-                    <li>二</li>
-                    <li>三</li>
-                    <li>四</li>
-                    <li>五</li>
-                    <li>六</li>
-                </ul>
-                <ol class="days" id="widgetMonthDays"></ol>
-            </div>
-
-            <div class="holiday-card">
-                <ul id="holidayList"></ul>
-            </div>
-
-            <div class="festival-poster-card" id="festivalPosterCard">
-                <div class="poster-bg" id="posterBg"></div>
-                <div class="poster-bg-overlay" id="posterBgOverlay"></div>
-                <div class="poster-decoration"></div>
-                <div class="poster-icon" id="posterIcon"></div>
-                <div class="poster-header">
-                    <div class="poster-type" id="posterType"></div>
-                    <div class="poster-title" id="posterTitle"></div>
-                    <div class="poster-date-row">
-                        <div class="poster-date" id="posterDate"></div>
-                        <div class="poster-countdown" id="posterCountdown"></div>
-                    </div>
-                </div>
-                <div class="poster-border-decor"></div>
-                <div class="poster-content">
-                    <div class="poster-art" id="posterArt"></div>
-                    <div class="poster-poem-title" id="posterPoemTitle"></div>
-                    <div class="poster-poem" id="posterPoem"></div>
-                    <div class="poster-desc" id="posterDesc"></div>
-                    <div class="poster-nav">
-                        <button class="poster-nav-btn" id="posterBtnPrev">上一个</button>
-                        <button class="poster-nav-btn active" id="posterBtnNearest">最近</button>
-                        <button class="poster-nav-btn" id="posterBtnNext">下一个</button>
-                    </div>
+                <div class="huangli-card-footer">
+                    <span class="extra-tag" id="huangliMonthTag">本月综合 · 平</span>
                 </div>
             </div>
         </div>
+
     </div>
     </main>
 
     <main class="page" id="page-bazi">
         <div class="bazi-container">
-            <div class="bazi-card">
-                <div class="bazi-header">
-                    <h2>八字排盘</h2>
-                    <p>输入出生日期、时辰与性别，自动生成四柱八字命盘</p>
-                </div>
-
+            <div class="bazi-row">
                 <div class="bazi-input-area">
                     <div class="bazi-input-group">
                         <label>出生日期</label>
@@ -2907,22 +3043,21 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="bazi-chart" id="baziChart"></div>
-
-                <div class="bazi-section-title">命局信息</div>
-                <div class="bazi-info" id="baziInfo"></div>
-
-                <div class="bazi-section-title">五行力量</div>
-                <div class="bazi-wuxing" id="baziWuxing"></div>
+                <div class="bazi-card">
+                    <div class="bazi-header">
+                        <h2>八字排盘</h2>
+                        <p>输入出生日期、时辰与性别，自动生成四柱八字命盘</p>
+                    </div>
+                    <div class="bazi-chart" id="baziChart"></div>
+                    <div class="bazi-section-title">命局信息</div>
+                    <div class="bazi-info" id="baziInfo"></div>
+                    <div class="bazi-section-title">五行力量</div>
+                    <div class="bazi-wuxing" id="baziWuxing"></div>
+                </div>
             </div>
 
             <!-- 双人合婚卡片 -->
-            <div class="bazi-card hehun-card">
-                <div class="bazi-header">
-                    <h2>双人合婚</h2>
-                    <p>输入双方生辰，从日柱、五行、生肖、干支等维度评估相合度</p>
-                </div>
+            <div class="bazi-row">
                 <div class="hehun-input-area">
                     <div class="hehun-person">
                         <div class="hehun-person-title">甲方</div>
@@ -2988,7 +3123,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="hehun-result" id="hehunResult"></div>
+                <div class="bazi-card hehun-card">
+                    <div class="bazi-header">
+                        <h2>双人合婚</h2>
+                        <p>输入双方生辰，从日柱、五行、生肖、干支等维度评估相合度</p>
+                    </div>
+                    <div class="hehun-result" id="hehunResult"></div>
+                </div>
             </div>
         </div>
     </main>
@@ -3005,23 +3146,35 @@
         </div>
     </main>
 
-    <main class="page" id="page-huangli">
-        <div class="hl-container">
+    <main class="page hl-page" id="page-huangli">
+        <div class="hl-toolbar-area">
+            <div class="hl-toolbar-title-row">
+                <button class="hl-nav-btn" id="hlSidebarPrev" title="上一个日期" aria-label="上一个日期">‹</button>
+                <div class="hl-toolbar-title">查询日期</div>
+                <button class="hl-nav-btn" id="hlSidebarNext" title="下一个日期" aria-label="下一个日期">›</button>
+            </div>
+            <div class="hl-toolbar-items">
+                <div class="hl-toolbar-item">
+                    <label>年</label>
+                    <input type="number" class="hl-year-input" id="hlYearInput" min="1900" max="2100">
+                </div>
+                <div class="hl-toolbar-item">
+                    <label>月</label>
+                    <input type="number" class="hl-month-input" id="hlMonthInput" min="1" max="12">
+                </div>
+                <div class="hl-toolbar-item">
+                    <label>日</label>
+                    <input type="number" class="hl-day-input" id="hlDayInput" min="1" max="31">
+                </div>
+            </div>
+            <button class="hl-today-btn" id="hlTodayBtn">今天</button>
+        </div>
         <div class="hl-card">
             <div class="hl-header">
                 <h2>黄历</h2>
                 <p>查询每日宜忌、干支、神煞与方位</p>
             </div>
-            <div class="hl-toolbar">
-                <input type="number" class="hl-year-input" id="hlYearInput" min="1900" max="2100">
-                <span class="hl-toolbar-sep">年</span>
-                <input type="number" class="hl-month-input" id="hlMonthInput" min="1" max="12">
-                <span class="hl-toolbar-sep">月</span>
-                <input type="number" class="hl-day-input" id="hlDayInput" min="1" max="31">
-                <span class="hl-toolbar-sep">日</span>
-                <button class="hl-today-btn" id="hlTodayBtn">今天</button>
-            </div>
-            <div class="hl-layout">
+                <div class="hl-layout">
                 <div class="hl-col-left">
                     <div class="hl-row hl-row-gz">
                         <div class="hl-label-bar">年柱</div>
@@ -3160,7 +3313,32 @@
                 </div>
             </div>
         </div>
-        </div>
+        <div class="festival-poster-card" id="festivalPosterCard">
+                <div class="poster-bg" id="posterBg"></div>
+                <div class="poster-bg-overlay" id="posterBgOverlay"></div>
+                <div class="poster-decoration"></div>
+                <div class="poster-icon" id="posterIcon"></div>
+                <div class="poster-header">
+                    <div class="poster-type" id="posterType"></div>
+                    <div class="poster-title" id="posterTitle"></div>
+                    <div class="poster-date-row">
+                        <div class="poster-date" id="posterDate"></div>
+                        <div class="poster-countdown" id="posterCountdown"></div>
+                    </div>
+                </div>
+                <div class="poster-border-decor"></div>
+                <div class="poster-content">
+                    <div class="poster-art" id="posterArt"></div>
+                    <div class="poster-poem-title" id="posterPoemTitle"></div>
+                    <div class="poster-poem" id="posterPoem"></div>
+                    <div class="poster-desc" id="posterDesc"></div>
+                    <div class="poster-nav">
+                        <button class="poster-nav-btn" id="posterBtnPrev">上一个</button>
+                        <button class="poster-nav-btn active" id="posterBtnNearest">最近</button>
+                        <button class="poster-nav-btn" id="posterBtnNext">下一个</button>
+                    </div>
+                </div>
+            </div>
     </main>
 
     <script src="lunar.js"></script>
@@ -3417,6 +3595,10 @@
 
             // 干支
             document.getElementById('huangliGz').textContent = `${lunar.getYearInGanZhi()}(${lunar.getYearShengXiao()})年 ${lunar.getMonthInGanZhi()}月 ${lunar.getDayInGanZhi()}日`;
+
+            // 月份摘要标签（撑满底部）
+            const monthGz = lunar.getMonthInGanZhi();
+            document.getElementById('huangliMonthTag').textContent = `本月 · ${monthGz}月`;
 
             // 宜
             const yiEl = document.getElementById('huangliYi');
@@ -4802,6 +4984,8 @@
 
             document.getElementById('hlPrevDay').addEventListener('click', () => hlChangeDay(-1));
             document.getElementById('hlNextDay').addEventListener('click', () => hlChangeDay(1));
+            document.getElementById('hlSidebarPrev').addEventListener('click', () => hlChangeDay(-1));
+            document.getElementById('hlSidebarNext').addEventListener('click', () => hlChangeDay(1));
 
             renderHuangli(hlCurrentYear, hlCurrentMonth, hlCurrentDay);
         }
