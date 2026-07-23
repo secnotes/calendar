@@ -6,20 +6,52 @@
     <title>万年历</title>
     <style>
         :root {
+            /* ===== 品牌色 ===== */
             --primary-color: #ff5a5d;
             --primary-gradient: linear-gradient(135deg, #ff5a5d 0%, #ff8a5b 100%);
-            --card-bg: #ffffff;
-            --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.08);
-            --card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08), 0 12px 32px rgba(0, 0, 0, 0.12);
-            --card-radius: 20px;
+            /* “今日/选中”专属语义色：与品牌红区分，保证今日在红色页面中仍然突出 */
+            --today-bg: linear-gradient(135deg, #4e6ef2 0%, #6b8cff 100%);
+            --today-color: #4e6ef2;
+
+            /* ===== 文字（提升次要文字对比度，原 #8a8aa3 对比度仅 3.3:1 不达标） ===== */
             --text-primary: #1a1a2e;
             --text-secondary: #4a4a68;
-            --text-muted: #8a8aa3;
-            --border-color: rgba(0, 0, 0, 0.06);
+            --text-muted: #6c6c85;
+
+            /* ===== 背景 / 边框 ===== */
+            --card-bg: #ffffff;
+            --border-color: rgba(0, 0, 0, 0.08);
             --hover-bg: rgba(255, 90, 93, 0.08);
             --festival-color: #ff5a5d;
             --weekend-color: #ff5a5d;
-            --today-bg: linear-gradient(135deg, #4e6ef2 0%, #6b8cff 100%);
+
+            /* ===== Design Token 阶梯 ===== */
+            /* 圆角 */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --card-radius: var(--radius-lg);
+            /* 阴影 */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.08), 0 12px 32px rgba(0, 0, 0, 0.12);
+            --card-shadow: var(--shadow-md);
+            --card-shadow-hover: var(--shadow-lg);
+            /* 间距 */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            /* 字号 */
+            --font-xs: 12px;
+            --font-sm: 13px;
+            --font-base: 15px;
+            --font-md: 16px;
+            --font-lg: 18px;
+            --font-xl: 22px;
+
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -27,6 +59,15 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        /* 键盘聚焦可见态：仅在键盘导航时显示聚焦环，不影响鼠标点击体验；
+           输入框已有各自的 :focus 样式，这里只补 button/链接。 */
+        button:focus-visible,
+        [role="button"]:focus-visible,
+        a:focus-visible {
+            outline: 2px solid var(--today-color);
+            outline-offset: 2px;
         }
 
         body {
@@ -390,7 +431,9 @@
             background: var(--card-bg);
             border-radius: 16px;
             box-shadow: var(--card-shadow);
-            width: 300px;
+            flex: 1 1 0;
+            min-width: 0;
+            max-width: 460px;
             height: 150px;
             overflow: hidden;
             position: relative;
@@ -587,7 +630,9 @@
             border-radius: 16px;
             box-shadow: var(--card-shadow);
             overflow: hidden;
-            width: 300px;
+            flex: 1 1 0;
+            min-width: 0;
+            max-width: 460px;
             height: 150px;
             align-self: flex-start;
             transition: var(--transition);
@@ -778,7 +823,8 @@
 
         .poster-art img {
             width: 100%;
-            height: auto;
+            height: 240px;
+            object-fit: cover;
             display: block;
             border-radius: 12px;
         }
@@ -4436,7 +4482,7 @@
                     isLoaded = true;
                     if (loadingTimer) clearTimeout(loadingTimer);
                     posterArt.className = 'poster-art';
-                    posterArt.innerHTML = `<img src="${data.image}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" />`;
+                    posterArt.innerHTML = `<img src="${data.image}" style="width:100%;height:240px;object-fit:cover;border-radius:12px;" />`;
                     posterArt.style.display = 'block';
                 };
                 img.onerror = function() {
