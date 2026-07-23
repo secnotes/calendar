@@ -1112,6 +1112,16 @@
                 gap: 20px;
             }
 
+            /* 移动端纵向堆叠：取消桌面端 flex: X 1 0 带来的 flex-basis:0。
+               否则 flex 子项在 column 容器中主轴高度塌缩为 0（叠加卡片自身的
+               overflow:hidden 会使 min-height:auto 退化为 0），内容被裁切。
+               改为按内容自然撑高。 */
+            .calendar-row > .calendar-card,
+            .calendar-row > .huangli-card {
+                flex: none;
+                width: 100%;
+            }
+
             .widgets-container {
                 width: 100%;
                 justify-content: center;
@@ -1748,10 +1758,18 @@
                 padding-right: 16px;
             }
 
-            .bazi-input-area,
-            .hehun-input-area {
+            /* 用更高特异性（.bazi-row > ...，0,2,0）覆盖后面 .hehun-input-area 的
+               width:300px：那条全局规则在源码顺序上位于本媒体查询之后，同特异性
+               (0,1,0) 时会反超，导致合婚输入区在窄屏仍为 300px 没有铺满。
+               卡片同理显式铺满（bazi-row 为 align-items:flex-start，默认不拉伸）。 */
+            .bazi-row > .bazi-input-area,
+            .bazi-row > .hehun-input-area {
                 width: 100%;
                 padding: 18px 16px;
+            }
+
+            .bazi-row > .bazi-card {
+                width: 100%;
             }
 
             .bazi-section-title {
@@ -3701,6 +3719,20 @@
                 }
             }
 
+            // 修正：getNextJieQi() 对“当前时刻”敏感——当天节气一旦过了其精确时刻就会被跳过，
+            // 导致节气当天（如午后）海报直接显示成下一个节气（例如大暑当天显示成15天后的立秋）。
+            // getJieQi() 按日期判定、全天稳定，用它把“今天”的节气补进列表，保证节气当天始终展示。
+            // （与下方同 name+daysAway 去重配合，重复加入也安全。）
+            const todayJieQi = lunarToday.getJieQi();
+            if (todayJieQi) {
+                posterEventsList.push({
+                    name: todayJieQi,
+                    date: new Date(currentYear, today.getMonth(), today.getDate()),
+                    daysAway: 0,
+                    isSolarTerm: true
+                });
+            }
+
             // 获取农历节日
             const lunarFestivalNames = ['春节', '元宵节', '端午节', '七夕', '中秋节', '重阳节', '腊八节', '小年'];
             for (let year = currentYear; year <= currentYear + 1; year++) {
@@ -4362,7 +4394,7 @@
             const posterDesc = document.getElementById('posterDesc');
 
             posterTitle.textContent = event.name;
-            posterCountdown.textContent = `${event.daysAway}天后`;
+            posterCountdown.textContent = event.daysAway <= 0 ? '今日' : `${event.daysAway}天后`;
 
             const weekNames = ['日', '一', '二', '三', '四', '五', '六'];
             posterDate.textContent = `${event.date.getFullYear()}年${event.date.getMonth() + 1}月${event.date.getDate()}日 星期${weekNames[event.date.getDay()]}`;
@@ -5091,24 +5123,11 @@
             const nineStar = lunar.getDayNineStar();
             document.getElementById('hlNineStar').textContent = nineStar.getNumber() + nineStar.getColor() + nineStar.getWuXing() + nineStar.getNameInBeiDou();
 
-            // 星宿 + 治水等
+            // 星宿：宿名+七曜+禽+吉凶
             document.getElementById('hlXingXiu').textContent = lunar.getXiu() + lunar.getZheng() + lunar.getAnimal() + '(' + lunar.getXiuLuck() + ')';
-            // 治水/得金/分饼/耕田
-            try {
-                const shuZhi = lunar.getShu();
-                document.getElementById('hlZhiShui').innerHTML =
-                    '<span>' + (shuZhi ? shuZhi + '龙治水' : '') + '</span>' +
-                    '<span>' + (lunar.getDayLu() ? '' : '') + '</span>';
-            } catch(e) {
-                // getShu may not exist
-            }
-            // 简化显示：星宿下方显示星宿宫+守
-            try {
-                document.getElementById('hlZhiShui').innerHTML =
-                    '<span>' + lunar.getGong() + '方' + lunar.getShou() + '</span>';
-            } catch(e) {
-                document.getElementById('hlZhiShui').textContent = '';
-            }
+            // 星宿所在方+守护神兽（与 lunar.js 标准输出 getGong()+'方'+getShou() 一致）
+            document.getElementById('hlZhiShui').innerHTML =
+                '<span>' + lunar.getGong() + '方' + lunar.getShou() + '</span>';
 
             // ===== 右栏 =====
             // 冲煞
@@ -5117,7 +5136,6 @@
 
             // 值神
             const tianShen = lunar.getDayTianShen();
-            const tianShenType = lunar.getDayTianShenType();
             const tianShenLuck = lunar.getDayTianShenLuck();
             document.getElementById('hlZhiXing').innerHTML =
                 lunar.getZhiXing() + ' <span style="font-size:12px;color:var(--text-muted);">(' + tianShen + '·' + tianShenLuck + '</span>)';
@@ -5328,7 +5346,7 @@
 
             // 四柱干支
             const timeZhiIndex = Math.floor((hour + 1) / 2) % 12;
-            const dayGanIndex = (lunar._p.dayGanIndex + 1);
+            const dayGanIndex = (lunar.getDayGanIndex() + 1);
             const timeGanIndex = (dayGanIndex * 2 + timeZhiIndex) % 10;
             const hourGanZhi = LunarUtil.GAN[timeGanIndex + 1] + LunarUtil.ZHI[timeZhiIndex + 1];
 
@@ -5431,11 +5449,10 @@
                 { name: '国庆节', month: 10, day: 1, days: 7 }
             ];
 
-            // 查找接下来的3个节假日
+            // 收集未来 3 年内的全部节假日，再按距今天数排序取最近 3 个
+            // （不依赖迭代顺序与日期顺序一致，避免“按出现顺序提前截断”导致的漏选）
             const upcomingHolidays = [];
-            let searchYear = currentYear;
-            let searchMonth = today.getMonth() + 1;
-            let searchDay = today.getDate();
+            const ONE_DAY = 1000 * 60 * 60 * 24;
 
             for (let year = currentYear; year <= currentYear + 2; year++) {
                 for (const holiday of holidays) {
@@ -5452,8 +5469,8 @@
                         holidayDays = holiday.days;
                     }
 
-                    const diffDays = Math.ceil((holidayDate - today) / (1000 * 60 * 60 * 24));
-                    if (diffDays > 0 && upcomingHolidays.length < 3) {
+                    const diffDays = Math.ceil((holidayDate - today) / ONE_DAY);
+                    if (diffDays > 0) {
                         upcomingHolidays.push({
                             name: holidayName,
                             daysAway: diffDays,
@@ -5463,7 +5480,7 @@
                 }
             }
 
-            // 排序并显示前3个
+            // 按距今天数排序，取最近 3 个
             upcomingHolidays.sort((a, b) => a.daysAway - b.daysAway);
             const displayHolidays = upcomingHolidays.slice(0, 3);
 
