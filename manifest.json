@@ -1,0 +1,15 @@
+{
+  "name": "万年历 · 黄历八字",
+  "short_name": "万年历",
+  "description": "公历农历、黄历宜忌、八字合婚、择日、节气年表",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f7fa",
+  "theme_color": "#ff5a5d",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
