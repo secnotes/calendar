@@ -85,7 +85,7 @@
             color-scheme: dark;
         }
         html[data-theme="dark"] body { background: linear-gradient(135deg, #1b1c24 0%, #14151b 100%); }
-        html[data-theme="dark"] .hl-layout { background: var(--surface); }
+        html[data-theme="dark"] .almanac-layout { background: var(--surface); }
 
         * {
             margin: 0;
@@ -2299,7 +2299,7 @@
         }
 
         /* ===== 黄历页 ===== */
-        .page--active.hl-page {
+        .page--active.almanac-page {
             display: grid;
             grid-template-columns: 1fr 440px;
             gap: 24px;
@@ -2308,20 +2308,20 @@
             align-items: start;
         }
 
-        .page--active.hl-page > .hl-toolbar-area {
+        .page--active.almanac-page > .almanac-toolbar-area {
             grid-column: 1 / -1;
         }
 
-        .page--active.hl-page > .hl-card {
+        .page--active.almanac-page > .almanac-card {
             min-width: 0;
         }
 
-        .page--active.hl-page > .festival-poster-card {
+        .page--active.almanac-page > .festival-poster-card {
             width: 100%;
             max-width: 480px;
         }
 
-        .hl-card {
+        .almanac-card {
             background: var(--card-bg);
             border-radius: var(--card-radius);
             box-shadow: var(--card-shadow);
@@ -2329,25 +2329,25 @@
             min-width: 0;
         }
 
-        .hl-header {
+        .almanac-header {
             background: var(--primary-gradient);
             color: #fff;
             padding: 22px 28px;
         }
 
-        .hl-header h2 {
+        .almanac-header h2 {
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 4px;
         }
 
-        .hl-header p {
+        .almanac-header p {
             font-size: 0.88rem;
             opacity: 0.92;
         }
 
         /* 工具栏（顶部横向） */
-        .hl-toolbar-area {
+        .almanac-toolbar-area {
             display: flex;
             align-items: center;
             gap: 18px;
@@ -2358,7 +2358,7 @@
             flex-wrap: wrap;
         }
 
-        .hl-toolbar-title-row {
+        .almanac-toolbar-title-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -2366,7 +2366,7 @@
             flex: 0 0 auto;
         }
 
-        .hl-toolbar-title {
+        .almanac-toolbar-title {
             flex: 1;
             font-size: 1rem;
             font-weight: 700;
@@ -2375,7 +2375,7 @@
             white-space: nowrap;
         }
 
-        .hl-nav-btn {
+        .almanac-nav-btn {
             width: 26px;
             height: 26px;
             border-radius: 6px;
@@ -2393,7 +2393,7 @@
             font-family: inherit;
         }
 
-        .hl-nav-btn:hover {
+        .almanac-nav-btn:hover {
             background: var(--primary-color);
             color: #fff;
             border-color: var(--primary-color);
@@ -2401,7 +2401,7 @@
             box-shadow: 0 3px 8px rgba(255, 90, 93, 0.25);
         }
 
-        .hl-toolbar-items {
+        .almanac-toolbar-items {
             display: flex;
             align-items: center;
             gap: 14px;
@@ -2409,21 +2409,21 @@
             min-width: 0;
         }
 
-        .hl-toolbar-item {
+        .almanac-toolbar-item {
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        .hl-toolbar-item label {
+        .almanac-toolbar-item label {
             font-size: 13px;
             font-weight: 600;
             color: var(--text-muted);
         }
 
-        .hl-year-input,
-        .hl-month-input,
-        .hl-day-input {
+        .almanac-year-input,
+        .almanac-month-input,
+        .almanac-day-input {
             border: 1px solid var(--border-color);
             padding: 6px 4px;
             border-radius: 8px;
@@ -2439,24 +2439,24 @@
             transition: var(--transition);
         }
 
-        .hl-year-input:focus,
-        .hl-month-input:focus,
-        .hl-day-input:focus {
+        .almanac-year-input:focus,
+        .almanac-month-input:focus,
+        .almanac-day-input:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(255, 90, 93, 0.12);
         }
 
-        .hl-year-input::-webkit-outer-spin-button,
-        .hl-year-input::-webkit-inner-spin-button,
-        .hl-month-input::-webkit-outer-spin-button,
-        .hl-month-input::-webkit-inner-spin-button,
-        .hl-day-input::-webkit-outer-spin-button,
-        .hl-day-input::-webkit-inner-spin-button {
+        .almanac-year-input::-webkit-outer-spin-button,
+        .almanac-year-input::-webkit-inner-spin-button,
+        .almanac-month-input::-webkit-outer-spin-button,
+        .almanac-month-input::-webkit-inner-spin-button,
+        .almanac-day-input::-webkit-outer-spin-button,
+        .almanac-day-input::-webkit-inner-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
 
-        .hl-today-btn {
+        .almanac-today-btn {
             padding: 8px 18px;
             border-radius: 10px;
             border: none;
@@ -2469,24 +2469,24 @@
             flex: 0 0 auto;
         }
 
-        .hl-today-btn:hover {
+        .almanac-today-btn:hover {
             transform: translateY(-1px);
             box-shadow: 0 4px 12px rgba(255, 90, 93, 0.3);
         }
 
         /* 三栏布局 */
-        .hl-layout {
+        .almanac-layout {
             display: flex;
             overflow: hidden;
         }
 
-        .hl-col-left,
-        .hl-col-right {
+        .almanac-col-left,
+        .almanac-col-right {
             width: 220px;
             flex-shrink: 0;
         }
 
-        .hl-col-center {
+        .almanac-col-center {
             flex: 2;
             background: transparent;
             border-left: 1px solid var(--border-color);
@@ -2494,22 +2494,22 @@
         }
 
         /* 行结构 */
-        .hl-row {
+        .almanac-row {
             display: flex;
             align-items: center;
             min-height: 40px;
             border-bottom: 1px solid var(--border-color);
         }
 
-        .hl-row:last-child {
+        .almanac-row:last-child {
             border-bottom: none;
         }
 
-        .hl-row-bg {
+        .almanac-row-bg {
             background: rgba(255, 90, 93, 0.04);
         }
 
-        .hl-label-bar {
+        .almanac-label-bar {
             width: 80px;
             min-height: 40px;
             display: flex;
@@ -2521,7 +2521,7 @@
             flex-shrink: 0;
         }
 
-        .hl-row-content {
+        .almanac-row-content {
             flex: 1;
             padding: 8px 10px;
             font-size: 14px;
@@ -2531,64 +2531,64 @@
         }
 
         /* 干支行 */
-        .hl-row-gz .hl-row-content {
+        .almanac-row-gz .almanac-row-content {
             display: flex;
             gap: 6px;
             align-items: center;
         }
 
-        .hl-gz-item {
+        .almanac-gz-item {
             font-size: 14px;
             font-weight: 600;
             color: var(--text-primary);
         }
 
-        .hl-gz-zodiac {
+        .almanac-gz-zodiac {
             color: var(--primary-color);
             font-weight: 700;
         }
 
-        .hl-gz-nayin {
+        .almanac-gz-nayin {
             font-size: 12px;
             color: var(--text-muted);
             margin-left: 4px;
         }
 
         /* 节气高亮 */
-        .hl-jq-text,
-        .hl-nextjq-text {
+        .almanac-jieqi-text,
+        .almanac-nextjieqi-text {
             color: #2e7d32;
             font-weight: 600;
         }
 
         /* 彭祖高亮 */
-        .hl-pengzu-text {
+        .almanac-pengzu-text {
             font-weight: 500;
         }
 
         /* 宜忌区块 */
-        .hl-section-yi,
-        .hl-section-ji {
+        .almanac-section-yi,
+        .almanac-section-ji {
             position: relative;
             border-bottom: 1px solid var(--border-color);
             min-height: 220px;
             overflow: hidden;
         }
 
-        .hl-section-jishen {
+        .almanac-section-jishen {
             min-height: 165px;
             overflow: hidden;
             border-bottom: 1px solid var(--border-color);
         }
 
-        .hl-section-xiongsha {
+        .almanac-section-xiongsha {
             min-height: 165px;
             overflow: hidden;
             border-bottom: 1px solid var(--border-color);
         }
 
         /* 宜徽章 - 绿色实心圆 + 白色外环 */
-        .hl-badge-yi {
+        .almanac-badge-yi {
             position: absolute;
             left: 50%;
             top: 14px;
@@ -2607,7 +2607,7 @@
         }
 
         /* 忌徽章 - 红色实心圆 + 白色外环 */
-        .hl-badge-ji {
+        .almanac-badge-ji {
             position: absolute;
             left: 50%;
             top: 14px;
@@ -2626,8 +2626,8 @@
         }
 
         /* 宜忌列表 */
-        .hl-yi-list,
-        .hl-ji-list {
+        .almanac-yi-list,
+        .almanac-ji-list {
             padding: 80px 8px 8px 8px;
             display: flex;
             flex-wrap: wrap;
@@ -2637,7 +2637,7 @@
             overflow-y: auto;
         }
 
-        .hl-yi-item {
+        .almanac-yi-item {
             width: calc(33.333% - 3px);
             height: 30px;
             line-height: 30px;
@@ -2650,7 +2650,7 @@
             transition: var(--transition);
         }
 
-        .hl-ji-item {
+        .almanac-ji-item {
             width: calc(33.333% - 3px);
             height: 30px;
             line-height: 30px;
@@ -2663,17 +2663,17 @@
             transition: var(--transition);
         }
 
-        .hl-yi-item:hover {
+        .almanac-yi-item:hover {
             background: rgba(76, 175, 80, 0.18);
             transform: translateY(-1px);
         }
 
-        .hl-ji-item:hover {
+        .almanac-ji-item:hover {
             background: rgba(211, 47, 47, 0.18);
             transform: translateY(-1px);
         }
 
-        .hl-list-content {
+        .almanac-list-content {
             padding: 4px 8px 8px;
             font-size: 13px;
             color: var(--text-primary);
@@ -2681,7 +2681,7 @@
         }
 
         /* 中栏 - 大日期 + 箭头 */
-        .hl-center-top {
+        .almanac-center-top {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2690,7 +2690,7 @@
             margin: 0 15px 10px;
         }
 
-        .hl-day-number {
+        .almanac-day-number {
             font-size: 140px;
             font-weight: 800;
             background: var(--primary-gradient);
@@ -2704,7 +2704,7 @@
             filter: drop-shadow(0 4px 10px rgba(255, 90, 93, 0.18));
         }
 
-        .hl-arrow {
+        .almanac-arrow {
             width: 0;
             height: 0;
             cursor: pointer;
@@ -2712,24 +2712,24 @@
             opacity: 0.6;
         }
 
-        .hl-arrow-prev {
+        .almanac-arrow-prev {
             border-top: 24px solid transparent;
             border-bottom: 24px solid transparent;
             border-right: 24px solid var(--primary-color);
         }
 
-        .hl-arrow-next {
+        .almanac-arrow-next {
             border-top: 24px solid transparent;
             border-bottom: 24px solid transparent;
             border-left: 24px solid var(--primary-color);
         }
 
-        .hl-arrow:hover {
+        .almanac-arrow:hover {
             opacity: 1;
             transform: scale(1.1);
         }
 
-        .hl-center-date {
+        .almanac-center-date {
             text-align: center;
             font-size: 17px;
             color: var(--text-secondary);
@@ -2737,7 +2737,7 @@
             margin: 0 15px;
         }
 
-        .hl-center-lunar {
+        .almanac-center-lunar {
             text-align: center;
             font-size: 18px;
             color: var(--text-secondary);
@@ -2747,7 +2747,7 @@
         }
 
         /* 中栏网格区 */
-        .hl-grid-section {
+        .almanac-grid-section {
             display: flex;
             border-top: 1px solid var(--border-color);
             border-bottom: 1px solid var(--border-color);
@@ -2755,7 +2755,7 @@
             overflow: hidden;
         }
 
-        .hl-grid-col {
+        .almanac-grid-col {
             flex: 1;
             display: flex;
             flex-direction: row;
@@ -2763,16 +2763,16 @@
             padding: 8px 0;
         }
 
-        .hl-grid-position {
+        .almanac-grid-position {
             border-right: 1px solid var(--border-color);
         }
 
-        .hl-grid-kong {
+        .almanac-grid-kong {
             border-right: 1px solid var(--border-color);
         }
 
         /* 纵向标签条 */
-        .hl-label-bar-vertical {
+        .almanac-label-bar-vertical {
             width: 30px;
             height: 120px;
             display: flex;
@@ -2792,8 +2792,8 @@
             box-shadow: 0 4px 10px rgba(255, 90, 93, 0.25);
         }
 
-        .hl-label-bar-vertical::before,
-        .hl-label-bar-vertical::after {
+        .almanac-label-bar-vertical::before,
+        .almanac-label-bar-vertical::after {
             content: '';
             position: absolute;
             left: 50%;
@@ -2804,10 +2804,10 @@
             margin-left: -6px;
         }
 
-        .hl-label-bar-vertical::before { top: -5px; }
-        .hl-label-bar-vertical::after { bottom: -5px; }
+        .almanac-label-bar-vertical::before { top: -5px; }
+        .almanac-label-bar-vertical::after { bottom: -5px; }
 
-        .hl-grid-items {
+        .almanac-grid-items {
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -2816,171 +2816,171 @@
             padding: 4px 8px;
         }
 
-        .hl-grid-line {
+        .almanac-grid-line {
             font-size: 14px;
             color: var(--text-primary);
             line-height: 1.5;
         }
 
-        .hl-grid-label {
+        .almanac-grid-label {
             font-weight: 700;
             color: var(--primary-color);
         }
 
-        /* 中等宽度（笔记本等，<1200px）：三栏 hl-card 与固定宽 poster 并排放不下，
-           会让右栏被 hl-layout 的 overflow:hidden 裁切（如「下节：...周X」文字被切）。
-           此时改为竖排——hl-card 独占整行宽度，poster 居中置于下方，彻底避免裁切。 */
+        /* 中等宽度（笔记本等，<1200px）：三栏 almanac-card 与固定宽 poster 并排放不下，
+           会让右栏被 almanac-layout 的 overflow:hidden 裁切（如「下节：...周X」文字被切）。
+           此时改为竖排——almanac-card 独占整行宽度，poster 居中置于下方，彻底避免裁切。 */
         @media (max-width: 1199px) {
-            .page--active.hl-page {
+            .page--active.almanac-page {
                 grid-template-columns: 1fr;
             }
 
-            .page--active.hl-page > .festival-poster-card {
+            .page--active.almanac-page > .festival-poster-card {
                 margin: 0 auto;
             }
         }
 
         /* 黄历页响应式 - 真正小屏才竖排 */
         @media (max-width: 600px) {
-            .page--active.hl-page {
+            .page--active.almanac-page {
                 grid-template-columns: 1fr;
                 gap: 16px;
             }
 
-            .page--active.hl-page > .festival-poster-card {
+            .page--active.almanac-page > .festival-poster-card {
                 max-width: none;
             }
 
-            .hl-toolbar-area {
+            .almanac-toolbar-area {
                 padding: 10px 14px;
                 gap: 10px;
             }
 
-            .hl-toolbar-title-row {
+            .almanac-toolbar-title-row {
                 flex: 1 1 100%;
                 justify-content: center;
             }
 
-            .hl-toolbar-items {
+            .almanac-toolbar-items {
                 flex: 1 1 100%;
                 justify-content: space-between;
             }
 
-            .hl-toolbar-item {
+            .almanac-toolbar-item {
                 flex: 1;
                 min-width: 70px;
             }
 
-            .hl-today-btn {
+            .almanac-today-btn {
                 flex: 1 1 100%;
                 margin-top: 4px;
             }
 
-            .hl-layout {
+            .almanac-layout {
                 flex-direction: column;
             }
 
-            .hl-col-left,
-            .hl-col-right {
+            .almanac-col-left,
+            .almanac-col-right {
                 width: 100%;
             }
 
-            .hl-col-center {
+            .almanac-col-center {
                 border-left: none;
                 border-right: none;
             }
 
-            .hl-day-number {
+            .almanac-day-number {
                 font-size: 60px;
                 min-width: 80px;
             }
 
-            .hl-arrow-prev {
+            .almanac-arrow-prev {
                 border-top-width: 15px;
                 border-bottom-width: 15px;
                 border-right-width: 20px;
             }
 
-            .hl-arrow-next {
+            .almanac-arrow-next {
                 border-top-width: 15px;
                 border-bottom-width: 15px;
                 border-left-width: 20px;
             }
 
-            .hl-yi-item,
-            .hl-ji-item {
+            .almanac-yi-item,
+            .almanac-ji-item {
                 width: 33.3%;
             }
 
-            .hl-label-bar {
+            .almanac-label-bar {
                 width: 60px;
                 font-size: 14px;
             }
 
-            .hl-row {
+            .almanac-row {
                 height: 36px;
             }
 
-            .hl-row-content {
+            .almanac-row-content {
                 line-height: 36px;
             }
 
-            .hl-section-yi,
-            .hl-section-ji {
+            .almanac-section-yi,
+            .almanac-section-ji {
                 height: auto;
                 min-height: 80px;
             }
 
-            .hl-section-jishen,
-            .hl-section-xiongsha {
+            .almanac-section-jishen,
+            .almanac-section-xiongsha {
                 height: auto;
                 min-height: 60px;
             }
 
-            .hl-grid-section {
+            .almanac-grid-section {
                 height: auto;
                 min-height: 120px;
             }
 
-            .hl-grid-col {
+            .almanac-grid-col {
                 flex-direction: column;
                 padding: 12px;
             }
 
-            .hl-label-bar-vertical {
+            .almanac-label-bar-vertical {
                 width: 30px;
                 height: 80px;
                 min-height: 80px;
                 margin: 0 0 8px 0;
             }
 
-            .hl-grid-position,
-            .hl-grid-kong {
+            .almanac-grid-position,
+            .almanac-grid-kong {
                 border-right: none;
             }
         }
 
         @media (min-width: 769px) and (max-width: 1099px) {
-            .page--active.hl-page {
+            .page--active.almanac-page {
                 max-width: 900px;
             }
 
-            .hl-toolbar-area {
+            .almanac-toolbar-area {
                 padding: 10px 14px;
                 gap: 12px;
             }
 
-            .hl-toolbar-items {
+            .almanac-toolbar-items {
                 flex: 1;
             }
 
-            .hl-toolbar-item {
+            .almanac-toolbar-item {
                 flex: 1;
                 min-width: 100px;
             }
 
-            .hl-col-left,
-            .hl-col-right {
+            .almanac-col-left,
+            .almanac-col-right {
                 width: 180px;
             }
         }
@@ -3140,54 +3140,54 @@
         .dayun-flag { font-size: 10px; color: var(--primary-color); font-weight: 700; margin-top: 3px; }
 
         /* 三伏/数九 角标 */
-        .hl-badge-small {
+        .almanac-badge-small {
             display: inline-block; margin-left: 8px; padding: 2px 10px;
             font-size: 12px; font-weight: 600; color: #fff;
             background: var(--primary-gradient); border-radius: 999px; vertical-align: middle;
         }
 
         /* ===== 节气年表 ===== */
-        .jq-year-card { margin-top: 24px; background: var(--card-bg); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px 24px; }
-        .jq-year-title { font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; }
-        .jq-year-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
-        .jq-item {
+        .jieqi-year-card { margin-top: 24px; background: var(--card-bg); border-radius: var(--card-radius); box-shadow: var(--card-shadow); padding: 20px 24px; }
+        .jieqi-year-title { font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; }
+        .jieqi-year-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+        .jieqi-item {
             display: flex; align-items: center; gap: 10px; padding: 10px 12px;
             border: 1px solid var(--border-color); border-radius: var(--radius-md);
             cursor: pointer; transition: var(--transition); background: var(--surface);
         }
-        .jq-item:hover { border-color: var(--primary-color); box-shadow: var(--shadow-sm); transform: translateY(-2px); }
-        .jq-item.passed { opacity: 0.5; }
-        .jq-item.today { background: var(--hover-bg); border-color: var(--primary-color); }
-        .jq-name { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); }
-        .jq-date { font-size: 12px; color: var(--text-secondary); }
-        .jq-diff { font-size: 11px; color: var(--primary-color); font-weight: 600; margin-left: auto; }
-        .jq-diff.passed-d { color: var(--text-muted); }
+        .jieqi-item:hover { border-color: var(--primary-color); box-shadow: var(--shadow-sm); transform: translateY(-2px); }
+        .jieqi-item.passed { opacity: 0.5; }
+        .jieqi-item.today { background: var(--hover-bg); border-color: var(--primary-color); }
+        .jieqi-name { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); }
+        .jieqi-date { font-size: 12px; color: var(--text-secondary); }
+        .jieqi-diff { font-size: 11px; color: var(--primary-color); font-weight: 600; margin-left: auto; }
+        .jieqi-diff.passed-d { color: var(--text-muted); }
         @media (max-width: 768px) {
-            .jq-year-card { padding: 14px 14px; margin-top: 16px; }
-            .jq-year-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+            .jieqi-year-card { padding: 14px 14px; margin-top: 16px; }
+            .jieqi-year-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
         }
 
         /* ===== 生肖运势 ===== */
-        .sx-fortune-card { width: 100%; }
-        .sx-fortune-body { padding: 22px 28px 26px; }
-        .sx-head { display: flex; align-items: center; gap: 18px; margin-bottom: 16px; flex-wrap: wrap; }
-        .sx-zodiac { font-size: 3rem; line-height: 1; }
-        .sx-meta .sx-name { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); }
-        .sx-meta .sx-rel { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
-        .sx-stars { margin-left: auto; text-align: right; }
-        .sx-stars .sx-star { font-size: 1.5rem; color: #f5a623; letter-spacing: 2px; }
-        .sx-stars .sx-rate { font-size: 1.15rem; font-weight: 700; }
-        .sx-rate.good { color: #2e7d32; }
-        .sx-rate.mid { color: var(--primary-color); }
-        .sx-rate.bad { color: #d42f32; }
-        .sx-bar-wrap { height: 8px; background: var(--hover-bg); border-radius: 999px; overflow: hidden; margin-bottom: 14px; }
-        .sx-bar { height: 100%; background: var(--primary-gradient); border-radius: 999px; }
-        .sx-tips { display: flex; gap: 10px; flex-wrap: wrap; }
-        .sx-tip { flex: 1 1 120px; padding: 10px 14px; border-radius: var(--radius-md); background: var(--surface); border: 1px solid var(--border-color); }
-        .sx-tip b { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 2px; }
-        .sx-tip span { font-size: 13px; color: var(--text-primary); }
-        .sx-disclaimer { margin-top: 14px; font-size: 12px; color: var(--text-muted); }
-        @media (max-width: 768px) { .sx-fortune-body { padding: 16px 16px 20px; } .sx-stars { margin-left: 0; } }
+        .shengxiao-fortune-card { width: 100%; }
+        .shengxiao-fortune-body { padding: 22px 28px 26px; }
+        .shengxiao-head { display: flex; align-items: center; gap: 18px; margin-bottom: 16px; flex-wrap: wrap; }
+        .shengxiao-zodiac { font-size: 3rem; line-height: 1; }
+        .shengxiao-meta .shengxiao-name { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); }
+        .shengxiao-meta .shengxiao-rel { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+        .shengxiao-stars { margin-left: auto; text-align: right; }
+        .shengxiao-stars .shengxiao-star { font-size: 1.5rem; color: #f5a623; letter-spacing: 2px; }
+        .shengxiao-stars .shengxiao-rate { font-size: 1.15rem; font-weight: 700; }
+        .shengxiao-rate.good { color: #2e7d32; }
+        .shengxiao-rate.mid { color: var(--primary-color); }
+        .shengxiao-rate.bad { color: #d42f32; }
+        .shengxiao-bar-wrap { height: 8px; background: var(--hover-bg); border-radius: 999px; overflow: hidden; margin-bottom: 14px; }
+        .shengxiao-bar { height: 100%; background: var(--primary-gradient); border-radius: 999px; }
+        .shengxiao-tips { display: flex; gap: 10px; flex-wrap: wrap; }
+        .shengxiao-tip { flex: 1 1 120px; padding: 10px 14px; border-radius: var(--radius-md); background: var(--surface); border: 1px solid var(--border-color); }
+        .shengxiao-tip b { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 2px; }
+        .shengxiao-tip span { font-size: 13px; color: var(--text-primary); }
+        .shengxiao-disclaimer { margin-top: 14px; font-size: 12px; color: var(--text-muted); }
+        @media (max-width: 768px) { .shengxiao-fortune-body { padding: 16px 16px 20px; } .shengxiao-stars { margin-left: 0; } }
 
         /* ===== 主题切换按钮 ===== */
         .theme-toggle {
@@ -3489,12 +3489,12 @@
 
             <!-- 今日生肖运势 -->
             <div class="bazi-row">
-                <div class="bazi-card sx-fortune-card">
+                <div class="bazi-card shengxiao-fortune-card">
                     <div class="bazi-header">
                         <h2>今日生肖运势</h2>
                         <p>依上方出生日期推算生肖，结合当日干支给出运势（娱乐参考）</p>
                     </div>
-                    <div class="sx-fortune-body" id="sxFortuneBody"></div>
+                    <div class="shengxiao-fortune-body" id="sxFortuneBody"></div>
                 </div>
             </div>
         </div>
@@ -3509,180 +3509,180 @@
                 <button class="year-today-btn" id="yearToday">今年</button>
             </div>
             <div class="year-grid" id="yearGrid"></div>
-            <div class="jq-year-card">
-                <div class="jq-year-title" id="jqYearTitle">节气年表</div>
-                <div class="jq-year-grid" id="jqYearGrid"></div>
+            <div class="jieqi-year-card">
+                <div class="jieqi-year-title" id="jqYearTitle">节气年表</div>
+                <div class="jieqi-year-grid" id="jqYearGrid"></div>
             </div>
-            <div class="jq-year-card">
-                <div class="jq-year-title" id="holYearTitle">法定节假日</div>
-                <div class="jq-year-grid" id="holYearGrid"></div>
+            <div class="jieqi-year-card">
+                <div class="jieqi-year-title" id="holYearTitle">法定节假日</div>
+                <div class="jieqi-year-grid" id="holYearGrid"></div>
             </div>
         </div>
     </main>
 
-    <main class="page hl-page" id="page-huangli">
-        <div class="hl-toolbar-area">
-            <div class="hl-toolbar-title-row">
-                <button class="hl-nav-btn" id="hlSidebarPrev" title="上一个日期" aria-label="上一个日期">‹</button>
-                <div class="hl-toolbar-title">查询日期</div>
-                <button class="hl-nav-btn" id="hlSidebarNext" title="下一个日期" aria-label="下一个日期">›</button>
+    <main class="page almanac-page" id="page-huangli">
+        <div class="almanac-toolbar-area">
+            <div class="almanac-toolbar-title-row">
+                <button class="almanac-nav-btn" id="hlSidebarPrev" title="上一个日期" aria-label="上一个日期">‹</button>
+                <div class="almanac-toolbar-title">查询日期</div>
+                <button class="almanac-nav-btn" id="hlSidebarNext" title="下一个日期" aria-label="下一个日期">›</button>
             </div>
-            <div class="hl-toolbar-items">
-                <div class="hl-toolbar-item">
+            <div class="almanac-toolbar-items">
+                <div class="almanac-toolbar-item">
                     <label>年</label>
-                    <input type="number" class="hl-year-input" id="hlYearInput" min="1900" max="2100">
+                    <input type="number" class="almanac-year-input" id="hlYearInput" min="1900" max="2100">
                 </div>
-                <div class="hl-toolbar-item">
+                <div class="almanac-toolbar-item">
                     <label>月</label>
-                    <input type="number" class="hl-month-input" id="hlMonthInput" min="1" max="12">
+                    <input type="number" class="almanac-month-input" id="hlMonthInput" min="1" max="12">
                 </div>
-                <div class="hl-toolbar-item">
+                <div class="almanac-toolbar-item">
                     <label>日</label>
-                    <input type="number" class="hl-day-input" id="hlDayInput" min="1" max="31">
+                    <input type="number" class="almanac-day-input" id="hlDayInput" min="1" max="31">
                 </div>
             </div>
-            <button class="hl-today-btn" id="hlTodayBtn">今天</button>
+            <button class="almanac-today-btn" id="hlTodayBtn">今天</button>
         </div>
-        <div class="hl-card">
-            <div class="hl-header">
+        <div class="almanac-card">
+            <div class="almanac-header">
                 <h2>黄历</h2>
                 <p>查询每日宜忌、干支、神煞与方位</p>
             </div>
-                <div class="hl-layout">
-                <div class="hl-col-left">
-                    <div class="hl-row hl-row-gz">
-                        <div class="hl-label-bar">年柱</div>
-                        <div class="hl-row-content" id="hlYearGz"></div>
+                <div class="almanac-layout">
+                <div class="almanac-col-left">
+                    <div class="almanac-row almanac-row-gz">
+                        <div class="almanac-label-bar">年柱</div>
+                        <div class="almanac-row-content" id="hlYearGz"></div>
                     </div>
-                    <div class="hl-row hl-row-gz">
-                        <div class="hl-label-bar">月柱</div>
-                        <div class="hl-row-content" id="hlMonthGz"></div>
+                    <div class="almanac-row almanac-row-gz">
+                        <div class="almanac-label-bar">月柱</div>
+                        <div class="almanac-row-content" id="hlMonthGz"></div>
                     </div>
-                    <div class="hl-row hl-row-gz">
-                        <div class="hl-label-bar">日柱</div>
-                        <div class="hl-row-content" id="hlDayGz"></div>
+                    <div class="almanac-row almanac-row-gz">
+                        <div class="almanac-label-bar">日柱</div>
+                        <div class="almanac-row-content" id="hlDayGz"></div>
                     </div>
-                    <div class="hl-row hl-row-jq">
-                        <div class="hl-label-bar">节气</div>
-                        <div class="hl-row-content hl-jq-text" id="hlJieQi"></div>
+                    <div class="almanac-row almanac-row-jq">
+                        <div class="almanac-label-bar">节气</div>
+                        <div class="almanac-row-content almanac-jieqi-text" id="hlJieQi"></div>
                     </div>
-                    <div class="hl-section hl-section-yi">
-                        <div class="hl-badge-yi">宜</div>
-                        <div class="hl-yi-list" id="hlYi"></div>
+                    <div class="almanac-section almanac-section-yi">
+                        <div class="almanac-badge-yi">宜</div>
+                        <div class="almanac-yi-list" id="hlYi"></div>
                     </div>
-                    <div class="hl-section hl-section-jishen">
-                        <div class="hl-label-bar">吉神</div>
-                        <div class="hl-list-content" id="hlJiShen"></div>
+                    <div class="almanac-section almanac-section-jishen">
+                        <div class="almanac-label-bar">吉神</div>
+                        <div class="almanac-list-content" id="hlJiShen"></div>
                     </div>
-                    <div class="hl-row hl-row-pengzu">
-                        <div class="hl-label-bar">彭祖</div>
-                        <div class="hl-row-content hl-pengzu-text" id="hlPengZuGan"></div>
+                    <div class="almanac-row almanac-row-pengzu">
+                        <div class="almanac-label-bar">彭祖</div>
+                        <div class="almanac-row-content almanac-pengzu-text" id="hlPengZuGan"></div>
                     </div>
-                    <div class="hl-row hl-row-pengzu hl-row-bg">
-                        <div class="hl-label-bar">百忌</div>
-                        <div class="hl-row-content hl-pengzu-text" id="hlPengZuZhi"></div>
+                    <div class="almanac-row almanac-row-pengzu almanac-row-bg">
+                        <div class="almanac-label-bar">百忌</div>
+                        <div class="almanac-row-content almanac-pengzu-text" id="hlPengZuZhi"></div>
                     </div>
-                    <div class="hl-row">
-                        <div class="hl-label-bar">月名</div>
-                        <div class="hl-row-content" id="hlMonthName"></div>
+                    <div class="almanac-row">
+                        <div class="almanac-label-bar">月名</div>
+                        <div class="almanac-row-content" id="hlMonthName"></div>
                     </div>
-                    <div class="hl-row">
-                        <div class="hl-label-bar">月相</div>
-                        <div class="hl-row-content" id="hlYueXiang"></div>
+                    <div class="almanac-row">
+                        <div class="almanac-label-bar">月相</div>
+                        <div class="almanac-row-content" id="hlYueXiang"></div>
                     </div>
-                    <div class="hl-row">
-                        <div class="hl-label-bar">物候</div>
-                        <div class="hl-row-content" id="hlHou"></div>
-                    </div>
-                </div>
-                <div class="hl-col-center">
-                    <div class="hl-center-top">
-                        <div class="hl-arrow hl-arrow-prev" id="hlPrevDay"></div>
-                        <div class="hl-day-number" id="hlDayNumber"></div>
-                        <div class="hl-arrow hl-arrow-next" id="hlNextDay"></div>
-                    </div>
-                    <div class="hl-center-date" id="hlSolarDate"></div>
-                    <div class="hl-center-lunar" id="hlLunarDate"></div>
-                    <div class="hl-grid-section">
-                        <div class="hl-grid-col hl-grid-positions">
-                            <div class="hl-label-bar-vertical">财神位</div>
-                            <div class="hl-grid-items">
-                                <div class="hl-grid-line"><span class="hl-grid-label">喜神</span> <span id="hlPosXi"></span></div>
-                                <div class="hl-grid-line"><span class="hl-grid-label">福神</span> <span id="hlPosFu"></span></div>
-                                <div class="hl-grid-line"><span class="hl-grid-label">财神</span> <span id="hlPosCai"></span></div>
-                            </div>
-                        </div>
-                        <div class="hl-grid-col hl-grid-position">
-                            <div class="hl-label-bar-vertical">阴阳<br>贵神</div>
-                            <div class="hl-grid-items">
-                                <div class="hl-grid-line"><span class="hl-grid-label">阳贵</span> <span id="hlPosYangGui"></span></div>
-                                <div class="hl-grid-line"><span class="hl-grid-label">阴贵</span> <span id="hlPosYinGui"></span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hl-grid-section">
-                        <div class="hl-grid-col hl-grid-kong">
-                            <div class="hl-label-bar-vertical">空亡<br>所值</div>
-                            <div class="hl-grid-items">
-                                <div class="hl-grid-line"><span class="hl-grid-label">年</span> <span id="hlKongYear"></span></div>
-                                <div class="hl-grid-line"><span class="hl-grid-label">月</span> <span id="hlKongMonth"></span></div>
-                                <div class="hl-grid-line"><span class="hl-grid-label">日</span> <span id="hlKongDay"></span></div>
-                            </div>
-                        </div>
-                        <div class="hl-grid-col hl-grid-ninestar">
-                            <div class="hl-label-bar-vertical">九宫<br>飞星</div>
-                            <div class="hl-grid-items">
-                                <div class="hl-grid-line"><span class="hl-grid-label">九星</span> <span id="hlNineStar"></span></div>
-                                <div class="hl-grid-line"><span class="hl-grid-label">星宿</span> <span id="hlXingXiu"></span></div>
-                                <div class="hl-grid-line" id="hlZhiShui"></div>
-                            </div>
-                        </div>
+                    <div class="almanac-row">
+                        <div class="almanac-label-bar">物候</div>
+                        <div class="almanac-row-content" id="hlHou"></div>
                     </div>
                 </div>
-                <div class="hl-col-right">
-                    <div class="hl-row hl-row-chong">
-                        <div class="hl-label-bar">相冲</div>
-                        <div class="hl-row-content" id="hlChongSha"></div>
+                <div class="almanac-col-center">
+                    <div class="almanac-center-top">
+                        <div class="almanac-arrow almanac-arrow-prev" id="hlPrevDay"></div>
+                        <div class="almanac-day-number" id="hlDayNumber"></div>
+                        <div class="almanac-arrow almanac-arrow-next" id="hlNextDay"></div>
                     </div>
-                    <div class="hl-row">
-                        <div class="hl-label-bar">值神</div>
-                        <div class="hl-row-content" id="hlZhiXing"></div>
+                    <div class="almanac-center-date" id="hlSolarDate"></div>
+                    <div class="almanac-center-lunar" id="hlLunarDate"></div>
+                    <div class="almanac-grid-section">
+                        <div class="almanac-grid-col almanac-grid-positions">
+                            <div class="almanac-label-bar-vertical">财神位</div>
+                            <div class="almanac-grid-items">
+                                <div class="almanac-grid-line"><span class="almanac-grid-label">喜神</span> <span id="hlPosXi"></span></div>
+                                <div class="almanac-grid-line"><span class="almanac-grid-label">福神</span> <span id="hlPosFu"></span></div>
+                                <div class="almanac-grid-line"><span class="almanac-grid-label">财神</span> <span id="hlPosCai"></span></div>
+                            </div>
+                        </div>
+                        <div class="almanac-grid-col almanac-grid-position">
+                            <div class="almanac-label-bar-vertical">阴阳<br>贵神</div>
+                            <div class="almanac-grid-items">
+                                <div class="almanac-grid-line"><span class="almanac-grid-label">阳贵</span> <span id="hlPosYangGui"></span></div>
+                                <div class="almanac-grid-line"><span class="almanac-grid-label">阴贵</span> <span id="hlPosYinGui"></span></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="hl-row">
-                        <div class="hl-label-bar">十二神</div>
-                        <div class="hl-row-content" id="hlTianShen"></div>
+                    <div class="almanac-grid-section">
+                        <div class="almanac-grid-col almanac-grid-kong">
+                            <div class="almanac-label-bar-vertical">空亡<br>所值</div>
+                            <div class="almanac-grid-items">
+                                <div class="almanac-grid-line"><span class="almanac-grid-label">年</span> <span id="hlKongYear"></span></div>
+                                <div class="almanac-grid-line"><span class="almanac-grid-label">月</span> <span id="hlKongMonth"></span></div>
+                                <div class="almanac-grid-line"><span class="almanac-grid-label">日</span> <span id="hlKongDay"></span></div>
+                            </div>
+                        </div>
+                        <div class="almanac-grid-col almanac-grid-ninestar">
+                            <div class="almanac-label-bar-vertical">九宫<br>飞星</div>
+                            <div class="almanac-grid-items">
+                                <div class="almanac-grid-line"><span class="almanac-grid-label">九星</span> <span id="hlNineStar"></span></div>
+                                <div class="almanac-grid-line"><span class="almanac-grid-label">星宿</span> <span id="hlXingXiu"></span></div>
+                                <div class="almanac-grid-line" id="hlZhiShui"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="hl-row hl-row-nextjq">
-                        <div class="hl-label-bar">下节</div>
-                        <div class="hl-row-content hl-nextjq-text" id="hlNextJieQi"></div>
+                </div>
+                <div class="almanac-col-right">
+                    <div class="almanac-row almanac-row-chong">
+                        <div class="almanac-label-bar">相冲</div>
+                        <div class="almanac-row-content" id="hlChongSha"></div>
                     </div>
-                    <div class="hl-section hl-section-ji">
-                        <div class="hl-badge-ji">忌</div>
-                        <div class="hl-ji-list" id="hlJi"></div>
+                    <div class="almanac-row">
+                        <div class="almanac-label-bar">值神</div>
+                        <div class="almanac-row-content" id="hlZhiXing"></div>
                     </div>
-                    <div class="hl-section hl-section-xiongsha">
-                        <div class="hl-label-bar">凶神</div>
-                        <div class="hl-list-content" id="hlXiongSha"></div>
+                    <div class="almanac-row">
+                        <div class="almanac-label-bar">十二神</div>
+                        <div class="almanac-row-content" id="hlTianShen"></div>
                     </div>
-                    <div class="hl-row hl-row-bg">
-                        <div class="hl-label-bar">本月胎神</div>
-                        <div class="hl-row-content" id="hlTaiShenMonth"></div>
+                    <div class="almanac-row almanac-row-nextjieqi">
+                        <div class="almanac-label-bar">下节</div>
+                        <div class="almanac-row-content almanac-nextjieqi-text" id="hlNextJieQi"></div>
                     </div>
-                    <div class="hl-row hl-row-bg">
-                        <div class="hl-label-bar">今日胎神</div>
-                        <div class="hl-row-content" id="hlTaiShenDay"></div>
+                    <div class="almanac-section almanac-section-ji">
+                        <div class="almanac-badge-ji">忌</div>
+                        <div class="almanac-ji-list" id="hlJi"></div>
                     </div>
-                    <div class="hl-row">
-                        <div class="hl-label-bar">岁煞</div>
-                        <div class="hl-row-content" id="hlSuiSha"></div>
+                    <div class="almanac-section almanac-section-xiongsha">
+                        <div class="almanac-label-bar">凶神</div>
+                        <div class="almanac-list-content" id="hlXiongSha"></div>
                     </div>
-                    <div class="hl-row">
-                        <div class="hl-label-bar">六曜</div>
-                        <div class="hl-row-content" id="hlLiuYao"></div>
+                    <div class="almanac-row almanac-row-bg">
+                        <div class="almanac-label-bar">本月胎神</div>
+                        <div class="almanac-row-content" id="hlTaiShenMonth"></div>
                     </div>
-                    <div class="hl-row">
-                        <div class="hl-label-bar">日禄</div>
-                        <div class="hl-row-content" id="hlDayLu"></div>
+                    <div class="almanac-row almanac-row-bg">
+                        <div class="almanac-label-bar">今日胎神</div>
+                        <div class="almanac-row-content" id="hlTaiShenDay"></div>
+                    </div>
+                    <div class="almanac-row">
+                        <div class="almanac-label-bar">岁煞</div>
+                        <div class="almanac-row-content" id="hlSuiSha"></div>
+                    </div>
+                    <div class="almanac-row">
+                        <div class="almanac-label-bar">六曜</div>
+                        <div class="almanac-row-content" id="hlLiuYao"></div>
+                    </div>
+                    <div class="almanac-row">
+                        <div class="almanac-label-bar">日禄</div>
+                        <div class="almanac-row-content" id="hlDayLu"></div>
                     </div>
                 </div>
             </div>
@@ -4966,20 +4966,20 @@
             const rateCls = stars >= 4 ? 'good' : (stars >= 3 ? 'mid' : 'bad');
             const advice = { 5: ['诸事皆宜', '把握机遇，顺遂如意'], 4: ['宜进取', '行事顺遂，可作决断'], 3: ['宜守常', '平稳为主，按部就班'], 2: ['宜谨慎', '凡事三思，避免冒进'], 1: ['宜静守', '低调行事，暂缓重大决定'] }[stars];
             body.innerHTML =
-                '<div class="sx-head">' +
-                    '<div class="sx-zodiac">' + (XIAO_ICON[userXiao] || '') + '</div>' +
-                    '<div class="sx-meta"><div class="sx-name">属' + userXiao + '</div>' +
-                    '<div class="sx-rel">日支' + todayZhi + ' · ' + relTxt + '</div></div>' +
-                    '<div class="sx-stars"><div class="sx-star">' + '★'.repeat(stars) + '☆'.repeat(5 - stars) + '</div>' +
-                    '<div class="sx-rate ' + rateCls + '">' + rate + ' · ' + score + '分</div></div>' +
+                '<div class="shengxiao-head">' +
+                    '<div class="shengxiao-zodiac">' + (XIAO_ICON[userXiao] || '') + '</div>' +
+                    '<div class="shengxiao-meta"><div class="shengxiao-name">属' + userXiao + '</div>' +
+                    '<div class="shengxiao-rel">日支' + todayZhi + ' · ' + relTxt + '</div></div>' +
+                    '<div class="shengxiao-stars"><div class="shengxiao-star">' + '★'.repeat(stars) + '☆'.repeat(5 - stars) + '</div>' +
+                    '<div class="shengxiao-rate ' + rateCls + '">' + rate + ' · ' + score + '分</div></div>' +
                 '</div>' +
-                '<div class="sx-bar-wrap"><div class="sx-bar" style="width:' + score + '%"></div></div>' +
-                '<div class="sx-tips">' +
-                    '<div class="sx-tip"><b>综合</b><span>' + advice[0] + '</span></div>' +
-                    '<div class="sx-tip"><b>建议</b><span>' + advice[1] + '</span></div>' +
-                    '<div class="sx-tip"><b>今日干支</b><span>' + todayLunar.getDayInGanZhi() + '</span></div>' +
+                '<div class="shengxiao-bar-wrap"><div class="shengxiao-bar" style="width:' + score + '%"></div></div>' +
+                '<div class="shengxiao-tips">' +
+                    '<div class="shengxiao-tip"><b>综合</b><span>' + advice[0] + '</span></div>' +
+                    '<div class="shengxiao-tip"><b>建议</b><span>' + advice[1] + '</span></div>' +
+                    '<div class="shengxiao-tip"><b>今日干支</b><span>' + todayLunar.getDayInGanZhi() + '</span></div>' +
                 '</div>' +
-                '<div class="sx-disclaimer">※ 基于生肖与日支的合冲关系，仅供娱乐参考。</div>';
+                '<div class="shengxiao-disclaimer">※ 基于生肖与日支的合冲关系，仅供娱乐参考。</div>';
         }
 
         function initBazi() {
@@ -5340,11 +5340,11 @@
                 const cls = diff === 0 ? ' today' : (diff < 0 ? ' passed' : '');
                 const diffTxt = diff === 0 ? '今日' : (diff > 0 ? diff + '天后' : Math.abs(diff) + '天前');
                 const el = document.createElement('div');
-                el.className = 'jq-item' + cls;
+                el.className = 'jieqi-item' + cls;
                 el.innerHTML =
-                    '<div><div class="jq-name">' + it.name + '</div>' +
-                    '<div class="jq-date">' + it.mo + '月' + it.day + '日 周' + weekNames[it.d.getDay()] + '</div></div>' +
-                    '<div class="jq-diff' + (diff < 0 ? ' passed-d' : '') + '">' + diffTxt + '</div>';
+                    '<div><div class="jieqi-name">' + it.name + '</div>' +
+                    '<div class="jieqi-date">' + it.mo + '月' + it.day + '日 周' + weekNames[it.d.getDay()] + '</div></div>' +
+                    '<div class="jieqi-diff' + (diff < 0 ? ' passed-d' : '') + '">' + diffTxt + '</div>';
                 const cy = it.y, cm = it.mo, cd = it.day;
                 el.addEventListener('click', () => {
                     switchPage('huangli');
@@ -5381,11 +5381,11 @@
                 const cls = diff === 0 ? ' today' : (diff < 0 ? ' passed' : '');
                 const diffTxt = diff === 0 ? '今日' : (diff > 0 ? diff + '天后' : Math.abs(diff) + '天前');
                 const el = document.createElement('div');
-                el.className = 'jq-item' + cls;
+                el.className = 'jieqi-item' + cls;
                 el.innerHTML =
-                    '<div><div class="jq-name">' + it.name + '</div>' +
-                    '<div class="jq-date">' + s.getMonth() + '月' + s.getDay() + '日 周' + weekNames[s.getWeek()] + '</div></div>' +
-                    '<div class="jq-diff' + (diff < 0 ? ' passed-d' : '') + '">' + diffTxt + '</div>';
+                    '<div><div class="jieqi-name">' + it.name + '</div>' +
+                    '<div class="jieqi-date">' + s.getMonth() + '月' + s.getDay() + '日 周' + weekNames[s.getWeek()] + '</div></div>' +
+                    '<div class="jieqi-diff' + (diff < 0 ? ' passed-d' : '') + '">' + diffTxt + '</div>';
                 const cy = s.getYear(), cm = s.getMonth(), cday = s.getDay();
                 el.addEventListener('click', () => {
                     switchPage('huangli');
@@ -5615,17 +5615,17 @@
             // ===== 左栏 =====
             // 年柱/月柱/日柱
             document.getElementById('hlYearGz').innerHTML =
-                '<span class="hl-gz-item">' + lunar.getYearInGanZhi() + '</span>' +
-                '<span class="hl-gz-zodiac">' + lunar.getYearShengXiao() + '</span>' +
-                '<span class="hl-gz-nayin">' + lunar.getYearNaYin() + '</span>';
+                '<span class="almanac-gz-item">' + lunar.getYearInGanZhi() + '</span>' +
+                '<span class="almanac-gz-zodiac">' + lunar.getYearShengXiao() + '</span>' +
+                '<span class="almanac-gz-nayin">' + lunar.getYearNaYin() + '</span>';
             document.getElementById('hlMonthGz').innerHTML =
-                '<span class="hl-gz-item">' + lunar.getMonthInGanZhi() + '</span>' +
-                '<span class="hl-gz-zodiac">' + lunar.getMonthShengXiao() + '</span>' +
-                '<span class="hl-gz-nayin">' + lunar.getMonthNaYin() + '</span>';
+                '<span class="almanac-gz-item">' + lunar.getMonthInGanZhi() + '</span>' +
+                '<span class="almanac-gz-zodiac">' + lunar.getMonthShengXiao() + '</span>' +
+                '<span class="almanac-gz-nayin">' + lunar.getMonthNaYin() + '</span>';
             document.getElementById('hlDayGz').innerHTML =
-                '<span class="hl-gz-item">' + lunar.getDayInGanZhi() + '</span>' +
-                '<span class="hl-gz-zodiac">' + lunar.getDayShengXiao() + '</span>' +
-                '<span class="hl-gz-nayin">' + lunar.getDayNaYin() + '</span>';
+                '<span class="almanac-gz-item">' + lunar.getDayInGanZhi() + '</span>' +
+                '<span class="almanac-gz-zodiac">' + lunar.getDayShengXiao() + '</span>' +
+                '<span class="almanac-gz-nayin">' + lunar.getDayNaYin() + '</span>';
 
             // 节气
             const jieQi = lunar.getJieQi();
@@ -5634,7 +5634,7 @@
             // 宜
             const yiList = lunar.getDayYi();
             document.getElementById('hlYi').innerHTML = yiList.map(item =>
-                '<div class="hl-yi-item">' + item + '</div>'
+                '<div class="almanac-yi-item">' + item + '</div>'
             ).join('');
 
             // 吉神
@@ -5671,8 +5671,8 @@
             let seasonTag = '';
             try {
                 const fu = lunar.getFu();
-                if (fu) seasonTag = '<span class="hl-badge-small">三伏 · ' + fu.toString() + '</span>';
-                else { const sj = lunar.getShuJiu(); if (sj) seasonTag = '<span class="hl-badge-small">数九 · ' + sj.toString() + '</span>'; }
+                if (fu) seasonTag = '<span class="almanac-badge-small">三伏 · ' + fu.toString() + '</span>';
+                else { const sj = lunar.getShuJiu(); if (sj) seasonTag = '<span class="almanac-badge-small">数九 · ' + sj.toString() + '</span>'; }
             } catch (e) { /* getFu/getShuJiu 部分日期不可用 */ }
             document.getElementById('hlLunarDate').innerHTML = lunarStr + seasonTag;
 
@@ -5726,7 +5726,7 @@
             // 忌
             const jiList = lunar.getDayJi();
             document.getElementById('hlJi').innerHTML = jiList.map(item =>
-                '<div class="hl-ji-item">' + item + '</div>'
+                '<div class="almanac-ji-item">' + item + '</div>'
             ).join('');
 
             // 凶煞
