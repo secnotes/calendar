@@ -751,7 +751,7 @@
 
         .poster-header {
             position: relative;
-            padding: 84px 38px 44px;
+            padding: 64px 36px 38px;
             color: #fff;
             text-align: center;
             z-index: 2;
@@ -770,23 +770,23 @@
         }
 
         .poster-title {
-            font-size: 60px;
+            font-size: 42px;
             font-weight: 700;
             margin-bottom: 16px;
-            letter-spacing: 10px;
+            letter-spacing: 6px;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .poster-date {
-            font-size: 20px;
+            font-size: 17px;
             opacity: 0.9;
         }
 
         .poster-countdown {
-            font-size: 20px;
-            padding: 7px 22px;
+            font-size: 17px;
+            padding: 6px 18px;
             background: rgba(255, 255, 255, 0.25);
-            border-radius: 16px;
+            border-radius: 14px;
             display: inline-block;
             font-weight: 500;
         }
@@ -910,10 +910,10 @@
             background: rgba(255, 90, 93, 0.1);
             border: none;
             color: var(--text-secondary);
-            padding: 12px 26px;
-            border-radius: 14px;
+            padding: 10px 22px;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 15px;
             transition: var(--transition);
         }
 
@@ -2269,7 +2269,7 @@
         /* ===== 黄历页 ===== */
         .page--active.hl-page {
             display: grid;
-            grid-template-columns: 1fr 480px;
+            grid-template-columns: 1fr 440px;
             gap: 24px;
             max-width: 1200px;
             margin: 0 auto;
@@ -2793,6 +2793,19 @@
         .hl-grid-label {
             font-weight: 700;
             color: var(--primary-color);
+        }
+
+        /* 中等宽度（笔记本等，<1200px）：三栏 hl-card 与固定宽 poster 并排放不下，
+           会让右栏被 hl-layout 的 overflow:hidden 裁切（如「下节：...周X」文字被切）。
+           此时改为竖排——hl-card 独占整行宽度，poster 居中置于下方，彻底避免裁切。 */
+        @media (max-width: 1199px) {
+            .page--active.hl-page {
+                grid-template-columns: 1fr;
+            }
+
+            .page--active.hl-page > .festival-poster-card {
+                margin: 0 auto;
+            }
         }
 
         /* 黄历页响应式 - 真正小屏才竖排 */
