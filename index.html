@@ -2952,6 +2952,84 @@
                 width: 180px;
             }
         }
+        /* ===== 周历卡片（风格参考 6tail week demo）===== */
+        .week-card {
+            background: var(--card-bg);
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            width: 100%;
+            transition: var(--transition);
+        }
+        .week-card:hover { box-shadow: var(--card-shadow-hover); }
+
+        .week-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 56px;
+            padding: 0 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .week-year { color: var(--text-primary); font-weight: 700; font-size: 1.35rem; }
+        .week-week { display: flex; align-items: center; gap: 14px; color: var(--text-secondary); font-size: 1.1rem; }
+        .week-num { cursor: pointer; user-select: none; transition: var(--transition); }
+        .week-num:hover { color: var(--primary-color); }
+        .week-arrow {
+            width: 30px; height: 30px; line-height: 26px; text-align: center;
+            border-radius: 50%; border: 1px solid var(--border-color);
+            background: var(--card-bg); color: var(--primary-color);
+            cursor: pointer; font-size: 1.05rem; user-select: none; transition: var(--transition);
+        }
+        .week-arrow:hover { background: var(--hover-bg); border-color: var(--primary-color); }
+
+        .week-body {
+            background: #fafcff;
+            display: flex;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .week-icon { flex: 0 0 auto; width: clamp(120px, 19%, 180px); overflow: hidden; background: #fff; }
+        .week-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .week-grid { flex: 1 1 auto; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+
+        .week-day {
+            position: relative;
+            height: 220px;
+            border-right: 1px solid var(--border-color);
+            padding: 16px 0 0 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+            overflow: hidden;
+        }
+        .week-day:last-child { border-right: none; }
+        .week-day:hover { background: var(--hover-bg); }
+        .week-solar { font-size: 24px; font-weight: 600; color: var(--text-primary); line-height: 1; }
+        .week-day.weekend .week-solar { color: var(--weekend-color); }
+        .week-day.today .week-solar {
+            display: inline-block; width: 34px; height: 34px; line-height: 34px;
+            text-align: center; border-radius: 50%; background: var(--today-bg); color: #fff;
+        }
+        .week-vweek, .week-vlunar {
+            position: absolute; right: 9px;
+            writing-mode: vertical-rl; text-orientation: upright;
+            font-size: 12px; letter-spacing: 2px; line-height: 1.4;
+        }
+        .week-vweek { top: 16px; color: var(--text-muted); }
+        .week-vlunar { top: 72px; color: var(--text-secondary); }
+        .week-day.festival .week-vlunar { color: var(--festival-color); font-weight: 600; }
+        .week-day.today .week-vweek { color: var(--today-color); font-weight: 600; }
+        .week-day.weekend .week-vweek { color: var(--weekend-color); }
+
+        @media (max-width: 768px) {
+            .week-header { padding: 0 14px; height: 50px; }
+            .week-year { font-size: 1.15rem; }
+            .week-week { font-size: 0.95rem; gap: 10px; }
+            .week-day { min-width: 58px; height: 190px; }
+            .week-grid { grid-template-columns: repeat(7, 62px); }
+            .week-icon { width: 100px; }
+        }
+
     </style>
 </head>
 <body>
@@ -3071,6 +3149,22 @@
                 <div class="huangli-card-footer">
                     <span class="extra-tag" id="huangliMonthTag">本月综合 · 平</span>
                 </div>
+            </div>
+        </div>
+
+        <!-- 周历卡片 -->
+        <div class="week-card">
+            <div class="week-header">
+                <div class="week-year" id="weekYear"></div>
+                <div class="week-week">
+                    <button class="week-arrow" id="weekPrev" aria-label="上一周">‹</button>
+                    <span class="week-num" id="weekNum" title="点击回到本周">第 N 周</span>
+                    <button class="week-arrow" id="weekNext" aria-label="下一周">›</button>
+                </div>
+            </div>
+            <div class="week-body">
+                <div class="week-icon"><img id="weekIcon" alt="当周节气"></div>
+                <div class="week-grid" id="weekGrid"></div>
             </div>
         </div>
 
@@ -5237,6 +5331,116 @@
         }
 
         // 初始化
+        // ===== 周历卡片（风格参考 6tail week demo）=====
+        let weekOffset = 0;
+        // 周历节气图采用 6tail week demo 同款素材（images/week_terms/*.webp），
+        // 独立于 festival-poster 使用的 images/solar_terms/*.jpg
+        const weekTermImages = {
+            '立春': 'images/week_terms/li_chun.webp', '雨水': 'images/week_terms/yu_shui.webp',
+            '惊蛰': 'images/week_terms/jing_zhe.webp', '春分': 'images/week_terms/chun_fen.webp',
+            '清明': 'images/week_terms/qing_ming.webp', '谷雨': 'images/week_terms/gu_yu.webp',
+            '立夏': 'images/week_terms/li_xia.webp', '小满': 'images/week_terms/xiao_man.webp',
+            '芒种': 'images/week_terms/mang_zhong.webp', '夏至': 'images/week_terms/xia_zhi.webp',
+            '小暑': 'images/week_terms/xiao_shu.webp', '大暑': 'images/week_terms/da_shu.webp',
+            '立秋': 'images/week_terms/li_qiu.webp', '处暑': 'images/week_terms/chu_shu.webp',
+            '白露': 'images/week_terms/bai_lu.webp', '秋分': 'images/week_terms/qiu_fen.webp',
+            '寒露': 'images/week_terms/han_lu.webp', '霜降': 'images/week_terms/shuang_jiang.webp',
+            '立冬': 'images/week_terms/li_dong.webp', '小雪': 'images/week_terms/xiao_xue.webp',
+            '大雪': 'images/week_terms/da_xue.webp', '冬至': 'images/week_terms/dong_zhi.webp',
+            '小寒': 'images/week_terms/xiao_han.webp', '大寒': 'images/week_terms/da_han.webp'
+        };
+        function isoWeek(d) {
+            // ISO 周序（周一起算）
+            const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+            const dayNum = date.getUTCDay() || 7;
+            date.setUTCDate(date.getUTCDate() + 4 - dayNum);
+            const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+            return Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+        }
+        function renderWeek() {
+            const today = new Date();
+            const todayMid = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const base = new Date(todayMid);
+            base.setDate(todayMid.getDate() + weekOffset * 7);
+            const dow = base.getDay(); // 0=日 ... 6=六
+            const monday = new Date(base);
+            monday.setDate(base.getDate() - ((dow + 6) % 7)); // 本周周一
+
+            const weekNames = ['日', '一', '二', '三', '四', '五', '六'];
+            document.getElementById('weekYear').textContent = monday.getFullYear() + '年';
+            document.getElementById('weekNum').textContent = '第 ' + isoWeek(monday) + ' 周';
+
+            const grid = document.getElementById('weekGrid');
+            grid.innerHTML = '';
+
+            // 当周节气图：优先本周内的节气（多个取最后一个），否则取本周中点当天的“当前节气”
+            let termName = '';
+            const termsInWeek = [];
+            for (let i = 0; i < 7; i++) {
+                const d = new Date(monday); d.setDate(monday.getDate() + i);
+                const jq = Solar.fromYmd(d.getFullYear(), d.getMonth() + 1, d.getDate()).getLunar().getJieQi();
+                if (jq) termsInWeek.push(jq);
+            }
+            termName = termsInWeek[termsInWeek.length - 1] || '';
+            if (!termName) {
+                const mid = new Date(monday); mid.setDate(monday.getDate() + 3);
+                try {
+                    const cur = Solar.fromYmd(mid.getFullYear(), mid.getMonth() + 1, mid.getDate()).getLunar().getCurrentJieQi();
+                    if (cur) termName = cur.getName();
+                } catch (e) { /* getCurrentJieQi 不可用则留空 */ }
+            }
+            const iconImg = document.getElementById('weekIcon');
+            const iconSrc = weekTermImages[termName];
+            if (iconSrc) {
+                iconImg.src = iconSrc; iconImg.alt = termName; iconImg.style.display = 'block';
+            } else {
+                iconImg.style.display = 'none';
+            }
+
+            for (let i = 0; i < 7; i++) {
+                const d = new Date(monday); d.setDate(monday.getDate() + i);
+                const y = d.getFullYear(), m = d.getMonth() + 1, day = d.getDate();
+                const solar = Solar.fromYmd(y, m, day);
+                const lunar = solar.getLunar();
+                const isToday = weekOffset === 0 && d.getTime() === todayMid.getTime();
+                const isWeekend = i === 5 || i === 6; // 周六、周日（周一起算）
+
+                // 农历显示优先级: 节气 > 农历节日 > 公历节日 > 朔日月名 > 农历日
+                const solarTerm = lunar.getJieQi();
+                const lf = lunar.getFestivals();
+                const sf = solar.getFestivals();
+                let lunarText = lunar.getDayInChinese();
+                let isFestival = false;
+                if (solarTerm) { lunarText = solarTerm; isFestival = true; }
+                else if (lf.length) { lunarText = lf[0]; isFestival = true; }
+                else if (sf.length) { lunarText = sf[0]; isFestival = true; }
+                else if (lunar.getDay() === 1) { lunarText = lunar.getMonthInChinese() + '月'; }
+
+                const cell = document.createElement('div');
+                cell.className = 'week-day' + (isWeekend ? ' weekend' : '') + (isToday ? ' today' : '') + (isFestival ? ' festival' : '');
+                cell.innerHTML =
+                    '<div class="week-solar">' + day + '</div>' +
+                    '<div class="week-vweek">周' + weekNames[d.getDay()] + '</div>' +
+                    '<div class="week-vlunar">' + lunarText + '</div>';
+
+                const cy = y, cm = m, cday = day;
+                cell.addEventListener('click', () => {
+                    updateHuangli(cy, cm, cday);
+                    updateWidgetCalendar(cy, cm, cday);
+                    updateWidgetCalendarOld(cy, cm, cday);
+                    updateWidgetCalendarMonth(cy, cm, cday);
+                });
+                grid.appendChild(cell);
+            }
+        }
+
+        function initWeek() {
+            document.getElementById('weekPrev').addEventListener('click', () => { weekOffset--; renderWeek(); });
+            document.getElementById('weekNext').addEventListener('click', () => { weekOffset++; renderWeek(); });
+            document.getElementById('weekNum').addEventListener('click', () => { weekOffset = 0; renderWeek(); });
+            renderWeek();
+        }
+
         function init() {
             const today = new Date();
             currentYear = today.getFullYear();
@@ -5256,6 +5460,8 @@
             updateWidgetCalendarOld(currentYear, currentMonth, today.getDate());
             updateWidgetCalendarMonth(currentYear, currentMonth, today.getDate());
             updateFestivalPoster();
+
+            initWeek();
 
             initNav();
             initBazi();
