@@ -587,6 +587,11 @@
             overflow: hidden;
             align-self: flex-start;
             transition: var(--transition);
+            /* flex 纵向：日期网格 flex:1 吸收方卡剩余高度，行高均分，
+               避免 5 行月份（如 2026-09，35 格）在 150px 方卡底部
+               留出约一行（20px）的空白死区。移动端高度自适应时无副作用。 */
+            display: flex;
+            flex-direction: column;
         }
 
         .widget-calendar-month:hover {
@@ -615,11 +620,27 @@
             margin-left: 5px;
             width: 140px;
             list-style: none;
+            /* 显式声明七列 grid 并重置主日历 .days 泄漏进来的 gap:4px——
+               不重置时 7×20px 轨道 + 6×4px gap = 164px 超出 140px 容器，
+               周六列被卡片 overflow:hidden 裁成细条（原始版本就存在的 bug）。 */
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0;
+        }
+
+        .widget-calendar-month .days {
+            /* flex:1 铺满标题/星期行以下的卡片空间，行高 1fr 均分：
+               5 行月份 ~22px/行、6 行月份 ~18px/行，方卡被均匀填满。
+               align-items:center：li 保持固定 18px 高，在拉伸的行内垂直居中
+               （不居中的话 today 高亮和文字会贴行顶错位）。 */
+            flex: 1;
+            grid-auto-rows: 1fr;
+            align-items: center;
         }
 
         .widget-calendar-month li {
-            float: left;
-            width: 20px;
+            /* 不设固定宽度：width:20px 会成为 grid 轨道 min-content 下限，
+               配合泄漏的 gap 把第 7 列顶出容器。1fr 轨道自然等分 20px。 */
             height: 18px;
             line-height: 18px;
             text-align: center;
@@ -1207,17 +1228,110 @@
             }
 
             .widgets-container .widget-calendar {
+                /* 铺满半行（6px 为 gap 一半），随屏幕等比放大。 */
                 width: calc(50% - 6px);
-                min-width: 130px;
+                max-width: none;
                 flex: none;
                 order: 1;
+                /* 与月历卡同一行，stretch 拉齐底边（覆盖桌面端的
+                   align-self: flex-start）；日期区 flex:1 吸收多余高度。 */
+                align-self: stretch;
             }
 
             .widgets-container .widget-calendar-month {
                 width: calc(50% - 6px);
-                min-width: 130px;
+                max-width: none;
                 flex: none;
                 order: 2;
+                align-self: stretch;
+            }
+
+            /* 日期卡放大方案——与月历卡同款（仅移动端，桌面端固定像素布局不动）：
+               1. 去掉 aspect-ratio:1 的正方形约束，高度随内容自适应，
+                  min-height 兜底；头部红底贴卡片顶缘（与桌面端一致），
+                  呼吸空间放在头部下方与卡片底部，不放卡片顶部；
+               2. flex 纵向铺满，日期字号随视口放大（clamp 对应月历卡
+                  “字号随卡片微升”的角色）；
+               3. stretch 与月历卡等高，日期区 flex:1 让数字在多出的
+                  高度里居中，不再聚顶。 */
+            .widget-calendar {
+                display: flex;
+                flex-direction: column;
+                aspect-ratio: auto;
+                min-height: 150px;
+                /* 顶部不能有 padding：红色渐变头部是全出血标题栏，须贴住
+                   卡片顶缘（圆角靠卡片 overflow:hidden 裁切），否则红底
+                   上方露出白条。呼吸空间由头部自身 padding 与底部留白承担。 */
+                padding: 0 0 10px;
+            }
+
+            .widget-calendar .widget-calendar-header {
+                height: auto;
+                flex: 0 0 auto;
+                line-height: 1.4;
+                /* 头部用自身 padding 撑高，红底随卡片放大同步生长 */
+                padding: 12px 0;
+                font-size: 16px;
+            }
+
+            .widget-calendar .widget-calendar-day {
+                height: auto;
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: clamp(42px, 12vw, 64px);
+                line-height: 1;
+                margin-top: 4px;
+            }
+
+            .widget-calendar .widget-calendar-info,
+            .widget-calendar .widget-calendar-lunar {
+                flex: 0 0 auto;
+                padding: 2px 0;
+                font-size: 13px;
+            }
+
+            /* 月历卡放大方案（仅移动端，桌面端固定像素布局不动）：
+               1. 卡片铺满半行、高度自适应内容，上下 padding 留呼吸空间；
+               2. 内部网格改 CSS Grid 七等列——grid 原生处理分数列宽，
+                  没有 flex-wrap 百分比舍入导致第 7 列被挤换行的问题；
+               3. 字号随卡片微升。 */
+            .widgets-container .widget-calendar-month {
+                aspect-ratio: auto;
+                min-height: 150px;
+                padding: 10px 0;
+            }
+
+            .widget-calendar-month .month-title {
+                height: 24px;
+                line-height: 24px;
+                font-size: 13px;
+            }
+
+            .widget-calendar-month .weekdays,
+            .widget-calendar-month .days {
+                float: none;
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+                width: calc(100% - 12px);
+                margin: 0 auto;
+            }
+
+            .widget-calendar-month .days {
+                row-gap: 3px;
+            }
+
+            .widget-calendar-month li {
+                float: none;
+                width: auto;
+                height: 20px;
+                line-height: 20px;
+            }
+
+            .widget-calendar-month .weekdays li,
+            .widget-calendar-month .days li {
+                font-size: 11px;
             }
 
             .widgets-container .widget-calendar-old {
@@ -1350,18 +1464,7 @@
                 font-size: 10px;
             }
 
-            /* widget-calendar-month 响应式调整 */
-            .widget-calendar-month .weekdays,
-            .widget-calendar-month .days {
-                width: 140px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .widget-calendar-month li {
-                width: 20px;
-                float: left;
-            }
+            /* widget-calendar-month 网格已全局百分比化（见上），此处无需覆盖 */
 
             .huangli-card {
                 padding: 15px;
@@ -1369,6 +1472,16 @@
 
             .calendar-title {
                 font-size: 1.2rem;
+            }
+
+            /* 窄屏标题与按钮组不再强求并排：header 允许整体换行，nav 内部
+               禁止折行。宽度够时仍并排；放不下时 nav 作为整块换到第二行
+               （margin-left:auto 使其靠右），避免“简洁模式”单独折行的
+               破碎形态。 */
+            .calendar-header {
+                flex-wrap: wrap;
+                gap: 10px;
+                padding: 12px 16px;
             }
 
             .calendar-nav button {
@@ -1382,8 +1495,9 @@
             }
 
             .calendar-nav {
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
                 gap: 6px;
+                margin-left: auto;
             }
 
             .weekday {
@@ -1455,10 +1569,53 @@
             }
         }
 
+        /* ===== 平板中间断点（769~1024px）=====
+           此宽度下 1.4:1 分栏会把月历压到每格约 60px，日期与农历小字拥挤。
+           保留桌面端字号与行高（上面的 min-width:769px 规则），但让黄历卡
+           换行到月历下方，月历独占整行、7 列保持舒展。
+           取消桌面端 flex: X 1 0 带来的 flex-basis:0，理由同移动端注释
+           （column 容器中主轴高度会塌缩为 0）。 */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .calendar-row {
+                flex-direction: column;
+            }
+
+            .calendar-row > .calendar-card,
+            .calendar-row > .huangli-card {
+                flex: none;
+                width: 100%;
+            }
+        }
+
         /* ===== 顶部导航与分页 ===== */
         .top-nav {
             max-width: 1200px;
             margin: 0 auto 24px;
+            /* 吸顶：页面较长，滚动中也能切换标签页。
+               frosted 半透明底 + 背景模糊：内容从导航下穿过时不会露出锐利边缘，
+               也补齐 nav-tabs 圆角缺口处的遮罩；上下 padding 即为此留白。
+               z-index 100：高于卡片内容（0~2），低于年月选择下拉（1000）。
+               top 取 body padding-top 而非 0：吸顶阈值=初始偏移，滚动第一像素
+               起导航即钉在原位，全程零位移（top:0 会先随页面上移 20px 再钉住）。 */
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+            padding: 10px 0;
+            background: rgba(245, 247, 250, 0.86);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        html[data-theme="dark"] .top-nav {
+            background: rgba(20, 21, 27, 0.86);
+        }
+
+        /* 移动端吸顶阈值随 body padding 收窄，保持“滚动零位移”。
+           须写在本体规则之后：页面主响应式块（约 1180 行）早于 .top-nav
+           本体，放在那里会被同特异性的后者覆盖。 */
+        @media (max-width: 768px) {
+            .top-nav {
+                top: 12px;
+            }
         }
 
         .nav-tabs {
@@ -1512,6 +1669,42 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ===== 置顶按钮 ===== */
+        .back-to-top {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            width: 44px; /* 移动端可点击目标推荐值 */
+            height: 44px;
+            border: none;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            color: #fff;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+            box-shadow: var(--card-shadow-hover);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+            z-index: 200; /* 高于吸顶导航(100)，低于年月下拉(1000) */
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .back-to-top { right: 16px; bottom: 16px; }
+        }
+
         /* ===== 八字排盘 ===== */
         .bazi-container {
             max-width: 1200px;
@@ -1539,18 +1732,12 @@
         .bazi-header {
             background: var(--primary-gradient);
             color: #fff;
-            padding: 22px 28px;
+            padding: 14px 24px;
         }
 
         .bazi-header h2 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .bazi-header p {
-            font-size: 0.88rem;
-            opacity: 0.92;
         }
 
         .bazi-input-area {
@@ -1817,18 +2004,34 @@
             .nav-tabs {
                 justify-content: center;
                 padding: 5px;
+                gap: 2px;
             }
 
+            /* 单行紧凑导航：压缩左右 padding，让 5 个标签 + 右上角悬浮
+               主题按钮（56px 预留）在 375px 视口内不折行。实测各标签
+               内容仅 2~3 个汉字，18px padding 造成两行换行，纯属浪费。 */
             .nav-tab {
-                padding: 8px 18px;
+                padding: 8px 0;
+                flex: 1 1 0;
+                min-width: 0;
+                text-align: center;
                 font-size: 0.9rem;
+            }
+
+            /* 320px 级极窄屏：均分后单标签约 50px，三字标签放不下，
+               降一档字号保住单行。 */
+            @media (max-width: 350px) {
+                .nav-tab { font-size: 0.78rem; }
             }
 
             .bazi-row {
                 flex-direction: column;
             }
 
-            .bazi-header,
+            .bazi-header {
+                padding: 12px 16px;
+            }
+
             .bazi-info,
             .bazi-wuxing,
             .hehun-result {
@@ -2332,18 +2535,12 @@
         .almanac-header {
             background: var(--primary-gradient);
             color: #fff;
-            padding: 22px 28px;
+            padding: 14px 24px;
         }
 
         .almanac-header h2 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .almanac-header p {
-            font-size: 0.88rem;
-            opacity: 0.92;
         }
 
         /* 工具栏（顶部横向） */
@@ -2907,14 +3104,19 @@
                 border-left-width: 20px;
             }
 
-            .almanac-yi-item,
-            .almanac-ji-item {
-                width: 33.3%;
-            }
+            /* 宜忌标签：无需覆盖——沿用上面的 calc(33.333% - 3px)（已补偿
+               flex gap）。曾写 width:33.3% 丢失 gap 补偿，3×33.3%+2×4px
+               超出容器宽度，一行只能挤下两个标签。 */
 
             .almanac-label-bar {
-                width: 60px;
+                /* 固定 60px 装不下四字标签（56px 文字 + 12px padding），
+                   会换行。改为按内容自适应：最长四字，短标签不占多余宽度。 */
+                width: auto;
+                min-width: 48px;
+                padding-left: 10px;
+                padding-right: 6px;
                 font-size: 14px;
+                white-space: nowrap;
             }
 
             .almanac-row {
@@ -2938,24 +3140,43 @@
             }
 
             .almanac-grid-section {
+                /* 两个 grid-col 保持并排（与桌面端一致）。375px 下每 col
+                   约 165px：竖条 26px + margin 12px + 内容 127px，实测
+                   “喜神 东北”等内容全部单行。靠压缩非必要留白实现：
+                   竖条 margin 12→6px、col padding 12→8px、items gap 12→8px。 */
                 height: auto;
                 min-height: 120px;
             }
 
             .almanac-grid-col {
-                flex-direction: column;
-                padding: 12px;
+                padding: 8px 0;
             }
 
             .almanac-label-bar-vertical {
-                width: 30px;
-                height: 80px;
+                width: 26px;
+                height: auto;
                 min-height: 80px;
-                margin: 0 0 8px 0;
+                margin: 0 6px;
+            }
+
+            .almanac-grid-items {
+                padding: 4px 6px;
+                gap: 8px;
+            }
+
+            .almanac-grid-line,
+            .almanac-grid-label {
+                font-size: 13px;
+                white-space: nowrap;
             }
 
             .almanac-grid-position,
             .almanac-grid-kong {
+                border-bottom: none;
+                border-right: 1px solid var(--border-color);
+            }
+
+            .almanac-grid-col:last-child {
                 border-right: none;
             }
         }
@@ -3057,9 +3278,15 @@
             .week-header { padding: 0 14px; height: 50px; }
             .week-year { font-size: 1.15rem; }
             .week-week { font-size: 0.95rem; gap: 10px; }
-            .week-day { min-width: 58px; height: 190px; }
-            .week-grid { grid-template-columns: repeat(7, 62px); }
+            /* 62px 列宽放不下“左侧大日期 + 右侧竖排星期”：24px 数字/34px
+               今日圆与竖排星期实际重叠 7~13px。加宽列、缩字号并收紧
+               左右留白，让两者拉开间距（宽度不足由 week-body 横向滚动消化）。 */
+            .week-day { min-width: 66px; height: 190px; padding: 14px 0 0 8px; }
+            .week-grid { grid-template-columns: repeat(7, 66px); }
             .week-icon { width: 100px; }
+            .week-solar { font-size: 20px; }
+            .week-day.today .week-solar { width: 28px; height: 28px; line-height: 28px; }
+            .week-vweek, .week-vlunar { right: 7px; font-size: 11px; letter-spacing: 1px; }
         }
 
         /* ===== 择日页 ===== */
@@ -3068,9 +3295,8 @@
             background: var(--card-bg); border-radius: var(--card-radius);
             box-shadow: var(--card-shadow); overflow: hidden; width: 100%;
         }
-        .zeri-header { background: var(--primary-gradient); color: #fff; padding: 22px 28px; }
-        .zeri-header h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
-        .zeri-header p { font-size: 0.88rem; opacity: 0.92; }
+        .zeri-header { background: var(--primary-gradient); color: #fff; padding: 14px 24px; }
+        .zeri-header h2 { font-size: 1.3rem; font-weight: 700; }
         .zeri-toolbar { padding: 18px 24px; border-bottom: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 14px; }
         .zeri-month-nav { display: flex; align-items: center; gap: 12px; font-size: 1.15rem; font-weight: 600; color: var(--text-primary); }
         .zeri-month-nav span { min-width: 120px; text-align: center; }
@@ -3111,7 +3337,7 @@
         .zeri-disclaimer { padding: 0 24px 20px; font-size: 12px; color: var(--text-muted); }
 
         @media (max-width: 768px) {
-            .zeri-header { padding: 18px 18px; }
+            .zeri-header { padding: 12px 16px; }
             .zeri-toolbar { padding: 14px 16px; }
             .zeri-results { padding: 12px 16px 16px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
             .zeri-disclaimer { padding: 0 16px 16px; }
@@ -3199,6 +3425,28 @@
             transition: var(--transition);
         }
         .theme-toggle:hover { background: var(--primary-color); color: #fff; }
+
+        /* 移动端：主题按钮悬浮于屏幕右上角。
+           绝对定位于吸顶导航（sticky 元素本身是定位上下文，滚动时始终贴顶，
+           视觉上等同于悬浮在视口右上角）。不能用 fixed——祖先 .top-nav 的
+           backdrop-filter 会成为 fixed 后代的包含块，定位基准会错乱。 */
+        @media (max-width: 768px) {
+            .theme-toggle {
+                position: absolute;
+                top: 11px;
+                right: 10px;
+                width: 44px; /* 触控目标推荐值 */
+                height: 44px;
+                background: var(--card-bg);
+                box-shadow: var(--card-shadow);
+                z-index: 5;
+            }
+
+            .nav-tabs {
+                /* 预留悬浮按钮的空间，避免标签文字被遮挡 */
+                padding-right: 56px;
+            }
+        }
 
         /* ===== 海报导出按钮 ===== */
         .poster-export {
@@ -3399,7 +3647,6 @@
                 <div class="bazi-card">
                     <div class="bazi-header">
                         <h2>八字排盘</h2>
-                        <p>输入出生日期、时辰与性别，自动生成四柱八字命盘</p>
                     </div>
                     <div class="bazi-chart" id="baziChart"></div>
                     <div class="bazi-section-title">命局信息</div>
@@ -3481,7 +3728,6 @@
                 <div class="bazi-card hehun-card">
                     <div class="bazi-header">
                         <h2>双人合婚</h2>
-                        <p>输入双方生辰，从日柱、五行、生肖、干支等维度评估相合度</p>
                     </div>
                     <div class="hehun-result" id="hehunResult"></div>
                 </div>
@@ -3492,7 +3738,6 @@
                 <div class="bazi-card shengxiao-fortune-card">
                     <div class="bazi-header">
                         <h2>今日生肖运势</h2>
-                        <p>依上方出生日期推算生肖，结合当日干支给出运势（娱乐参考）</p>
                     </div>
                     <div class="shengxiao-fortune-body" id="sxFortuneBody"></div>
                 </div>
@@ -3546,7 +3791,6 @@
         <div class="almanac-card">
             <div class="almanac-header">
                 <h2>黄历</h2>
-                <p>查询每日宜忌、干支、神煞与方位</p>
             </div>
                 <div class="almanac-layout">
                 <div class="almanac-col-left">
@@ -3721,7 +3965,6 @@
             <div class="zeri-card">
                 <div class="zeri-header">
                     <h2>择吉日</h2>
-                    <p>选择事项，查看本月份有哪些吉日（宜）</p>
                 </div>
                 <div class="zeri-toolbar">
                     <div class="zeri-month-nav">
@@ -3737,6 +3980,9 @@
             </div>
         </div>
     </main>
+
+    <!-- 置顶按钮：页面较长时出现，点击回到顶部 -->
+    <button class="back-to-top" id="backToTop" aria-label="回到顶部" title="回到顶部">↑</button>
 
     <script src="lunar.js"></script>
     <script src="html2canvas.min.js"></script>
@@ -4908,6 +5154,20 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // ===== 置顶按钮 =====
+        function initBackToTop() {
+            const btn = document.getElementById('backToTop');
+            if (!btn) return;
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            // 下滑超过一屏的 1/3 后出现；passive 监听不阻塞滚动
+            const toggle = () => btn.classList.toggle('show', window.scrollY > window.innerHeight / 3);
+            window.addEventListener('scroll', toggle, { passive: true });
+            toggle();
+            btn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: reducedMotion.matches ? 'auto' : 'smooth' });
+            });
+        }
+
         // ===== 八字排盘 =====
         // 时辰(地支) -> 代表小时；子时由早晚子时开关决定
         const SHICHEN_HOUR = { '丑': 2, '寅': 4, '卯': 6, '辰': 8, '巳': 10, '午': 12, '未': 14, '申': 16, '酉': 18, '戌': 20, '亥': 22 };
@@ -5801,9 +6061,10 @@
             if (!termName) {
                 const mid = new Date(monday); mid.setDate(monday.getDate() + 3);
                 try {
-                    const cur = Solar.fromYmd(mid.getFullYear(), mid.getMonth() + 1, mid.getDate()).getLunar().getCurrentJieQi();
+                    // getCurrentJieQi 为当日精确匹配，无法取“当前所处节气”，改用 getPrevJieQi 取最近一个已过节气
+                    const cur = Solar.fromYmd(mid.getFullYear(), mid.getMonth() + 1, mid.getDate()).getLunar().getPrevJieQi(true);
                     if (cur) termName = cur.getName();
-                } catch (e) { /* getCurrentJieQi 不可用则留空 */ }
+                } catch (e) { /* getPrevJieQi 不可用则留空 */ }
             }
             const iconImg = document.getElementById('weekIcon');
             const iconSrc = weekTermImages[termName];
@@ -5981,6 +6242,7 @@
             currentMonth = today.getMonth() + 1;
 
             initYearMonthPicker();
+            initBackToTop();
 
             // 绑定海报导航按钮事件
             document.getElementById('posterBtnPrev').addEventListener('click', showPrevPoster);
@@ -6223,7 +6485,8 @@
                 daysEl.appendChild(li);
             }
 
-            // 下月初几天（填满6行=42个格子，或者补齐最后一行到7个）
+            // 下月初几天（只补齐最后一行到 7 的倍数，不强制 6 行 42 格。
+            // 固定卡片高度下多余的空行会顶出卡片底缘被裁切。）
             const totalCells = firstDayIndex + daysInMonth;
             const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
             for (let i = 1; i <= remainingCells; i++) {
